@@ -1,5 +1,5 @@
 # Dockerfile.development
-FROM php:7-apache
+FROM docker-remote.artifacts.developer.gov.bc.ca/php:7-apache
 MAINTAINER JAG-LRB-WEB
 
 # Setup Apache2 config

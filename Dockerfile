@@ -1,5 +1,5 @@
 # Dockerfile.development
-FROM httpd
+FROM php:7-apache
 MAINTAINER JAG-LRB-WEB
 
 # Setup Apache2 config

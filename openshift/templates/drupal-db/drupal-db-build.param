@@ -1,0 +1,11 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/database/database-build.yaml
+#=========================================================
+NAME=drupal-db
+APP_NAME=drupal
+OUTPUT_IMAGE_TAG=latest
+SOURCE_IMAGE_KIND=DockerImage
+SOURCE_IMAGE_NAME=registry.access.redhat.com/rhscl/mariadb-102-rhel7
+SOURCE_IMAGE_TAG=latest

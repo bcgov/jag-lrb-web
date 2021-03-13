@@ -1,0 +1,26 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/database/database-deploy.yaml
+#=========================================================
+# NAME=drupal-db
+# APP_NAME=jag-lrb-web
+# APP_GROUP=drupal-db
+# IMAGE_NAMESPACE=6b08a3-tools
+# SOURCE_IMAGE_NAME=drupal-db
+TAG_NAME=dev
+# BACKUP=true
+# NAMESPACE_NAME=6b08a3
+# ROLE=db
+# DRUPAL_ROLE=drupal
+# MYSQL_DATABASE=drupal
+# MYSQL_USER=[a-zA-Z0-9]{10}
+# MYSQL_PASSWORD=[a-zA-Z0-9]{10}
+# MYSQL_ROOT_PASSWORD=[a-zA-Z0-9]{16}
+# MOUNT_PATH=/var/lib/mysql/data
+# PERSISTENT_VOLUME_SIZE=10Gi
+# PERSISTENT_VOLUME_CLASS=netapp-block-standard
+# CPU_REQUEST=100m
+# CPU_LIMIT=250m
+# MEMORY_REQUEST=100Mi
+# MEMORY_LIMIT=512Mi

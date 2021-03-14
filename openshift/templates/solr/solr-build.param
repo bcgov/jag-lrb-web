@@ -6,7 +6,7 @@
 NAME=solr
 APP_NAME=jag-lrb-web
 APP_GROUP=jag-lrb-web
-GIT_REPO_URL=https://github.com/esune/jag-lrb-web.git
+GIT_REPO_URL=https://github.com/bcgov/jag-lrb-web.git
 GIT_REF=main
 SOURCE_CONTEXT_DIR=solr/cores
 SOURCE_IMAGE_NAME=solr-base

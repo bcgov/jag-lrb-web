@@ -1,0 +1,22 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/solr/solr-deploy.yaml
+#=========================================================
+# NAME=solr
+# APP_NAME=jag-lrb-web
+# APP_GROUP=search-engine
+# ROLE=search-engine
+# DRUPAL_ROLE=drupal
+# IMAGE_NAMESPACE=6b08a3-tools
+# NAMESPACE_NAME=6b08a3
+TAG_NAME=test
+# PERSISTENT_VOLUME_SIZE=5Gi
+# MOUNT_PATH=/var/solr/data
+# CORE_NAME=lrb
+# SOLR_LOG_LEVEL=WARN
+# PERSISTENT_VOLUME_CLASS=netapp-block-standard
+# CPU_REQUEST=10m
+# CPU_LIMIT=750m
+# MEMORY_REQUEST=10Mi
+# MEMORY_LIMIT=3000Mi

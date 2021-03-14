@@ -1,0 +1,19 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/solr/solr-build.yaml
+#=========================================================
+NAME=solr
+APP_NAME=jag-lrb-web
+APP_GROUP=jag-lrb-web
+GIT_REPO_URL=https://github.com/esune/jag-lrb-web.git
+GIT_REF=main
+SOURCE_CONTEXT_DIR=solr/cores
+SOURCE_IMAGE_NAME=solr-base
+SOURCE_IMAGE_TAG=latest
+SOURCE_IMAGE_NAMESPACE=6b08a3-tools
+OUTPUT_IMAGE_TAG=latest
+CPU_LIMIT=1
+MEMORY_LIMIT=4Gi
+CPU_REQUEST=250m
+MEMORY_REQUEST=2Gi

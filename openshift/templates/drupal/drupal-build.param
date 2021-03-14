@@ -1,0 +1,12 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/drupal/drupal-build.yaml
+#=========================================================
+NAME=drupal
+APP_NAME=drupal
+APP_GROUP=jag-lrb-web
+OUTPUT_IMAGE_TAG=9.1.5-fpm
+SOURCE_IMAGE_KIND=DockerImage
+SOURCE_IMAGE_NAME=docker-remote.artifacts.developer.gov.bc.ca/drupal
+SOURCE_IMAGE_TAG=9.1.5-fpm

@@ -4,8 +4,8 @@
 # Template File: ../openshift/templates/solr/solr-base-build.yaml
 #=========================================================
 NAME=solr-base
-APP_NAME=jag-lrb-web
-APP_GROUP=jag-lrb-web-base
+APP_NAME=solr-base
+APP_GROUP=solr
 GIT_REPO_URL=https://github.com/bcgov/openshift-solr.git
 GIT_REF=master
 SOURCE_CONTEXT_DIR=

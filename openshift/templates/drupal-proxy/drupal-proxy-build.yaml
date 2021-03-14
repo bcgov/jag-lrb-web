@@ -90,7 +90,7 @@ parameters:
     displayName: Git Reference
     description: The git reference or branch.
     required: true
-    value: master
+    value: main
   - name: OUTPUT_IMAGE_TAG
     displayName: Output Image Tag
     description: The tag given to the built image.

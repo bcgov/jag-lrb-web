@@ -5,7 +5,7 @@
 #=========================================================
 NAME=backup-mariadb
 GIT_REPO_URL=https://github.com/BCDevOps/backup-container.git
-GIT_REF=master
+GIT_REF=main
 SOURCE_CONTEXT_DIR=/docker
 DOCKER_FILE_PATH=Dockerfile_MariaDB
 OUTPUT_IMAGE_TAG=latest

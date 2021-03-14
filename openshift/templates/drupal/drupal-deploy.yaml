@@ -97,15 +97,15 @@ objects:
                     path: ${SITE_SETTINGS_FILE_NAME}
           containers:
             - image: ${SOURCE_IMAGE_NAME}
-              # imagePullPolicy: Always
-              # livenessProbe:
-              #   failureThreshold: 3
-              #   initialDelaySeconds: 1
-              #   periodSeconds: 10
-              #   successThreshold: 1
-              #   tcpSocket:
-              #     port: 9000
-              #   timeoutSeconds: 5
+              imagePullPolicy: Always
+              livenessProbe:
+                failureThreshold: 3
+                initialDelaySeconds: 1
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: 9000
+                timeoutSeconds: 5
               name: ${NAME}
               env:
                 - name: MYSQL_USER
@@ -129,17 +129,17 @@ objects:
                   value: "3306"
                 - name: SITE_SETTINGS_FILE_NAME
                   value: ${SITE_SETTINGS_FILE_NAME}
-              # ports:
-              #   - containerPort: 9000
-              #     protocol: TCP
-              # readinessProbe:
-              #   failureThreshold: 3
-              #   initialDelaySeconds: 1
-              #   periodSeconds: 10
-              #   successThreshold: 1
-              #   tcpSocket:
-              #     port: 80
-              #   timeoutSeconds: 5
+              ports:
+                - containerPort: 9000
+                  protocol: TCP
+              readinessProbe:
+                failureThreshold: 3
+                initialDelaySeconds: 1
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: 9000
+                timeoutSeconds: 5
               resources:
                 requests:
                   cpu: ${CPU_REQUEST}
@@ -147,7 +147,7 @@ objects:
                 limits:
                   cpu: ${CPU_LIMIT}
                   memory: ${MEMORY_LIMIT}
-              # terminationMessagePath: /dev/termination-log
+              terminationMessagePath: /dev/termination-log
               volumeMounts:
                 - name: ${NAME}-source
                   mountPath: /var/www/drupal
@@ -171,7 +171,7 @@ objects:
                         ln -s /data /var/www/drupal/web/sites/default/files;
                         ln -s /tmp/${SITE_SETTINGS_FILE_NAME} /var/www/drupal/web/sites/default/${SITE_SETTINGS_FILE_NAME};
             - image: ${NAME}-proxy
-              # imagePullPolicy: Always
+              imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 3
                 initialDelaySeconds: 1

@@ -3,7 +3,7 @@
 # Component: .
 # Template File: ../openshift/templates/backup/backup-build.yaml
 #=========================================================
-NAME=backup-mariadb-mariadb
+NAME=backup-mariadb
 GIT_REPO_URL=https://github.com/BCDevOps/backup-container.git
 GIT_REF=master
 SOURCE_CONTEXT_DIR=/docker

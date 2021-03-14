@@ -1,0 +1,7 @@
+# Uses the 'testConnection' script from https://github.com/BCDevOps/openshift-developer-tools
+# Example:
+# echo -e "drupal\n drupal-db\n"  | xargs -I {} testConnection -n 6b08a3-dev -f TestConnections.txt -p {}
+
+google.com:80
+drupal-db:3306
+drupal:8080

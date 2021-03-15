@@ -1,0 +1,16 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/backup/backup-build.yaml
+#=========================================================
+NAME=backup-mariadb
+GIT_REPO_URL=https://github.com/BCDevOps/backup-container.git
+GIT_REF=main
+SOURCE_CONTEXT_DIR=/docker
+DOCKER_FILE_PATH=Dockerfile_MariaDB
+OUTPUT_IMAGE_TAG=latest
+BASE_IMAGE_FOR_BUILD=registry.redhat.io/rhscl/mariadb-103-rhel7
+CPU_LIMIT=1
+MEMORY_LIMIT=4Gi
+CPU_REQUEST=250m
+MEMORY_REQUEST=2Gi

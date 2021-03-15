@@ -1,0 +1,35 @@
+def PIPELINE_NAME = "build"
+
+def LIB_NAME= "jag-lrb-web-lib"
+def LIB_REPO = "https://github.com/bcgov/jag-lrb-web.git"
+def LIB_BRANCH = "main"
+library identifier: "${LIB_NAME}@${LIB_BRANCH}",
+        retriever: modernSCM(
+          [$class: 'GitSCMSource',
+          remote: "${LIB_REPO}",
+          branches: [[name: "*/${LIB_BRANCH}"]]])
+
+node {
+  def config = load "../workspace@script/jenkins/${PIPELINE_NAME}/config.groovy"
+
+  config.BUILD_APPS.each {
+    stage("Build ${it}") {
+      script {
+        openshift.withCluster() {
+          openshift.withProject() {
+            echo "Building the ${it} image ..."
+            build(openshift, "${it}", config.WAIT_TIMEOUT)
+          }
+        }
+      }
+    }
+  }
+
+  config.DEPLOY_APPS.each {
+    stage("Deploy ${it}") {
+      script {
+        tagImage("${it}", "${config.DEPLOYMENT_ENVIRONMENT_TAGS[0]}")
+      }
+    }
+  }
+}

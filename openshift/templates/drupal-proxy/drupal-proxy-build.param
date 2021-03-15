@@ -1,0 +1,19 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/drupal-proxy/drupal-proxy-build.yaml
+#=========================================================
+NAME=drupal-proxy
+APP_NAME=drupal
+APP_GROUP=jag-lrb-web
+ENV_NAME=tools
+NAMESPACE_NAME=6b08a3
+SOURCE_IMAGE_NAME=docker-remote.artifacts.developer.gov.bc.ca/nginx:stable
+GIT_REPO_URL=https://github.com/bcgov/jag-lrb-web.git
+GIT_REF=main
+OUTPUT_IMAGE_TAG=latest
+DOCKER_FILE_PATH=docker/nginx/Dockerfile
+CPU_LIMIT=1
+MEMORY_LIMIT=4Gi
+CPU_REQUEST=250m
+MEMORY_REQUEST=2Gi

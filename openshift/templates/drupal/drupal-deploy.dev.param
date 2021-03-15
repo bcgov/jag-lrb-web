@@ -1,0 +1,27 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/drupal/drupal-deploy.yaml
+#=========================================================
+# NAME=drupal
+# APP_NAME=jag-lrb-web
+# IMAGE_NAMESPACE=6b08a3-tools
+# SOURCE_IMAGE_NAME=drupal
+# NAMESPACE_NAME=6b08a3
+# ROLE=drupal
+# APP_GROUP=drupal
+TAG_NAME=dev
+# DRUPAL_ADMIN_USER=admin
+# DRUPAL_ADMIN_PASSWORD=[a-zA-Z0-9]{16}
+APPLICATION_DOMAIN=jag-lrb-web-dev.apps.silver.devops.gov.bc.ca
+# ROUTE_TIMEOUT=120s
+# PHP_INI_FILE_NAME=php.ini
+# PHP_INI_MOUNT_PATH=/usr/local/etc/php/
+# SITE_SETTINGS_FILE_NAME=settings.php
+# DRUPAL_CONFIG_MAP_NAME=drupal-settings
+# PERSISTENT_VOLUME_SIZE=1Gi
+# PERSISTENT_VOLUME_CLASS=netapp-file-standard
+# CPU_REQUEST=250m
+# CPU_LIMIT=500m
+# MEMORY_REQUEST=256Mi
+# MEMORY_LIMIT=1Gi

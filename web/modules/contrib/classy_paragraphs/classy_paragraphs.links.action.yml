@@ -1,0 +1,6 @@
+entity.classy_paragraphs_style.add_form:
+  route_name: 'entity.classy_paragraphs_style.add_form'
+  title: 'Add Classy paragraphs style'
+  appears_on:
+    - entity.classy_paragraphs_style.collection
+

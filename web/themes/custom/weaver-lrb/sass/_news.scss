@@ -1,0 +1,161 @@
+.node--type-weaver-news {
+
+	.news-dates {
+
+		p {
+			width: fit-content;
+			font-size: 12px;
+
+			@include media-breakpoint-up(lg) {
+				font-size: $font-size-base;
+			}
+
+			&.border-bottom {
+
+				@include media-breakpoint-down(md) {
+					border-bottom: 0 none !important;
+				}
+			}
+		}	
+	}
+	
+	.news-icons {
+
+		ul,
+		li {
+			list-style: none inside none;
+		}
+
+		&>ul {
+
+			@include media-breakpoint-up(md) {
+				border-left: 1px solid $grey-medium;
+			}
+		}
+
+		li {
+			margin-bottom: 1rem;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		svg {
+			width: auto !important;
+			height: 2rem !important;
+
+			@include media-breakpoint-up(md) {
+				height: 1rem !important;
+			}
+		}
+	}
+
+	#back-top {
+		margin-top: 10rem;
+	}
+}
+
+/* News Cards */
+.node--type-weaver-news.node--view-mode-lrb-card {
+	padding: 1rem 1.5rem;
+	border-bottom-style: solid !important;
+	border-bottom-width: 18px !important;
+	border-bottom-color: $teal !important;
+
+	@include media-breakpoint-up(lg) {
+		padding: 2rem 3rem;
+	}
+	
+	&.card-no-text {
+		margin-bottom: 2rem;
+		border-top: 1px solid $teal !important;
+		border-left:  1px solid $teal !important;
+		border-right:  1px solid $teal !important;
+
+		&:nth-child(odd) {
+			border-bottom-color: $teal !important;
+		}
+
+		&:nth-child(even) {
+			border-bottom-color: $red !important;
+		}
+	}
+
+	.home-page-display & {
+
+		&:nth-child(2) {
+			border-bottom-color: $red !important;
+		}
+
+		&:nth-child(3) {
+			border-bottom-color: $blue !important;
+		}
+
+		&:nth-child(5) {
+			border-bottom-color: $yellow !important;
+		}
+
+		@include media-breakpoint-up(sm) {
+
+			&:nth-child(even) {
+				border-left: 1px solid $gray-darker !important;
+			}
+		}
+		
+		@include media-breakpoint-up(lg) {
+
+			&:nth-child(even) {
+				border-left: 0 none !important;
+			}
+			
+			&:nth-child(3n-1) {
+				border-left: 1px solid $gray-darker !important;
+				border-right: 1px solid $gray-darker !important;
+			}
+		}
+	}
+
+	.view-display-id-page_1 & {
+		display: flex;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+		padding: 2rem 2rem 1rem;
+
+		@include media-breakpoint-up(md) {
+			flex: 0 0 42%;
+		}
+
+		@include media-breakpoint-up(lg) {
+			flex: 0 0 43%;
+			flex-direction: row;
+			margin-right: 2rem;
+			margin-left: 2rem;
+		}
+
+		&:nth-child(2),
+		&:nth-child(3),
+		&:nth-child(4) {
+			border-bottom-color: $yellow !important;
+		}
+
+		&:nth-child(5) {
+			border-bottom-color: $red !important;
+		}
+
+		.card-title {
+			margin-bottom: 0;
+			padding-bottom: 2rem;
+		}
+
+		.card-date {
+			padding-right: 1rem;
+		}
+
+		.card-footer {
+			margin-top: auto;
+			padding-left: 1rem;
+			text-align: right;
+		}
+	}
+}

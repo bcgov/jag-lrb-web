@@ -1,0 +1,31 @@
+.skip-link {
+	z-index: 9999; /* make sure it's always on top */
+	color: $teal !important;
+/*	text-underline-offset: 0.1rem;
+*/	border-radius: 0;
+	border: 0 none !important;
+	transition: all 500ms;
+
+	&:focus-visible:not(.form-control) {
+		box-shadow: $shadow !important;
+	}
+}
+
+*:focus {
+	outline: 0 !important;
+}
+
+*:focus-visible {
+
+	&:not(.form-control) {
+		outline: 0 !important;
+		box-shadow: 0px 0px 0px 1px !important;
+	}
+}
+
+.navbar-logo-text {
+
+	a:focus-visible {
+		box-shadow: none !important;
+	}
+}

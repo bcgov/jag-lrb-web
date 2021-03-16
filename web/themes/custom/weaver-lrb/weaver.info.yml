@@ -1,0 +1,48 @@
+name: Weaver Design Cooperative Theme
+type: theme
+description: 'Drupal 9 theme based on Bootstrap Barrio.'
+core: 8.x
+core_version_requirement: ^8 || ^9
+base theme: bootstrap_barrio
+
+ckeditor_stylesheets:
+  - dist/css/style.css
+
+entity_print:
+  node:
+    all: 'weaver/print-styling'
+  view:
+    all: 'weaver/print-styling'
+
+libraries:
+  - weaver/a11y
+  - weaver/animations
+  - weaver/bootstrap_cdn
+  - weaver/global-styling
+  - weaver/kute
+  - weaver/modernizr
+  - weaver/typekit
+
+libraries-extend:
+  core/drupal.ajax:
+    - weaver/throbber
+
+regions:
+  top_header: 'Top header'
+  top_header_form: 'Top header form'
+  header: Header
+  header_form: 'Header form'
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  highlighted: Highlighted
+  featured_top: 'Featured top'
+  breadcrumb: Breadcrumb
+  content: Content
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  featured_bottom_first: 'Featured bottom first'
+  featured_bottom_second: 'Featured bottom second'
+  featured_bottom_third: 'Featured bottom third'
+  footer_bottom: 'Footer bottom'

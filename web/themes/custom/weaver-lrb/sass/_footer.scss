@@ -1,0 +1,101 @@
+#back-top {
+	a {
+		cursor: pointer;
+
+		svg {
+			transition: all 500ms;
+		}
+		
+		@include hoverStates() {
+
+			svg {
+				transform: translateY(-15px);
+			}
+		}
+	}
+}
+
+#lrb-mailchimp-signup {
+	border-top: 1px solid $grey;
+
+	@include media-breakpoint-up(md) {
+		border-top: 0 none;
+	}
+}
+
+.site-footer {
+
+	.site-footer__bottom {
+		border: 0 none;
+
+		.region {
+			margin-top: 0;
+		}
+	}
+
+	#footer-menu {
+
+		ul.nav {
+
+			a.nav-link {
+				color: $teal-lighter !important;
+
+				@include hoverStates() {
+					color: $white !important;
+				}
+
+				svg {
+					display: none;
+					visibility: hidden;
+				}
+			}
+
+			.menu {
+				margin: 0;
+				padding: 0;
+				list-style: none inside none;
+
+				.nav-item {
+					margin-bottom: 1rem;
+
+					a.nav-link {
+						padding: 0;
+						color: $white !important;
+
+						@include hoverStates() {
+							color: $teal-lighter !important;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	#block-footer {
+
+		.nav {
+			display: flex;
+			flex-wrap: nowrap;
+			flex-direction: row;
+			justify-content: center;
+
+			@include media-breakpoint-up(md) {
+				justify-content: flex-start;
+			}
+
+			.nav-item {
+				padding-right: 1rem;
+
+				.nav-link {
+					padding: 0;
+					color: $white !important;
+					font-size: $font-size-sm;
+
+					@include hoverStates() {
+						color: $teal !important;
+					}
+				}
+			}
+		}
+	}
+}

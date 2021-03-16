@@ -1,0 +1,190 @@
+	.views-exposed-form {
+	
+	h2 {
+		display: none;
+		visibility: hidden;
+	}
+
+	&#views-exposed-form-lrb-decisions-block-1,
+	&#views-exposed-form-lrb-decisions-page-1 {
+
+		.js-form-item-year {
+			display: none;
+			visibility: hidden;
+		}
+	}
+
+	.form-row {
+
+		&>fieldset,
+		&>div.fieldgroup {
+			flex: 0 0 100%;
+			margin-bottom: 2rem;
+
+			@include media-breakpoint-up(lg) {
+				flex: 0 0 48%;
+			}
+		}
+	}
+
+	.form-actions {
+		flex: 0 0 100%;
+		margin-top: 2rem;
+	}
+
+	.view-lrb-site-search & {
+		
+		.custom-control-label {
+
+			&:before {
+				background-color: $grey-medium;
+			}
+
+			&:after {
+				background-color: $white;
+			}
+		}
+		
+		.custom-control-input:checked ~ .custom-control-label {
+			color: $teal;
+
+			&:before {
+				background-color: $teal;
+			}
+		}
+	}
+}
+
+.view-results-summary {
+	margin-top: 5rem;
+	margin-bottom: 5rem;
+	text-align: center;
+	font-size: $font-size-sm;
+	font-weight: $font-weight-bold;
+	color: $teal;
+
+	.view-lrb-site-search & {
+		text-align: left;
+		font-size: $font-size-lg;
+		font-weight: $font-weight-normal;
+		color: $black;
+	}
+}
+
+.view-content {
+	clear: both;
+}
+
+.block-views-blocklrb-news-block-1 {
+
+	h2 {
+
+		@include media-breakpoint-up(md) {
+			margin-bottom: 3rem;
+		}
+	}
+}
+
+/* Collective Agreements */
+.view-lrb-collective-agreements {
+
+	table {
+
+		th,
+		td {
+			width: 20%;
+		}
+	}
+}
+
+/* Decisions */
+.view-lrb-decisions {
+
+	.views-field-field-lrb-decision-id {
+		min-width: 250px;
+	}
+}
+
+/* Hearings */
+.view-lrb-hearings {
+	
+	.views-field-field-lrb-hearing-date {
+		min-width: 180px;
+	}
+	
+	.views-field.views-field-field-lrb-hearings-number {
+		min-width: 160px;
+	}
+}
+
+/* News */
+.view-lrb-news {
+
+	&.view-display-id-block_1 {
+
+		.view-content {
+			display: flex;
+			flex-wrap: wrap;
+
+			.card {
+				margin-bottom: 0;
+
+				@include media-breakpoint-up(sm) {
+					flex: 0 0 50%;
+				}
+
+				@include media-breakpoint-up(lg) {
+					flex: 0 0 33%;
+				}
+			}
+		}
+	}
+
+	&.view-display-id-page_1 {
+
+		.news-categories-tabs {
+		
+			.list-group-item.active {
+		
+				a {
+					color: $white !important;
+				}
+			}
+		}
+		
+		.view-display-id-attachment_1 {
+			margin-bottom: 5rem;
+		}
+
+		&> .view-content {
+			padding: 2rem;
+
+			@include media-breakpoint-up(md) {
+				padding: 3rem 2rem 3rem;
+			}
+
+			@include media-breakpoint-up(lg) {
+				padding: 6rem 3rem 4rem;
+			}
+		}
+
+	}
+}
+
+/* Search */
+.view-lrb-site-search {
+
+	.list-group-item {
+		margin-bottom: 3rem;
+		padding-bottom: 3rem;
+		border-bottom: 1px solid $grey-medium;
+
+		p {
+			line-height: 1rem;
+		}
+
+		.search-url a {
+			word-break: break-word;
+		}
+	}
+}

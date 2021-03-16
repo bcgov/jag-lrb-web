@@ -1,0 +1,35 @@
+<select data-drupal-selector="edit-field-mappings-0-config-salesforce-field" aria-describedby="edit-field-mappings-0-config-salesforce-field--LoB8GhJRyeA--description" id="edit-field-mappings-0-config-salesforce-field--LoB8GhJRyeA" name="field_mappings[0][config][salesforce_field]" class="form-select">
+
+<option value="" selected="selected">- Select -</option>
+
+<option value="Id">Attachment ID</option>
+
+<option value="Body">Body</option>
+
+<option value="BodyLength">Body Length</option>
+
+<option value="ContentType">Content Type</option>
+
+<option value="CreatedById">Created By ID</option>
+
+<option value="CreatedDate">Created Date</option>
+
+<option value="IsDeleted">Deleted</option>
+
+<option value="Description">Description</option>
+
+<option value="Name">File Name</option>
+
+<option value="IsEncrypted">Is Encrypted</option>
+
+<option value="LastModifiedById">Last Modified By ID</option>
+
+<option value="LastModifiedDate">Last Modified Date</option>
+
+<option value="OwnerId">Owner ID</option>
+
+<option value="ParentId">Parent ID</option>
+
+<option value="IsPrivate">Private</option>
+
+<option value="SystemModstamp">System Modstamp</option></select>

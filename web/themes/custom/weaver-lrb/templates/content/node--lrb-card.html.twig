@@ -1,0 +1,48 @@
+{{ attach_library('bootstrap_barrio/node') }}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    'clearfix',
+    'card', 'bg-grey-lighter',
+  ]
+%}
+{% if show_text is defined and show_text == false %}
+  {% set classes = classes|merge(['card-no-text']) %}
+{% endif %}
+
+<article{{ attributes.addClass(classes) }}>
+    {% if card_date is defined and show_date == true %}
+      <p class="card-date m-0 font-weight-bolder text-teal">{{ card_date }}</p>
+    {% endif %}
+
+    <div class="card-body">
+
+      {% if card_surtitle %}
+        <p class="mb-0 text-teal">{{ card_surtitle }}</p>
+      {% endif %}
+
+      {% if card_title %}
+        <h4 class="card-title">{{ card_title }}</h4>
+      {% endif %}
+
+      {% if show_text is not defined or (show_text is defined and show_text != false) %}
+        {% if card_text %}
+          <div class="card-text">
+            {{ card_text }}
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    {% if card_footer %}
+      <div class="card-footer">
+        {{ card_footer|raw }}
+      </div>
+    {% endif %}
+</article>

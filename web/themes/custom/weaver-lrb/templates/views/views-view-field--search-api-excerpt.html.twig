@@ -1,0 +1,17 @@
+<h5 class="mb-0 font-weight-bold link-teal"><a href="{{ result_path }}">{{ entity.label }}</a></h5>
+
+<p class="font-size-sm">
+	{% if listing_type != 'Content Page' %}
+		{{ listing_type }} 
+	{% endif %}
+</p>
+
+<p class="font-weight-bold text-black">
+		{{ date_label }} {{ date }}
+</p>
+
+<p class="font-size-sm mb-2">{{ output -}}</p>
+
+<p class="mb-0 text-teal font-size-sm search-url">
+	<a href="{{ result_path }}" class="no-underline d-flex align-items-center"><span class="fa-layers fa-fw fa-2x mr-1"><i class="fas fa-circle"></i><i class="fal fa-link fa-inverse" data-fa-transform="shrink-8"></i></span> <span>{{ result_path }}</span></a>
+</p>

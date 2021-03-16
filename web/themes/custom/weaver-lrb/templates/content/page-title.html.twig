@@ -1,0 +1,19 @@
+{% if is_front %}
+	<div class="full-width bg-grey-lighter pt-4">
+	  <div class="container">
+	    <div class="row">
+	      <div class="col-12 px-0">
+{% endif %}
+
+					{{ title_prefix }}
+					{% if title %}
+					  <h1{{ title_attributes.addClass('title') }}>{{ title }}</h1>
+					{% endif %}
+					{{ title_suffix }}
+
+{% if is_front %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

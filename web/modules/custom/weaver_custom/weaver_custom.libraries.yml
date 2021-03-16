@@ -1,0 +1,4 @@
+weaver_custom:
+  version: VERSION
+  js:
+    js/weaver_custom.js: {}

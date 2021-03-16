@@ -1,0 +1,7 @@
+name: 'Weaver Design Cooperative Custom CKEditor Addons'
+type: module
+description: 'Adds some commonly used filters and plugins for CKEditor'
+package: 'Weaver'
+core_version_requirement: '^8.8.0 || ^9.0'
+dependencies:
+  - 'drupal:ckeditor'

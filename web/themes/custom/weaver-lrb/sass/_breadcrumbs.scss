@@ -1,0 +1,20 @@
+.breadcrumb {
+	display: block;
+
+	@include media-breakpoint-up(md) {
+		display: flex;
+	}
+
+	.breadcrumb-item {
+		display: inline;
+		font-weight: $font-weight-normal;
+
+		@include media-breakpoint-up(md) {
+			display: flex;
+		}
+		
+		&.active {
+			font-weight: $font-weight-bold;
+		}
+	}
+}

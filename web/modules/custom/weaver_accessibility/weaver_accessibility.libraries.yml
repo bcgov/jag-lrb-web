@@ -1,0 +1,7 @@
+weaver_accessibility:
+  version: VERSION
+  js:
+    js/weaver_accessibility.js: {}
+  css:
+    component:
+      css/weaver_accessibility.css: {}

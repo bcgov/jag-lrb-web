@@ -1,0 +1,121 @@
+@use "sass:map";
+
+$black: #000;
+$blue: #05334A;
+$blue-darker: #022e47;
+$blue-lighter: #4B8EA2;
+$grey: #EAEEEF;
+$gray: $grey;
+$grey-darker: #4e4e4e;
+$gray-darker: $grey-darker;
+$grey-lighter: #F8F9FB;
+$gray-lighter: $grey-lighter;
+$grey-medium: #707070;
+$gray-medium: $grey-medium;
+$grey-shadow: #6b6b6b;
+$red: #69282D;
+$red-darker: #470f13;
+$red-lighter: #a56b6f;
+$teal: #186075;
+$teal-darker: #06334a;
+$teal-lighter: #4B8EA2;
+$yellow: #DCC72A;
+$yellow-darker: #bca50f;
+$yellow-lighter: #f7eb9e;
+$yellow-overlay: rgba(245, 236, 219, 0.5);
+$white: #FFFFFF;
+
+/*Social Media*/
+$facebook-blue: #4188C8;
+$twitter-blue:  #3790C5;
+$pinterest-red: #CA3224;
+
+/*Alerts*/
+$primary:       $teal;
+$secondary:     $yellow;
+$success:       $teal-lighter;
+$info:          $yellow;
+$warning:       $yellow-darker;
+$danger:        $red-darker;
+$light:         $gray-lighter;
+$dark:          $black;
+
+/*Bootstrap*/
+$theme-colors: ();
+$theme-colors: map-merge(
+  (
+    "primary":    $teal,
+    "secondary":  $yellow,
+    "success":    $success,
+    "info":       $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "light":      $light,
+    "dark":       $dark
+  ),
+  $theme-colors
+);
+
+$lighten: 25%;
+$darken: 25%;
+
+$colors: (
+  "black": $black,
+	"blue": $blue,
+	"blue-darker": $blue-darker,
+	"blue-lighter": $blue-lighter,
+	"grey": $grey,
+	"grey-darker": $grey-darker,
+	"grey-lighter": $grey-lighter,
+  "grey-medium": $grey-medium,
+  "grey-shadow": $grey-shadow,
+	"red": $red,
+	"red-darker": darken($red, $darken),
+	"red-lighter": lighten($red, $lighten),
+	"teal": $teal,
+	"teal-darker": $teal-darker,
+	"teal-lighter": $teal-lighter,
+	"yellow": $yellow,
+	"yellow-darker": darken($yellow, $darken),
+	"yellow-lighter": lighten($yellow, $lighten),
+	"white": $white,
+);
+
+
+@each $name, $value in $colors {
+
+  .bg-#{$name} {
+  	background-color: #{$value} !important;
+  }
+
+  .text-#{$name} {
+    color: #{$value} !important;
+  }
+  
+  .link-#{$name} {
+    color: #{$value} !important;
+    
+    @include hoverStates {
+    	@if "#{$name} != white" {
+    		$lighter: map-get($colors, #{$name}-lighter);
+        color: $lighter !important;
+      }
+    }
+  }
+
+  .border.border-color-#{$name},
+  .border-top.border-color-#{$name},
+  .border-left.border-color-#{$name},
+  .border-right.border-color-#{$name},
+  .border-bottom.border-color-#{$name} {
+  	border-color: #{$value} !important;
+  }
+}
+
+/* Special cases for white */
+.link-white {
+
+	@include hoverStates {
+		color: $yellow !important;
+	}
+}

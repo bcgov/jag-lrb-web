@@ -1,0 +1,40 @@
+{{ attach_library('bootstrap_barrio/node') }}
+
+<div class="topics-grid-card col-md-6 mb-4">
+  <div class="card-inner d-flex flex-row justify-content-start px-0">
+
+    {% set media_uri = node.field_lrb_topic_image|file_uri %}
+    {% if media_uri is not null %}
+      <div class="image-container">
+        <a class="d-block" href="{{ path('entity.node.canonical', {'node': node.id()}) }}" style="background-image: url({{ base_url ~ media_uri|image_style('lrb_topic_grid') }});">
+        </a>
+      </div>
+    {% endif %}
+
+    <div class="topics-grid-text w-100 d-flex flex-column pt-2 pt-md-3 pb-md-3 pl-4 pr-1 px-md-4">
+      <div class="topics-top d-flex justify-content-between align-items-start">
+        {% if label %}
+          <h3 class="font-weight-bold">
+            {{ drupal_link(label, path('entity.node.canonical', {'node': node.id()}), { attributes: {'class': 'no-underline link-blue' }}) }}
+          </h3>
+        {% endif %}
+      </div>
+
+      <div class="subpage-container d-flex justify-content-start align-items-center">
+        <div>
+          <p class="mb-0 text-right text-md-left">
+            <a tabindex=0 class="topics-subpages-button no-underline link-blue bg-grey p-2" data-toggle="collapse" data-target="#subpages{{ node.id() }}" aria-expanded="false">{{ 'Explore within'|t }} <i class="fas fa-chevron-down pl-1"></i></a>
+          </p>
+          
+          <ul class="topic-subpages box-shadow collapse list-unstyled bg-grey-lighter" id="subpages{{ node.id() }}" aria-hidden="true">
+            <li class="px-2 py-2">{{ node.field_lrb_topic_description.value|raw }}</li>
+            <li class="px-2 py-2">{{ drupal_link('Go to ' ~ node.label(), path('entity.node.canonical', {'node': node.id()}), { attributes: { class: 'd-block no-underline link-blue' }}) }}</li>
+            {% for sub in subpages %}
+              <li class="px-2 py-2">{{ drupal_link(sub.title, sub.url, { attributes: { class: 'd-block no-underline link-blue' }}) }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

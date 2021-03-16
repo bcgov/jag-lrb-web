@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: weaver_text
+label: Text
+icon_uuid: null
+icon_default: null
+description: 'Adds a regular text area for text and headings.'
+behavior_plugins: {  }

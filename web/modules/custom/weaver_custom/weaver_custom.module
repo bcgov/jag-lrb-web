@@ -1,0 +1,274 @@
+<?php
+
+use \Drupal\Core\Form\FormStateInterface;
+use \Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function weaver_custom_library_info_alter(&$libraries, $extension) {
+
+  if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+    if ($extension == 'fontawesome') {
+      foreach ($libraries as $key => $library) {
+        unset($libraries[$key]);
+      }
+    }
+  }
+}
+
+function weaver_custom_cron() {
+  weaver_custom_remove_old_hearings();
+}
+
+function weaver_custom_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+	switch ($form_id) {
+
+		case 'views_exposed_form':
+
+      switch ($form['#id']) {
+
+        case 'views-exposed-form-lrb-decisions-block-1':
+        case 'views-exposed-form-lrb-decisions-page-1':
+        // case 'views-exposed-form-media-page-2':
+          $year = (isset($_GET['year'])) ? $_GET['year'] : 'all';
+          $year_element = weaver_custom_year_dropdown($year);
+          $form['year_select'] = [
+            '#type' => 'markup',
+            '#markup' => '<fieldset class="js-form-item form-item form-group"><label>' . $form['year']['#title'] . '</label>' . $year_element . '</fieldset>',
+            '#allowed_tags' => ['fieldset', 'select', 'option', 'label'],
+            '#weight' => -100,
+            '#default_value' => (isset($_GET['year'])) ? $_GET['year'] : '',
+          ];
+          break;
+
+        case 'views-exposed-form-lrb-site-search-page-1':
+          // move search and actions together on left side
+          $form['left'] = [
+            '#type' => 'fieldset',
+            '#weight' => -1,
+            'search' => $form['search'],
+            'actions' => $form['actions'],
+          ];
+          $form['left']['actions']['submit']['#attributes']['class'] = ['btn', 'btn-wide'];
+          $form['left']['actions']['reset']['#attributes']['class'] = ['btn', 'btn-outline-teal', 'btn-wide'];
+          unset($form['search']);
+          unset($form['actions']);
+
+          $form['type']['#prefix'] = '<div class="fieldgroup checkboxes-wrapper d-flex justify-content-around align-items-start">';
+          $form['bundle']['#suffix'] = '</div>';
+          break;
+      }
+      break;
+	}
+}
+
+function weaver_custom_output_duration($start, $end) {
+  $duration = '';
+
+  $starttime = new \DateTime($start);
+  $endtime = new \DateTime($end);
+
+  // add one day to compensate for agreements last exactly 1 day less than a full year or month
+  $endtime = $endtime->add(new DateInterval('P10D'));
+
+  $difference = $endtime->diff($starttime);
+  $years = $difference->format('%y');
+  $months = $difference->format('%m');
+
+  $year_value = null;
+  if ($years > 0) {
+    $year_value = t('@years years', ['@years' => $years]);
+    if ($years == 1) {
+      $year_value = t('@years year', ['@years' => $years]);
+    }
+
+    $duration .= $year_value;
+  }
+
+  if ($months > 0) {
+    $month_value = t('@months months', ['@months' => $months]);
+    if ($months == 1) {
+      $month_value = t('@months month', ['@months' => $months]);
+    }
+
+    if ($year_value != null) {
+      $duration .= ', ';
+    }
+
+    $duration .= $month_value;
+  }
+
+  return $duration;
+}
+
+function weaver_custom_output_term($start, $end) {
+  $output = '';
+
+  if ($start || $end) {
+    if ($start) {
+      $output .= $start;
+    }
+    if ($start && $end) {
+      $output .= ' - ';
+    }
+    if ($end) {
+      $output .= $end;
+    }
+  }
+
+  return $output;
+}
+
+function weaver_custom_remove_old_hearings() {
+  // Remove old Hearings from day before yesterday
+  $now = new \DateTime();
+  $interval = new DateInterval('P1D');
+  
+  //advance 8 hours to account for wrong values in db
+  // see case 'lrb_sf_hearings' in pullPresave() in WeaverCustomSalesforcePullEvent.php as well
+  $yesterday = $now->sub($interval)->setTime(0, 0, 1)->add(new DateInterval('PT8H')); 
+  $cutoff = $yesterday->format('Y-m-d\TH:i:s');
+  
+  $hearings = \Drupal::entityQuery('node')
+    ->condition('type', 'lrb_hearings')
+    ->condition('field_lrb_hearing_date', $cutoff, '<=')
+    ->execute();
+
+  foreach ($hearings as $hearing) {
+    $hearing_node = \Drupal\node\Entity\Node::load($hearing);
+
+    $hearing_node->delete();
+  
+    $message = t('%hearing on %date was deleted.', ['%hearing' => $hearing_node->label(), '%date' => $hearing_node->get('field_lrb_hearing_date')->value]);
+    \Drupal::logger('weaver_custom_hearings')->notice($message);
+  }
+}
+
+/**
+ * Implements hook_views_data().
+ */
+function weaver_custom_views_data() {
+  $data['views']['table']['group'] = t('Weaver Custom Fields');
+  $data['views']['table']['join'] = [
+    '#global' => [],
+  ];
+
+  $data['views']['weaver_custom_ca_duration'] = [
+    'title' => t('Collective Agreeement Duration'),
+    'help' => t('Duration between the two term dates.'),
+    'field' => [
+      'id' => 'weaver_custom_ca_duration',
+    ],
+  ];
+
+  return $data;
+}
+
+function weaver_custom_views_query_alter(ViewExecutable $view, Drupal\views\Plugin\views\query\QueryPluginBase $query) {
+  switch ($view->id()) {
+    
+    case 'lrb_hearings':
+      // rewriting filter condition to use just the date
+      foreach ($query->where as $key => $where) {
+        if (isset($where['conditions'])) {
+          foreach ($where['conditions'] as $where_key => $condition) {
+              if ($condition['operator'] == 'formula' && strpos($condition['field'], 'DATE_FORMAT') === 0) {
+                $query->where[$key]['conditions'][$where_key]['field'] = "(DATE_FORMAT((node__field_lrb_hearing_date.field_lrb_hearing_date_value), '%Y-%m-%d') = '" . $view->exposed_raw_input['date'] . "')";
+              }
+            }
+          }
+        }
+      break;
+  }
+}
+
+function weaver_custom_year_dropdown($year) {
+  $years = [];
+
+  $start = 1990;
+  $end = date('Y', time())+0;
+  
+  for ($i=$start; $i<=$end; $i++) {
+    $years[$i] = $i;
+  }
+  $years['all'] = t('- All -');
+  $years = array_reverse($years, TRUE);
+  
+  $year_element = '<select class="year-replace form-select custom-select">';
+  foreach ($years as $key => $year_option) {
+    $selected = ($key == $year) ? 'selected' : '';
+    $year_element .= '<option value="' . $key . '" ' . $selected . '>' . $year_option . '</option>';
+  }
+  $year_element .= '</select>';
+
+  // $year_element = [
+  //   '#title' => t('Search by year'),
+  //   '#type' => 'select',
+  //   '#options' => $years,
+  //   '#weight' => -100,
+  //   '#default_value' => (isset($year)) ? $year : 'all',
+  // ];
+  return $year_element;
+}
+
+function weaver_custom_preprocess_html(&$variables) {
+  $variables['#attached']['library'][] =  'weaver_custom/weaver_custom';
+}
+
+function weaver_custom_theme($existing, $type, $theme, $path) {
+  return [
+    'weaver_arrow' => [
+    	'variables' => [
+    	],
+    ],
+
+    'weaver_next_previous_links' => [
+      'variables' => [
+        'next' => NULL,
+        'previous' => NULL,
+      ]
+    ],
+    
+    'weaver_sharing_modal' => [
+      'variables' => [
+      	'button_classes' => NULL,
+      	'close_button_classes' => NULL,
+      	'print_link' => NULL,
+      ],
+    ],  
+  ];
+}
+
+
+function weaverformatBytes($size, $precision = 2) {
+  $base = log($size, 1024);
+  $suffixes = array('', 'KB', 'MB', 'GB', 'TB');   
+
+  return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
+}
+
+/*
+ * Example:
+ *  $object_name = 'LRB_Case_Hearing__c';
+ *  $fields = ['Id', 'LRB_Hearing_Date__c', 'LRB_Location__c'];
+ *  $conditions = [['field' => 'CALENDAR_YEAR(LRB_Hearing_Date__c)', 'value' => '2019', 'comparison' => '=']];
+ *  weaverTestSalesforceQuery($object_name, $fields, $conditions);
+*/
+function weaverTestSalesforceQuery(string $object_name, array $fields, array $conditions, $limit=1) {
+  $client = \Drupal::service('salesforce.client');
+  $query = new \Drupal\salesforce\SelectQuery($object_name);
+  $query->fields = $fields;
+
+  foreach ($conditions as $condition) {
+    $query->addCondition($condition[0], $condition[1], $condition[2]);
+  }
+
+  $query->limit = $limit;
+  // dpm($query->__toString());
+  
+  $result = $client->query($query);
+  // dpm($result->records());
+  return $result;
+}

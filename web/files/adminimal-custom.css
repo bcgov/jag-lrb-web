@@ -1,0 +1,10 @@
+/* hide filter wrapper for textfields and filter tips always*/
+.form-type-textfield + .filter-wrapper,
+.filter-wrapper .tips {
+	display: none;
+	visibility: hidden;
+}
+
+.cke_combopanel {
+	width: 250px !important;
+}

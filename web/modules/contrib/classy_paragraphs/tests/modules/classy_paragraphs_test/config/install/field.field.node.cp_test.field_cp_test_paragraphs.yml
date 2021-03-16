@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cp_test_paragraphs
+    - node.type.cp_test
+  module:
+    - entity_reference_revisions
+id: node.cp_test.field_cp_test_paragraphs
+field_name: field_cp_test_paragraphs
+entity_type: node
+bundle: cp_test
+label: Paragraphs
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      cp_test_text: cp_test_text
+    target_bundles_drag_drop:
+      cp_test_text:
+        weight: 10
+        enabled: false
+field_type: entity_reference_revisions

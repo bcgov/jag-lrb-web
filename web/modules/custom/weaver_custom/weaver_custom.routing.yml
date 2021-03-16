@@ -1,0 +1,7 @@
+weaver_custom.settings_page:
+  path: '/admin/config/lrb'
+  defaults:
+    _form: '\Drupal\weaver_custom\Form\LRBSettingsForm'
+    _title: 'LRB Settings'
+  requirements:
+    _role: wv_editor+administrator

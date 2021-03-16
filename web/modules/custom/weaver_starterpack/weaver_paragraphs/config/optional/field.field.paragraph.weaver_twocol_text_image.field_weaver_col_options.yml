@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_weaver_col_options
+    - paragraphs.paragraphs_type.weaver_twocol_text_image
+  module:
+    - options
+id: paragraph.weaver_twocol_text_image.field_weaver_col_options
+field_name: field_weaver_col_options
+entity_type: paragraph
+bundle: weaver_twocol_text_image
+label: 'Column Options'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: left
+default_value_callback: ''
+settings: {  }
+field_type: list_string

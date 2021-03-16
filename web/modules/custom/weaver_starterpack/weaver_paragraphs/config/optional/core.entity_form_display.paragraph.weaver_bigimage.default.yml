@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.weaver_bigimage.field_weaver_bigimage
+    - paragraphs.paragraphs_type.weaver_bigimage
+  module:
+    - media_library
+id: paragraph.weaver_bigimage.default
+targetEntityType: paragraph
+bundle: weaver_bigimage
+mode: default
+content:
+  field_weaver_bigimage:
+    type: media_library_widget
+    weight: 0
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  status: true

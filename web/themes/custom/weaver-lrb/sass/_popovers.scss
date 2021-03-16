@@ -1,0 +1,42 @@
+.popover,
+.popover-header,
+.popover-body {
+	padding-top: 0.5rem;
+	background: $teal;
+	color: $white;
+	border-radius: 0;
+	border: 0 none;
+}
+
+$directions: (
+	"left",
+	"right",
+	"top",
+	"bottom"
+);
+
+@each $direction in $directions {
+	.bs-popover-#{$direction} > .arrow::after, 
+	.bs-popover-auto[x-placement^="#{$direction}"] > .arrow::after {
+		border-#{$direction}-color: $teal;
+	}
+}
+
+.tooltip {
+	line-height: 1.4rem;
+	
+	&.tooltip-yellow {
+
+		.tooltip-inner {
+			background: $yellow !important;
+			color: $blue !important;
+		}
+
+		@each $direction in $directions {
+			&.bs-tooltip-#{$direction} > .arrow::before, 
+			&.bs-tooltip-auto[x-placement^="#{$direction}"] > .arrow::before {
+				border-#{$direction}-color: $yellow;
+			}
+		}
+	}
+}

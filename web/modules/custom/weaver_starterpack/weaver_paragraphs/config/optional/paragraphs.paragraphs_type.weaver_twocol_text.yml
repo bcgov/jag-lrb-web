@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: weaver_twocol_text
+label: 'Two-Column Text'
+icon_uuid: null
+icon_default: null
+description: 'Adds text that will display in two columns on tablet and desktop sizes and stacked vertically on mobile.'
+behavior_plugins: {  }

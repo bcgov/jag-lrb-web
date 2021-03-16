@@ -1,0 +1,30 @@
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished',
+    col_classes,
+    'card'
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes).addClass(custom_classes) }} {% if anchor|length %}id="{{ anchor }}"{% endif %}>
+    {% block content %}
+      {% if paragraph.field_weaver_heading.value %}
+        <div class="card-header px-3 pt-3 bg-grey-lighter">
+          <h3 class="font-weight-bold">{{ drupal_link(paragraph.field_weaver_heading.value|raw, box_link) }}</h3>
+        </div>
+      {% endif %}
+
+      <div class="card-body px-3 bg-grey-lighter">
+        {{ content.field_weaver_text }}
+      </div>
+
+      <div class="card-footer px-3 py-2 bg-teal justify-content-center d-flex align-items-center">
+        {{ drupal_link('VISIT PAGE'|t, box_link, { attributes: { 'class': 'link-white no-underline' }}) }}
+      </div>
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

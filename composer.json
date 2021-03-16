@@ -1,0 +1,234 @@
+{
+    "name": "drupal/recommended-project",
+    "description": "Project template for Drupal 9 projects with a relocated document root",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/drupal",
+    "support": {
+        "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
+        "chat": "https://www.drupal.org/node/314178"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+        "type": "composer",
+        "url": "https://asset-packagist.org"
+        },    
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/liststyle",
+                "version": "4.8.0",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "ckeditor/plugins/liststyle"
+                },
+                "dist": {
+                    "url": "https://download.ckeditor.com/liststyle/releases/liststyle_4.8.0.zip",
+                    "type": "zip"
+                }
+            }
+        } 
+   ],
+    "require": {
+        "ckeditor/liststyle": "4.8.0",
+        "composer/installers": "^1.9",
+        "cweagans/composer-patches": "^1.7",
+        "dompdf/dompdf": "0.8.5",
+        "drupal/address": "^1.8",
+        "drupal/admin_toolbar": "^2.3",
+        "drupal/adminimal_admin_toolbar": "^1.11",
+        "drupal/adminimal_theme": "^1.6",
+        "drupal/backup_migrate": "^5.0",
+        "drupal/bef_select": "^1.0@beta",
+        "drupal/better_exposed_filters": "^5.0@beta",
+        "drupal/block_class": "^1.2",
+        "drupal/block_field": "^1.0@RC",
+        "drupal/bootstrap_barrio": "5.0.1",
+        "drupal/captcha": "^1.1",
+        "drupal/ckeditor_liststyle": "^1.4",
+        "drupal/ckeditor_specialchars": "^1.2",
+        "drupal/classy_paragraphs": "1.x-dev",
+        "drupal/conditional_fields": "^1.0@alpha",
+        "drupal/console": "^1.9",
+        "drupal/core-composer-scaffold": "^9",
+        "drupal/core-project-message": "^9",
+        "drupal/core-recommended": "^9",
+        "drupal/ctools": "^3.4",
+        "drupal/date_popup": "^1.1",
+        "drupal/devel": "^4.0",
+        "drupal/devel_kint_extras": "^1.0",
+        "drupal/devel_php": "^1.2",
+        "drupal/draggableviews": "^2.0",
+        "drupal/dynamic_entity_reference": "^1.11",
+        "drupal/easy_breadcrumb": "^1.13",
+        "drupal/editor_advanced_link": "^1.8",
+        "drupal/entity_print": "^2.2",
+        "drupal/entity_reference_revisions": "^1.8",
+        "drupal/entity_usage": "^2.0@beta",
+        "drupal/facets": "^1.6",
+        "drupal/field_group": "^3.1",
+        "drupal/filefield_paths": "^1.0@beta",
+        "drupal/fontawesome": "2.x-dev@dev",
+        "drupal/honeypot": "^2.0",
+        "drupal/image_effects": "^3.1",
+        "drupal/inline_entity_form": "^1.0@RC",
+        "drupal/jquery_ui_tabs": "^1.1",
+        "drupal/jquery_ui_tooltip": "^1.1",
+        "drupal/key": "^1.14",
+        "drupal/link_attributes": "^1.10",
+        "drupal/linkit": "6.0.0-beta2",
+        "drupal/masquerade": "^2.0@beta",
+        "drupal/maxlength": "^1.0@RC",
+        "drupal/media_entity_download": "^2.0",
+        "drupal/menu_link_attributes": "^1.1",
+        "drupal/metatag": "^1.13",
+        "drupal/module_filter": "^3.1",
+        "drupal/paragraphs": "^1.12",
+        "drupal/pathauto": "^1.8",
+        "drupal/recaptcha": "^3.0",
+        "drupal/redirect": "^1.6",
+        "drupal/rename_admin_paths": "^2.0",
+        "drupal/salesforce": "^4.1",
+        "drupal/search_api": "^1.17",
+        "drupal/search_api_attachments": "^1.0@beta",
+        "drupal/search_api_autocomplete": "^1.4",
+        "drupal/search_api_solr": "^4.1",
+        "drupal/security_review": "^1.0@alpha",
+        "drupal/select2": "^1.12",
+        "drupal/smart_date": "^3.0",
+        "drupal/smtp": "1.0-rc4",
+        "drupal/social_media": "^1.8",
+        "drupal/token": "^1.7",
+        "drupal/token_filter": "^1.2",
+        "drupal/twig_tweak": "^2.6",
+        "drupal/typed_data": "^1.0@alpha",
+        "drupal/viewfield": "^3.0@beta",
+        "drupal/views_ajax_history": "^1.5",
+        "drupal/views_block_area": "^1.0@beta",
+        "drupal/views_bootstrap": "^4.3",
+        "drupal/views_bulk_operations": "^3.8",
+        "drupal/views_field_view": "^1.0@beta",
+        "drupal/views_year_filter": "^1.2",
+        "drupal/webform": "^6.0@beta",
+        "drupal/webform_mailchimp": "^5.9",
+        "drupal/webform_views": "^5.0@alpha",
+        "drupal/webformnavigation": "^1.0@alpha",
+        "drupal/xmlsitemap": "^1.0",
+        "drush/drush": "^10.3",
+        "firebase/php-jwt": "^5.0",
+        "kint-php/kint": "^3.3",
+        "kint-php/kint-twig": "^3.0",
+        "npm-asset/select2": "^4.0",
+        "oomphinc/composer-installers-extender": "^2.0",
+        "smalot/pdfparser": "^0.17.1",
+        "tecnickcom/tcpdf": "~6"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "drupal-scaffold": {
+            "file-mapping": {
+                "[web-root]/sites/development.services.yml": false,
+                "[web-root]/.htaccess": false
+            },
+            "locations": {
+                "web-root": "web/"
+            }     
+        },
+        "installer-paths": {
+            "web/core": [
+                "type:drupal-core"
+            ],
+            "web/libraries/{$name}": [
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
+            ],
+            "web/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "web/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "web/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "drush/Commands/contrib/{$name}": [
+                "type:drupal-drush"
+            ],
+            "web/modules/custom/{$name}": [
+                "type:drupal-custom-module"
+            ],
+            "web/themes/custom/{$name}": [
+                "type:drupal-custom-theme"
+            ]
+        },
+        "installer-types": ["bower-asset", "npm-asset"],
+        "drupal-core-project-message": {
+            "include-keys": [
+                "homepage",
+                "support"
+            ],
+            "post-create-project-cmd-message": [
+                "<bg=blue;fg=white>                                                         </>",
+                "<bg=blue;fg=white>  Congratulations, you’ve installed the Drupal codebase  </>",
+                "<bg=blue;fg=white>  from the drupal/recommended-project template!          </>",
+                "<bg=blue;fg=white>                                                         </>",
+                "",
+                "<bg=yellow;fg=black>Next steps</>:",
+                "  * Install the site: https://www.drupal.org/docs/8/install",
+                "  * Read the user guide: https://www.drupal.org/docs/user_guide/en/index.html",
+                "  * Get support: https://www.drupal.org/support",
+                "  * Get involved with the Drupal community:",
+                "      https://www.drupal.org/getting-involved",
+                "  * Remove the plugin that prints this message:",
+                "      composer remove drupal/core-project-message"
+            ]
+        },
+        "patches": {
+            "drupal/backup_migrate": {
+                "Unable to add schedules and profiles": "https://www.drupal.org/files/issues/2020-08-11/3158790-schedule-save.patch",
+                "Error when saving destination": "https://www.drupal.org/files/issues/2020-09-01/backup_migrate-n3159638-15.patch",
+                "Dropbox as destination": "https://www.drupal.org/files/issues/2020-12-10/backup_migrate-dropbox_destination-3106935-7.patch"
+            },
+            "drupal/bef_select": {
+                "Adding order by sorting field": "https://www.drupal.org/files/issues/2021-01-23/3194363-adding-order-by-field.patch"
+            },
+            "drupal/block_field": {
+                "BlockFieldLabelFormatter CacheableMetadata::createFromRenderArray points to incorrect array": "https://www.drupal.org/files/issues/2020-09-08/3068281-15-8.9.patch"
+            },
+            "drupal/linkit": {
+                "Linkit for fields": "https://www.drupal.org/files/issues/2020-09-23/linkit-for-link-field-2712951-190.patch"
+            },
+            "drupal/mailchimp": {
+                "Fix in issue #3195197 makes the modules php7.4+ only": "https://www.drupal.org/files/issues/2021-02-09/issue-3197461.patch"
+            },
+            "drupal/media_entity_download": {
+                "Allow media inline links": "https://www.drupal.org/files/issues/2020-09-01/content-disposition-3008834-35.patch"
+            },
+            "drupal/social_media": {
+                "Dispatcher error with Block": "https://www.drupal.org/files/issues/2020-11-20/dispatcher_error-3178056-5.patch"
+            },
+            "drupal/text_resize": {
+                "Drupal 9 Deprecated Code Report": "https://www.drupal.org/files/issues/2020-05-25/text_resize-D9_compatibility-3073768-5.patch"
+            },
+            "drupal/webform": {
+                "Radios Other and Select Other default value not working properly": "https://www.drupal.org/files/issues/2020-07-21/3160583-2.patch"
+            }
+        },
+        "enable-patching": true    
+    },
+    "require-dev": {
+        "components/font-awesome": "^5.15"
+    }
+}

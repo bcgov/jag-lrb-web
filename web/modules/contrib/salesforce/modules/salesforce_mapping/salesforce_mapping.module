@@ -1,0 +1,99 @@
+<?php
+
+/**
+ * @file
+ * Manages Salesforce object and Drupal entity mappings.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_update().
+ *
+ * Ensures drupal entity has an update timestamp.
+ */
+function salesforce_mapping_entity_update(EntityInterface $entity) {
+  // Check for mappings (much faster than looking for mapped objects.)
+  $mappings = \Drupal::service('entity_type.manager')
+    ->getStorage('salesforce_mapping')
+    ->loadByDrupal($entity->getEntityTypeId());
+  if (empty($mappings)) {
+    return;
+  }
+
+  // If mappings, check for mapped objects.
+  $mapped_objects = \Drupal::service('entity_type.manager')
+    ->getStorage('salesforce_mapped_object')
+    ->loadByDrupal($entity->getEntityTypeId(), $entity->id());
+
+  foreach ($mapped_objects as $mapped_object) {
+    // Resaving the object should update the timestamp.
+    // NB: we are purposefully not creating a new revision here.
+    $mapped_object
+      ->set('entity_updated', \Drupal::time()->getRequestTime())
+      ->save();
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ *
+ * Delete any corresponding Mapped Objects when an entity is deleted.
+ */
+function salesforce_mapping_entity_delete(EntityInterface $entity) {
+  $storage = \Drupal::entityTypeManager()
+    ->getStorage('salesforce_mapped_object');
+
+  if (\Drupal::moduleHandler()->moduleExists('salesforce_push') &&
+    \Drupal::database()->schema()->tableExists('salesforce_push_queue')) {
+    $mapped_objects = $storage->loadByEntity($entity);
+
+    if (!$mapped_objects) {
+      return;
+    }
+
+    foreach ($mapped_objects as $mapped_object) {
+      $mapping = $mapped_object->getMapping();
+      $queued_items = \Drupal::database()
+        ->select('salesforce_push_queue', 'spq')
+        ->fields('spq', ['item_id'])
+        ->condition('entity_id', $entity->id())
+        ->condition('name', $mapping->id())
+        ->condition('op', 'push_delete')
+        ->execute();
+
+      // If this was queued to be deleted, don't delete the mapping yet, defer
+      // to salesforce_push.
+      if (!$queued_items->fetch()) {
+        $mapped_object->delete();
+      }
+    }
+  }
+  else {
+    $storage->delete($storage->loadByEntity($entity));
+  }
+
+}
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function salesforce_mapping_field_formatter_info_alter(array &$info) {
+  $info['link']['field_types'][] = 'mapped_entity_link';
+  $info['link']['field_types'][] = 'salesforce_link';
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function salesforce_mapping_module_implements_alter(&$implementations, $hook) {
+  // This needs to go last to make sure the mapping isn't deleted before
+  // everything is done being cleaned up.
+  switch ($hook) {
+    case 'entity_delete':
+      $group = $implementations['salesforce_mapping'];
+      unset($implementations['salesforce_mapping']);
+      $implementations['salesforce_mapping'] = $group;
+      break;
+  }
+}

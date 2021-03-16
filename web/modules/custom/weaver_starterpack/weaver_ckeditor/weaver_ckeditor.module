@@ -1,0 +1,109 @@
+<?php
+
+
+// set up default styles available in CKEditor
+function weaver_ckeditor_editor_js_settings_alter(array &$settings) {
+
+  foreach ($settings['editor']['formats'] as $name => $value) {
+
+  	if ($name == 'full_html' || $name == 'basic_html') {
+
+	    $settings['editor']['formats'][$name]['editorSettings']['stylesSet'] = [
+	    	[
+	    		'name' => 'Blue Text',
+	    		'element' => 'span',
+	    		'attributes' => ['class' => "text-blue"]
+	    	],
+	    	[
+	    		'name' => 'Grey Text',
+	    		'element' => 'span',
+	    		'attributes' => ['class' => "text-grey-medium"]
+	    	],
+	    	[
+	    		'name' => 'Red Text',
+	    		'element' => 'span',
+	    		'attributes' => ['class' => "text-red"]
+	    	],
+	    	[
+	    		'name' => 'Teal Text',
+	    		'element' => 'span',
+	    		'attributes' => ['class' => "text-teal"]
+	    	],
+	    	[
+	    		'name' => 'Yellow Text',
+	    		'element' => 'span',
+	    		'attributes' => ['class' => "text-yellow"]
+	    	],
+	    	[
+	    		'name' => 'Large Font Size (18px)',
+	    		'element' => 'span',
+	    		'attributes' => ['class' => "font-size-lg"]
+	    	],
+	    	[
+	    		'name' => 'Small Font Size (14px)',
+	    		'element' => 'span',
+	    		'attributes' => ['class' => "font-size-sm"]
+	    	],
+	      [
+	    		'name' => 'Callout',
+	    		'element' => 'p',
+	    		'attributes' => [
+	    			'class' => "callout callout-yellow",
+	    			'data-icon' => "comment-exclamation"
+	    		]
+	    	],
+	    	[
+	    		'name' => 'Form Button',
+	    		'element' => 'a',
+	    		'attributes' => [
+	    			'class' => "callout callout-teal",
+	    			'data-icon' => "file-edit"
+	    		]
+	    	],
+	    	[
+	      	'name' => 'Blue Button',
+	      	'element' => 'a', 
+	      	'attributes' => ['class' => "btn btn-blue"],
+	      ],
+	      [
+	      	'name' => 'Red Button',
+	      	'element' => 'a',
+	      	'attributes' => ['class' => "btn btn-red"]
+	      ],
+	      [
+	      	'name' => 'Teal Button',
+	      	'element' => 'a',
+	      	'attributes' => ['class' => "btn btn-teal"]
+	      ],
+	      [
+	      	'name' => 'Yellow Button',
+	      	'element' => 'a',
+	      	'attributes' => ['class' => "btn btn-yellow"]
+	      ],
+	      [
+	      	'name' => 'Blue Outline Button',
+	      	'element' => 'a', 
+	      	'attributes' => ['class' => "btn btn-outline-blue"],
+	      ],
+	      [
+	      	'name' => 'Red Outline Button',
+	      	'element' => 'a',
+	      	'attributes' => ['class' => "btn btn-outline-red"]
+	      ],
+	      [
+	      	'name' => 'Teal Outline Button',
+	      	'element' => 'a',
+	      	'attributes' => ['class' => "btn btn-outline-teal"]
+	      ],
+	      [
+	      	'name' => 'Yellow Outline Button',
+	      	'element' => 'a',
+	      	'attributes' => ['class' => "btn btn-outline-yellow"]
+	      ],
+	    ];
+
+    }
+  }
+
+}
+

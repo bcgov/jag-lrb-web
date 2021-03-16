@@ -1,0 +1,25 @@
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes).addClass(custom_classes) }} {% if anchor|length %}id="{{ anchor }}"{% endif %}>
+
+      <div class="row">
+        {% block content %}
+          <div class="col-md-6 pr-md-5 image-col">
+            {{ content.field_weaver_left_text }}
+          </div>
+          <div class="col-md-6 pl-md-5 text-col">
+            {{ content.field_weaver_right_text }}
+          </div>
+        {% endblock %}
+      </div>
+
+  </div>
+{% endblock paragraph %}

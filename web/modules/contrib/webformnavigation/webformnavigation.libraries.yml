@@ -1,0 +1,13 @@
+# Navigation.
+
+webformnavigation.progress.bar:
+  version: VERSION
+  css:
+    component:
+      css/webformnavigation.progress.bar.css: {}
+
+webformnavigation.progress.tracker:
+  version: VERSION
+  css:
+    component:
+      css/webformnavigation.progress.tracker.css: {}

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.cp_test.field_cp_test_paragraphs
+    - node.type.cp_test
+  module:
+    - user
+id: node.cp_test.teaser
+targetEntityType: node
+bundle: cp_test
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_cp_test_paragraphs: true

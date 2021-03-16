@@ -1,0 +1,5 @@
+services:
+  smart_date.route_subscriber:
+    class: Drupal\smart_date\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

@@ -1,0 +1,21 @@
+.accordion-heading {
+
+	@include hoverStates() {
+		color: $teal-lighter !important;
+		transition: all 500ms;
+	}
+}
+
+.accordion-toggle {
+
+	.icon-morph-group {
+		margin-left: 2rem;
+	}
+}
+
+.accordion-item-text {
+
+	@include media-breakpoint-up(lg) {
+		width: 75%;
+	}
+}

@@ -1,0 +1,53 @@
+{#
+/**
+ * Available variables
+ * - elements: array of element contains social media link.
+ *
+ */
+#}
+
+
+<div class="social-media-sharing">
+  <ul class="">
+    {% if node_type == 'news' %}
+      {% set classes = [
+      'share'
+      ]
+      %}
+    {% else %}
+      {% set classes = [
+      'share',
+      'btn',
+      'btn-yellow',
+      'btn-round',
+      ]
+      %}
+    {% endif %}
+    {% for element in elements %}
+      {% if element.forward_dialog == 1 %}
+        {% set classes = classes|merge(['use-ajax']) %}
+        {% set dialogType = "data-dialog-type=dialog" %}
+        {% set dialogOptions = "data-dialog-options=" ~ {'width': '600'}|json_encode %}
+      {% endif %}
+      <li>
+        <a {{ dialogType }} {{ dialogOptions }} {{ element.attr.target }} {{ element.attr.rel }} {{ element.attr.class.addClass(classes) }}  {{ element.api }}
+          title="{{ element.text }}">
+          {% if element.icon %}
+            <i class="{{ element.icon }} {% if node_type == 'news' %}
+{% else %}fa-2x{% endif %} fa-fw"></i>
+          {% else %}
+
+            {% if element.img %}
+              <img alt="{{ element.text }}" src="{{ element.img }}">
+            {% else %}
+              {{ element.text }}
+            {% endif %}
+
+          {% endif %}
+        </a>
+
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+

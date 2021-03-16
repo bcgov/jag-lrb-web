@@ -1,0 +1,95 @@
+.no-svg-fallback {
+	display: none;
+
+	.no-svg & {
+		display: block;
+	}
+}
+
+a[data-extension="pdf"],
+.file--application-pdf {
+	background-image: none;
+}
+
+a[data-extension="pdf"],
+.file--application-pdf a {
+
+	svg {
+		min-width: 16px;
+		min-height: 16px;
+		margin-right: 0.25rem;
+		transform: translateY(2px);
+    transition: all 500ms ease-in-out;
+  
+		path {
+			fill: $teal;
+		}
+	}
+
+  @include hoverStates() {
+    
+    svg {
+      transform: scale(1.3);
+    }
+  }
+}
+
+/* override weird Bootstrap Barrio style */
+.node {
+
+	.field--type-image {
+		float: none;
+		margin: 0;
+	}
+}
+
+img {
+	width: 100%;
+	height: auto;
+
+}
+
+.field--name-field-media-oembed-video {
+
+	position: relative;
+	width: 100%;
+  height: 0;
+  margin: 0 auto;
+  padding-bottom: 56.25%; /* 16:9 */
+
+  @include media-breakpoint-up(lg) {
+		width: 50%;
+	  padding-bottom: 36.25%; /* 16:9 */
+	}
+ 	
+ 	iframe {
+		position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;	
+	}
+}
+
+.overlay-red {
+	position: relative;
+
+	&:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		width: 50px;
+		height: 50px;
+		background: $red;
+	}
+}
+
+svg {
+
+	&.lrb-arrow {
+		.a{fill:none;}
+		.b{fill:$teal;}
+	}
+}

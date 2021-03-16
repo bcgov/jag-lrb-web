@@ -1,0 +1,63 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_wv_accordion_group
+    - paragraphs.paragraphs_type.wv_accordion
+    - paragraphs.paragraphs_type.wv_accordion_item
+  module:
+    - entity_reference_revisions
+id: paragraph.wv_accordion.field_wv_accordion_group
+field_name: field_wv_accordion_group
+entity_type: paragraph
+bundle: wv_accordion
+label: 'Accordion Group'
+description: 'Add one or more accordion items that will expand and contract on visitor clicks'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      wv_accordion_item: wv_accordion_item
+    target_bundles_drag_drop:
+      from_library:
+        weight: 13
+        enabled: false
+      lrb_youtube_video:
+        weight: 14
+        enabled: false
+      wv_accordion:
+        weight: 15
+        enabled: false
+      wv_accordion_item:
+        enabled: true
+        weight: 16
+      wv_bigimage:
+        weight: 17
+        enabled: false
+      wv_buttons:
+        weight: 18
+        enabled: false
+      wv_gallery:
+        weight: 19
+        enabled: false
+      wv_hero:
+        weight: 20
+        enabled: false
+      wv_text:
+        weight: 21
+        enabled: false
+      wv_twocol_text:
+        weight: 22
+        enabled: false
+      wv_twocol_text_image:
+        weight: 23
+        enabled: false
+      wv_container:
+        weight: 24
+        enabled: false
+field_type: entity_reference_revisions

@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_wv_content
+    - node.type.page
+  module:
+    - entity_reference_revisions
+id: node.page.field_wv_content
+field_name: field_wv_content
+entity_type: node
+bundle: page
+label: Content
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 1
+    target_bundles: null
+field_type: entity_reference_revisions

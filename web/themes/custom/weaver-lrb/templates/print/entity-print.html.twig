@@ -1,0 +1,30 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ pdf_title }}</title>
+  {{ entity_print_css }}
+</head>
+<body class="entity-print {{ custom_classes }}">
+
+  <div id="pdf-footer">
+    {% include '@weaver/print/entity-print-footer.html.twig' with { title: pdf_title } %}
+  </div>
+
+  <div class="container">
+	  <div class="page">
+
+	  	<div class="entity-print-content">
+        <p class="header-logo"><img class="logo" src="/{{ directory }}/images/website-logo.png" title="{{ site_name }} logo" alt="{{ site_name }} logo" width="228px" height="auto" /></p>
+			  
+        {{ content }}
+
+        {% include '@weaver/layout/disclaimer.html.twig' with { disclaimer: disclaimer } %}
+
+        {% include '@weaver/layout/territorial-acknowledgement.html.twig' with { territorial: territorial } %}
+		  </div>
+	  </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+@mixin sideBarButtonFocus {
+	background: $blue none;
+
+	a {
+		color: $white !important;
+		text-decoration: none;
+		box-shadow: 0 0 0 0 !important;
+	}
+}
+
+body {
+	@include media-breakpoint-up(lg) {
+		padding-left: $side-menu-width;
+	}
+}
+
+#side-menu {
+	margin-top: $header_mobile_height;
+	transition: top 500ms;
+
+	@include media-breakpoint-up(lg) {
+		position: fixed;
+		top: $header_height;
+		left: 0;
+		z-index: 500;
+		width: $side_menu_width;
+		margin-top: 0;
+		padding-top: 0;
+	}
+	
+	.navbar-reduced & {
+		top: $reduced_header_height;
+	}
+
+	.adminimal-admin-toolbar & {
+		top: $admin_height + $header_height;
+	}
+
+	.navbar-reduced.adminimal-admin-toolbar & {
+		top: $admin_height + $reduced_header_height;
+	}
+	
+	.side-menu-inner {
+		height: $side_menu_mobile_height;
+		background-color: $grey;
+
+		@include media-breakpoint-up(lg) {
+			height: 100vh;
+		}
+	}
+
+	#takeover-button {
+		background-color: $yellow;
+
+		a {
+			@include hoverStates {
+				color: $white !important;
+				box-shadow: 0 0 0 0 !important;
+			}
+
+			&:focus-within {
+				color: $white !important;
+				box-shadow: 0 0 0 0 !important;
+			}
+
+			.takeover-menu-open & {
+
+				@include hoverStates {
+					color: $blue !important;
+				}
+
+				&:focus-within {
+					color: $blue !important;
+				}
+			}
+		}
+	}
+
+	#search-button {
+		background-color: $grey;
+
+		.takeover-search-open & {
+			background-color: $blue;
+			color: $white !important;
+		}
+	}
+
+	.side-menu-button {
+		background-color: $grey;
+
+		a {
+			color: $teal;
+		}
+	}
+
+	#takeover-button,
+	#search-button,
+	.side-menu-button {
+		max-width: $side_menu_mobile_height;
+		padding: 0 0.5rem;
+			
+		@media screen and (min-width: 375px) {
+			padding: 0 1rem;
+		}
+
+		@media screen and (min-width: 425px) {
+			flex: 0 0 auto;
+		}
+
+		@include media-breakpoint-up(lg) {
+			max-width: 9999px;
+			padding: 0;
+		}
+
+		a {		
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100px;
+			font-size: 0.7rem;
+			line-height: 1.2rem;
+			transition: all 500ms;
+
+			@include media-breakpoint-up(lg) {
+				border-bottom: 1px solid $white;
+			}
+
+			&:hover {
+				cursor: pointer;
+			}
+
+			@media screen and (min-width: 992px) and (min-height: 900px) {
+				height: 125px;
+				font-size: $font-size-sm;
+			}
+
+			svg {
+				margin-bottom: 0.5rem;
+			}
+		}
+
+		&:last-child {
+
+			a {
+				border-bottom: 0 none;
+			}
+		}
+	}
+
+	#search-button,
+	.side-menu-button {
+
+		&:focus-within {
+			@include sideBarButtonFocus;
+		}
+
+		@include hoverStates {
+			@include sideBarButtonFocus;
+		}
+	}
+
+}
+
+.takeover-menu-open #takeover-button .fa-bars,
+.takeover-search-open #search-button .fa-search {
+	position: relative;
+	left: 2px;
+	transition: left 100ms;
+}
+.search-open #search-button .fa-search {
+	left: 6px;
+}
+

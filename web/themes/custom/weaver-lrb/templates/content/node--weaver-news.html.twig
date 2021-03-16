@@ -1,0 +1,85 @@
+{{ attach_library('bootstrap_barrio/node') }}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    'clearfix', 'mt-5'
+  ]
+%}
+<article{{ attributes.addClass(classes) }}>
+  <div{{ content_attributes.addClass('node__content', 'clearfix', 'row') }}>
+    <div class="col-md-8">
+      <h1 class="page-title mb-5">{{ label }}</h1>
+
+      <div class="row">
+        <div class="col-md-2 news-dates d-flex justify-content-start align-items-start d-md-block">
+          <p class="pb-2 text-teal font-weight-bold border-bottom border-color-teal">{{ node.getCreatedTime()|date('j.m.y') }}<span class="d-md-none px-2">|</span></p>
+          {% if updated %}
+            <p class="text-teal font-size-sm">{{ 'UPDATED'|t }} <br class="d-none d-md-inline" />{{ node.getChangedTime()|date('j.m.y') }}</p>
+          {% endif %}
+        </div>
+
+        <div class="col-md-8 news-content">
+          
+          {{ content }}
+
+          <div class="mt-5 pt-5">
+            {{ weaver_next_previous_links(node) }}
+          </div>
+        </div>
+
+        <div class="col-md-2 news-icons d-flex justify-content-start align-items-start mt-3 mt-md-0">
+          <ul class="m-0 p-0 w-100 text-center d-flex d-md-block align-items-center justify-content-center">
+            <li class="mr-3 mr-md-0">
+              <a href="/news/rss" target="_blank" title="{{ 'View the RSS feed for our news and policy updates'|t }}" data-toggle="tooltip">
+                <i class="fal fa-fw fa-rss"></i>
+              </a>
+            </li>
+
+            <li id="news-share">
+              <a tabindex="0" target="_blank" title="{{ 'Share this post by email or social media'|t }}" data-toggle="tooltip">
+                <i class="fal fa-fw fa-share-alt-square text-teal"></i>
+              </a>
+              {{ drupal_block('social_sharing_block') }}
+            </li>
+
+            <li class="d-none d-md-block">
+              <a href="/print/pdf/node/{{ node.id() }}" target="_blank" title="{{ 'Print this post or save it as a PDF'|t }}" data-toggle="tooltip">
+                <i class="fal fa-fw fa-print"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 news-sidebar">
+      {% if categories is defined %}
+        <div class="mb-5 py-4 px-5 box-shadow bg-grey-lighter">
+          <h3 class="mb-4 text-teal thick-underline thick-underline-teal">{{ 'View by category'|t }}</h3>
+
+          <ul class="m-0 p-0 list-unstyled">
+            {% for category in categories %}
+              <li class="mb-3">{{ drupal_link(category.label(), weaver_news_category_url(category.id()), {attributes: {class: 'underline'}}) }}</li>
+            {% endfor %}
+            <li>{{ drupal_link('Show all'|t, news_page_url, {attributes: {class: 'underline'}}) }}</li>
+          </ul>
+        </div>
+      {% endif %}
+
+
+      {{ drupal_view('lrb_news', 'block_2') }}
+
+      {% if news_page_url %}
+        <p class="text-center"><a class="underline" href="{{ news_page_url }}">{{ 'VIEW ALL'|t }}</a></p>
+      {% endif %}
+    </div>
+
+
+  </div>
+</article>

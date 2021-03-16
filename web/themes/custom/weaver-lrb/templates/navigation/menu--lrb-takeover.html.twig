@@ -1,0 +1,53 @@
+{# adds tabindex to links #}
+
+{% import _self as menus %}
+
+{{ menus.menu_links(items, attributes, 0) }}
+
+{% macro menu_links(items, attributes, menu_level) %}
+  {% import _self as menus %}
+  {% if items %}
+    {% if menu_level == 0 %}
+      <ul{{ attributes.addClass('nav') }}>
+    {% else %}
+      <ul class="menu">
+    {% endif %}
+
+    {% for item in items %}
+      {%
+        set classes = [
+          'nav-item',
+          item.is_expanded ? 'menu-item--expanded',
+          item.is_collapsed ? 'menu-item--collapsed',
+          item.in_active_trail ? 'menu-item--active-trail',
+        ]
+      %}
+      <li{{ item.attributes.addClass(classes) }}>
+        {%
+          set link_classes = [
+            'nav-link',
+            item.in_active_trail ? 'active',
+            item.url.getOption('attributes').class ? item.url.getOption('attributes').class | join(''),
+            'nav-link-' ~ item.url.toString() | clean_class,
+            'd-flex', 'justify-content-between', 'd-lg-block'
+          ]
+        %}
+        {% if item.below %}
+          {% set item_text %}
+            {{ item.title }} <i class="fal fa-chevron-down d-lg-none ml-2 ml-lg-0"></i>
+          {% endset %}
+  
+          {{ link(item_text|raw, item.url, {'class': link_classes }) }}
+        {% else %}
+          {{ link(item.title|raw, item.url, {'class': link_classes }) }}
+        {% endif %}
+
+        
+        {% if item.below %}
+          {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}

@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.preview
+    - field.field.paragraph.weaver_hero.field_weaver_hero_buttons
+    - field.field.paragraph.weaver_hero.field_weaver_hero_image
+    - field.field.paragraph.weaver_hero.field_weaver_hero_text
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.weaver_hero
+  module:
+    - media
+    - text
+id: paragraph.weaver_hero.preview
+targetEntityType: paragraph
+bundle: weaver_hero
+mode: preview
+content:
+  field_weaver_hero_image:
+    type: media_thumbnail
+    weight: 0
+    label: hidden
+    settings:
+      image_style: thumbnail
+      image_link: ''
+    third_party_settings: {  }
+    region: content
+  field_weaver_hero_text:
+    weight: 1
+    label: hidden
+    settings:
+      trim_length: 100
+    third_party_settings: {  }
+    type: text_trimmed
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_weaver_hero_buttons: true

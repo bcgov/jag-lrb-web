@@ -1,0 +1,45 @@
+{%
+  set classes = [
+    'field',
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+    'field--label-' ~ label_display,
+  ]
+%}
+{%
+  set title_classes = [
+    'field__label',
+    label_display == 'visually_hidden' ? 'visually-hidden',
+  ]
+%}
+
+{% if label_hidden %}
+  {% if multiple %}
+    <div{{ attributes.addClass(classes, 'field__items row') }}>
+      {% for item in items %}
+        {{ item.content }}
+      {% endfor %}
+    </div>
+  {% else %}
+    {% for item in items %}
+      {{ item.content }}
+    {% endfor %}
+  {% endif %}
+
+{% else %}
+  
+  <div{{ attributes.addClass(classes) }}>
+    <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
+    {% if multiple %}
+      <div class='field__items row'>
+        <div class="card-deck">
+    {% endif %}
+    {% for item in items %}
+      {{ item.content }}
+    {% endfor %}
+    {% if multiple %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

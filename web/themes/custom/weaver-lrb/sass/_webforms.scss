@@ -1,0 +1,134 @@
+
+.form-required {
+	
+	&:after {
+		content: "*";
+		display: inline;
+		padding: 0 0.1rem;
+		color: $red;
+		background-image: none;
+		vertical-align: baseline;
+	}
+}
+
+legend,
+.fieldset-legend {
+	margin: 0;
+	font-size: $font-size-base;
+	font-weight: $font-weight-bold;
+}
+
+label {
+
+	&:not(.custom-control-label) {
+		font-weight: $font-weight-bold;
+	}
+}
+
+.form-submit {
+	font-weight: $font-weight-bold;
+}
+
+.form-date,
+.form-email,
+.form-tel,
+.form-select,
+.form-text,
+.select2,
+textarea,
+textarea.form-control {
+	width: 100%;
+	margin-top: 0;
+	padding: 2rem 1rem;
+	border: 1px solid $blue;
+	border-radius: $input-border-radius;
+	background-color: $gray-lighter;
+	transition: all 500ms;
+	color: $blue;
+
+	&::placeholder {
+		color: $grey-medium;
+	}
+
+	.paragraph--type--wv-container-full.bg-grey-lighter & {
+		background-color: $white;
+	}
+}
+
+.checkbox {
+	padding: 2rem;
+	
+	.views-exposed-form & {
+		padding: 0.5rem 0 0 1rem;
+	}
+}
+
+.form-select,
+.select2 {
+	min-height: 65px;
+	padding: 0 1rem;
+}
+
+
+.select2-container--default .select2-selection--multiple,
+.select2-container--default .select2-selection--multiple ul,
+.select2-container--default .select2-selection--multiple li,
+.select2-container--default .select2-selection--multiple input {
+	border: 0 none !important;
+	background: transparent none !important;
+}
+
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	min-height: 65px;
+	vertical-align: middle;
+}
+
+.webform-flex + .webform-flex {
+
+	@include media-breakpoint-up(md) {
+		margin-left: 1rem;
+	}
+}
+
+.webform-button--reset {
+
+	@include media-breakpoint-up(md) {
+		margin-left: 3rem;
+	}
+}
+
+input[type=submit] {
+	transition: all 500ms;
+}
+
+#captcha {
+	padding-bottom: 3rem;
+
+	summary {
+		display: none;
+		visibility: hidden;
+	}
+}
+
+#lrb-mailchimp-signup {
+	margin: 3rem 0;
+	
+	label {
+		font-weight: normal;
+	}
+
+	.form-text {
+		flex: 1;
+		padding: 1.2rem 1rem;
+		border: 0 none;
+		background-color: $grey-medium;
+
+		@include media-breakpoint-up(lg) {
+			margin-left: 3rem;
+			margin-right: 1rem;
+		}
+	}
+}

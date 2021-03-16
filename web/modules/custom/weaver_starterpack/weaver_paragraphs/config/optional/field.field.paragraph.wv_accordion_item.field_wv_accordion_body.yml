@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_wv_accordion_body
+    - paragraphs.paragraphs_type.wv_accordion_item
+  module:
+    - text
+id: paragraph.wv_accordion_item.field_wv_accordion_body
+field_name: field_wv_accordion_body
+entity_type: paragraph
+bundle: wv_accordion_item
+label: Body
+description: 'This section will appear when the accordion item is expanded'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

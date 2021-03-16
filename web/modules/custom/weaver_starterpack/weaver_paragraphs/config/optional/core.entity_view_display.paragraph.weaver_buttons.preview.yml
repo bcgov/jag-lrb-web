@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.preview
+    - field.field.paragraph.weaver_buttons.field_weaver_buttons
+    - paragraphs.paragraphs_type.weaver_buttons
+  module:
+    - link
+id: paragraph.weaver_buttons.preview
+targetEntityType: paragraph
+bundle: weaver_buttons
+mode: preview
+content:
+  field_weaver_buttons:
+    weight: 0
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true

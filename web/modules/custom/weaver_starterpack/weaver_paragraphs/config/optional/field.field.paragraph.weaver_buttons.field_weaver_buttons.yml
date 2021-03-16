@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_weaver_buttons
+    - paragraphs.paragraphs_type.weaver_buttons
+  module:
+    - link
+id: paragraph.weaver_buttons.field_weaver_buttons
+field_name: field_weaver_buttons
+entity_type: paragraph
+bundle: weaver_buttons
+label: Button(s)
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

@@ -1,0 +1,28 @@
+webform.handler.mailchimp:
+  type: mapping
+  label: 'MailChimp'
+  mapping:
+    list:
+      type: string
+      label: 'List'
+    email:
+      type: string
+      label: 'Email'
+    double_optin:
+      type: boolean
+      label: 'Double Opt-In'
+    mergevars:
+      type: text
+      label: 'Merge fields (YAML)'
+    interest_groups:
+      type: sequence
+      label: 'Interest groups'
+      sequence:
+        type: sequence
+        label: 'Category'
+        sequence:
+          type: string
+          label: 'Interest group ID'
+    control:
+      type: string
+      label: 'Control field'

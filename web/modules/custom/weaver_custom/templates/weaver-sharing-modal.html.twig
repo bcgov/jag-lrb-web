@@ -1,0 +1,21 @@
+<div id="weaver-social-sharing">
+	{% if print_link %}
+		<div class="weaver-social-link weaver-social-print">
+			<a href="{{ print_link }}" class="{{ button_classes }}" data-toggle="tooltip" title="{{ 'Print this page or save as PDF'|t }}" target="_blank">
+				<i class="fal fa-fw fa-2x fa-print"></i>
+			</a>
+		</div>
+	{% endif %}
+
+	<div class="weaver-social-link weaver-social-share">
+		<a tabindex="0" class="{{ button_classes }}" data-toggle="tooltip" title="{{ 'Share this page'|t }}" aria-expanded="false" aria-controls="weaver-share-links" role="button">
+			<i class="fal fa-fw fa-2x fa-share-alt" id="share-alt-original"></i>
+			<i class="fal fa-2x fa-fw fa-share-alt d-none" id="share-alt-icon"></i>
+			<i class="fal fa-2x fa-fw fa-times d-none" id="close-icon"></i>
+		</a>
+	</div>
+</div>
+
+<div id="weaver-share-links" aria-hidden="true" tabindex="-1" aria-labelledBy="{{ 'Social Share Links'|t }}" role="dialog">
+	{{ drupal_block('social_sharing_block') }}
+</div>

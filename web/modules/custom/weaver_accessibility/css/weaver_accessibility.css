@@ -1,0 +1,40 @@
+/* Text Resizer */
+body.weaver-text-resizing {
+	transition: font-size 300ms;
+}
+
+body[data-weaver-text-resize="1"]:not(.adminimal) {
+	font-size: 0.5rem !important;
+}
+
+body[data-weaver-text-resize="2"]:not(.adminimal) {
+	font-size: 0.75rem !important;
+}
+
+body[data-weaver-text-resize="3"]:not(.adminimal) {
+	font-size: 1rem !important;
+}
+
+body[data-weaver-text-resize="4"]:not(.adminimal) {
+	font-size: 1.25rem !important;
+}
+
+body[data-weaver-text-resize="5"]:not(.adminimal) {
+	font-size: 1.5rem !important;
+}
+
+.resizer {
+	cursor: pointer;
+}
+
+.resizer[data-resize=smaller] {
+	font-size: 0.75rem !important;
+}
+
+.resizer[data-resize=reset] {
+	font-size: 1rem !important;
+}
+
+.resizer[data-resize=larger] {
+	font-size: 1.25rem !important;
+}

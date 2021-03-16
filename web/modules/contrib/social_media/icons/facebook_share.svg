@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Faktaruta" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-367.000000, -701.000000)">
+        <g id="Group" transform="translate(240.000000, 699.000000)" fill="#4169AF" fill-rule="nonzero">
+            <path d="M147,2 C135.954167,2 127,10.9541667 127,22 C127,33.0458333 135.954167,42 147,42 C158.045833,42 167,33.0458333 167,22 C167,10.9541667 158.045833,2 147,2 Z M151.7375,15.8208333 L148.73125,15.8208333 C148.375,15.8208333 147.979167,16.2895833 147.979167,16.9125 L147.979167,19.0833333 L151.739583,19.0833333 L151.170833,22.1791667 L147.979167,22.1791667 L147.979167,31.4729167 L144.43125,31.4729167 L144.43125,22.1791667 L141.2125,22.1791667 L141.2125,19.0833333 L144.43125,19.0833333 L144.43125,17.2625 C144.43125,14.65 146.24375,12.5270833 148.73125,12.5270833 L151.7375,12.5270833 L151.7375,15.8208333 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

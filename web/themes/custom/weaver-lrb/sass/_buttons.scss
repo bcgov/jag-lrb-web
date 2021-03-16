@@ -1,0 +1,86 @@
+.btn {
+  width: 100%;
+  text-decoration: none !important;
+  
+  @include media-breakpoint-up(md) {
+    width: auto;
+  }
+
+  & + .btn {
+    margin-top: 2rem;
+
+    @include media-breakpoint-up(md) {
+      margin-top: 0;
+      margin-left: 2rem;
+    }
+  }
+
+	@each $name, $value in $colors {
+
+    &.btn-#{$name} {
+      background-color: #{$value} !important;
+      border: $border-width solid #{$value} !important;
+      color: $white !important;
+
+      @include hoverStates {
+	      background-color: transparent !important;
+      	border: $border-width solid #{$value} !important;
+      	color: #{$value} !important;
+      }
+    }
+
+    &.btn-outline-#{$name} {
+      color: #{$value} !important;
+      background-color: transparent !important;
+      border-size: $border-width !important;
+      border-style: solid !important;
+      border-color: #{$value} !important;
+
+      @include hoverStates {
+        border-color: #{$value} !important;
+        color: $white !important;
+        background-color: #{$value} !important;
+      }
+    }
+  }
+
+  &.btn-round {
+    border-radius: 50%;
+    padding: 1rem;
+  }
+
+  &.btn-wide {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  /*Special Cases for White*/
+  &.btn-white {
+  	color: $grey-darker !important;
+  }
+
+  &.btn-yellow {
+    color: $blue !important;
+  }
+
+  &.btn-outline-white {
+
+  	@include hoverStates {
+  		color: $grey-darker !important;
+  	}
+  }
+
+  &.btn-outline-yellow {
+
+    @include hoverStates() {
+      color: $blue !important;
+    }
+  }
+
+ 	/* targets auto-generated PDF links from CKEditor filter -- see _media.scss also */
+	&[data-extension="pdf"] {
+		padding-left: 1.75rem;
+		background-position: 0.75rem center;
+	}
+
+}

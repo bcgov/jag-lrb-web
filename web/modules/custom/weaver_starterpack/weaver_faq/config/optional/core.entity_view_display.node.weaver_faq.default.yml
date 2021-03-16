@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.weaver_faq.body
+    - node.type.weaver_faq
+  module:
+    - text
+    - user
+id: node.weaver_faq.default
+targetEntityType: node
+bundle: weaver_faq
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  links: true

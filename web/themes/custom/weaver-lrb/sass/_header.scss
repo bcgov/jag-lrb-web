@@ -1,0 +1,287 @@
+#header {
+	position: relative;
+	z-index: 500;
+
+	@include media-breakpoint-up(lg) {
+		height: $header_height;
+	}
+
+	.navbar {
+		flex-wrap: nowrap;
+		height: $header_mobile_height;
+		box-shadow: $shadow;
+
+		@include media-breakpoint-up(lg) {
+			height: $header_height;
+			box-shadow: none;
+		}
+
+		svg {
+			width: 100%;
+		}
+	}
+
+	.navbar-logo-icon {
+		height: auto;
+		
+		@include media-breakpoint-up(lg) {
+			height: $header_height;
+		}
+	}
+
+	.navbar-reduced & {
+
+		#header,
+		.navbar,
+		.navbar-logo-icon {
+			height: $reduced_header_height;
+		}
+
+		.navbar {
+			box-shadow: $shadow;
+		}
+	}
+	
+	.navbar {
+		padding: 0 1rem;
+		background: $white;
+		transition: height 500ms;
+
+		.adminimal-admin-toolbar & {
+			margin-top: $admin_height;
+		}
+
+		.navbar-toggler {
+			position: relative;
+			top: -4px;
+			right: 4px;
+			width: 20%;
+			margin: 0;
+			padding: 5px 0 0;
+
+			@include media-breakpoint-up(sm) {
+				width: 10%;
+			}
+		}
+
+		.navbar-logo-icon,
+		.navbar-logo-text {
+
+			path {
+				transition: all 500ms !important;
+			}
+		}
+
+		.navbar-logo-icon {
+			width: 20%;
+
+			@include media-breakpoint-up(sm) {
+				width: auto;
+			}
+			
+			/* ensures entire square is clickable */
+			a {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				@include media-breakpoint-up(lg) {
+					width: $side_menu_width;
+					height: 100%;
+					background-color: $grey;
+				}
+			}
+
+			&.hover-friend,			
+			&:hover,
+			&:active,
+			&:focus,
+			&:focus-within {
+
+				path {
+					transform: translateX(2px) !important;
+				}
+
+				path:nth-child(2) {
+					transform: translateX(-2px) !important;
+				}
+			}
+
+			path {
+				fill: $blue;
+
+				&:nth-child(2) { /* this is the one on the left actually */
+					fill: $teal;
+				}
+			}
+		}
+
+		.navbar-logo-text {
+			
+			&.hover-friend,
+			&:hover,
+			&:active,
+			&:focus,
+			&:focus-within {
+				path {
+					fill: $teal;
+				}
+
+				path.lrb {
+					fill: $teal;
+				}
+			}
+		}
+
+		nav,
+		#weaver-text-resizer {
+			display: inline-block;
+		}
+
+		.nav-item,
+		#weaver-text-resizer {
+			font-size: $font-size-sm;
+
+			@include media-breakpoint-up(xl) {
+				font-size: $font-size-base;
+			}
+
+			a {
+				margin: 0 0.5rem;
+				padding: 0;
+				color: $blue;
+
+				@include media-breakpoint-up(xl) {
+					margin: 0 1rem;
+				}
+
+				@include hoverStates() {
+					color: $teal;
+					text-decoration: underline;		
+				}
+			}
+
+			&.active {
+
+				a {
+					color: $teal;
+					font-weight: $font-weight-bold;
+					text-decoration: underline;
+				}
+			}
+		}
+
+		
+		#weaver-text-resizer {
+
+			a {
+				margin: 0 0.1rem;
+			}
+		}
+	}
+}
+
+.update-bar {
+	padding-top: 1rem;
+	background-color: $grey-lighter;
+	border-bottom: 1px solid $gray;
+
+	a {
+		text-decoration: underline !important;
+
+		@include hoverStates() {
+			text-decoration: none !important;
+		}
+	}
+
+	.path-frontpage & {
+		padding-top: 1rem;
+		background-color: transparent;
+
+		@include media-breakpoint-up(lg) {
+			padding-top: 0;
+		}
+
+		p {
+			font-size: $font-size-sm;
+			
+			@include media-breakpoint-up(lg) {
+
+				a {
+					text-underline-position: 0;
+				}
+			}
+		}
+	}
+}
+
+/* animation only on home page */
+.path-front-page {
+
+	.navbar-logo-icon {
+
+		svg,
+		path {
+	    animation-delay: 1000ms;
+			animation-duration: 3500ms;
+	    animation-fill-mode: forwards;
+	    animation-iteration-count: 1;
+	    animation-timing-function: ease-in-out;
+		}
+
+		svg {
+	    animation-name: logoIconSvg;
+		}
+
+		path {
+			transform: translateX(-3px);
+
+			&.animate {
+	      animation-name: logoIconRight;
+			}
+
+			&:nth-child(2) { /* this is the one on the left actually */
+				transform: translateX(3px);
+
+				&.animate {
+					animation-name: logoIconLeft;
+				}
+			}
+		}
+	}
+
+	.navbar-logo-text {
+
+		path {
+
+			opacity: 0;
+			fill: $grey;
+
+      &.animate {
+    		animation-delay: 2500ms;
+      	animation-duration: 1500ms;
+	      animation-fill-mode: forwards;
+	      animation-iteration-count: 1;
+	      animation-name: logoRest;
+	    }
+
+	    &.animate-end {
+	    	fill: $blue;
+	    }
+
+			&.lrb {
+
+      	&.animate {
+      		animation-delay: 1500ms;
+	      	animation-duration: 1000ms;
+		      animation-name: logoText;
+		      animation-timing-function: linear;
+		    }
+
+		    &.animate-end {
+		    	fill: $blue;
+		    }
+		  }
+		}
+	}
+}

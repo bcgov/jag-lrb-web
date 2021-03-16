@@ -1,0 +1,142 @@
+#weaver-social-sharing {
+	position: fixed;
+	right: 5%;
+	bottom: 10%;
+	z-index: 400;
+
+	@media screen and (min-width: 1500px) {
+		right: 1%;
+	}
+
+	@media screen and (min-width: 1900px) {
+		right: 3%;
+	}
+
+	.weaver-social-link {
+		margin: 1rem 0;
+
+		a {
+			display: flex;
+			flex-wrap: nowrap;
+			align-items: center;
+			justify-content: center;
+			width: 75px;
+			height: 70px;
+		}
+	}
+
+	svg {
+		transition: all 500ms;
+	}
+
+	.weaver-social-share {
+
+		path {
+			transform: translateX(-16px);
+
+			.social-share-open & {
+				transform: translateX(73px);
+			}
+		}
+	}
+}
+
+#weaver-social-sharing,
+#weaver-share-links {
+	display: none;
+	visibility: hidden;
+
+	@include media-breakpoint-up(md) {
+		display: block;
+		visibility: visible;
+	}
+
+	a.btn {
+		box-shadow: $shadow;
+		font-size: $font-size-sm;
+
+		&.btn-outline-yellow {
+			background-color: $white !important;
+
+			@include hoverStates() {
+				background-color: $yellow !important;
+			}
+		}
+
+		&.btn-yellow {
+
+			@include hoverStates() {
+				background-color: $white !important;
+			}
+		}
+
+		svg {
+			left: -1px;
+		}
+	}
+}
+
+#weaver-share-links {
+	position: fixed;
+	right: -100%;
+	bottom: 11.9%;
+	width: auto;
+	height: auto;
+	margin-top: 1rem;
+	transition: all 500ms;
+	transition-timing-function: ease-in;
+
+	.social-share-open & {
+		right: calc(5% + 5.5rem);
+  	transition-timing-function: ease-out;
+	}
+
+	ul {
+		display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    width: 270px;
+    justify-content: flex-end;
+    align-items: center;
+
+		margin: 0;
+		padding: 0;
+		list-style: none outside none;
+
+		li {
+			margin: 0 0.5rem;
+		}
+	}
+}
+
+/* News Pages */
+#news-share {
+
+	.social-media-sharing {
+		position: relative;
+		z-index: -1;
+		height: 0;
+		opacity: 0;
+		transition: all 500ms;
+
+		ul {
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			margin-top: 1rem;
+
+			li {
+				margin-right: 0;
+			}
+		}
+	}
+
+	&.active {
+
+		.social-media-sharing {
+			z-index: 1;
+			height: auto;
+			opacity: 1;
+		}
+	}
+}

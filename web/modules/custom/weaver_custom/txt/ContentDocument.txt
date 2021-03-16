@@ -1,0 +1,53 @@
+<select data-drupal-selector="edit-field-mappings-0-config-salesforce-field" aria-describedby="edit-field-mappings-0-config-salesforce-field--iOPDTRh6HfM--description" id="edit-field-mappings-0-config-salesforce-field--iOPDTRh6HfM" name="field_mappings[0][config][salesforce_field]" class="form-select">
+
+<option value="" selected="selected">- Select -</option>
+
+<option value="ArchivedDate">Archived Date</option>
+
+<option value="ContentAssetId">Asset File ID</option>
+
+<option value="ContentModifiedDate">Content Modified Date</option>
+
+<option value="Id">ContentDocument ID</option>
+
+<option value="CreatedDate">Created</option>
+
+<option value="CreatedById">Created By ID</option>
+
+<option value="Description">Description</option>
+
+<option value="FileExtension">File Extension</option>
+
+<option value="SharingPrivacy">File Privacy on Records</option>
+
+<option value="FileType">File Type</option>
+
+<option value="IsArchived">Is Archived</option>
+
+<option value="IsDeleted">Is Deleted</option>
+
+<option value="LastModifiedById">Last Modified By ID</option>
+
+<option value="LastModifiedDate">Last Modified Date</option>
+
+<option value="LastReferencedDate">Last Referenced Date</option>
+
+<option value="LastViewedDate">Last Viewed Date</option>
+
+<option value="LatestPublishedVersionId">Latest Published Version ID</option>
+
+<option value="OwnerId">Owner ID</option>
+
+<option value="ParentId">Parent ID</option>
+
+<option value="SharingOption">Prevent others from sharing and unsharing</option>
+
+<option value="PublishStatus">Publish Status</option>
+
+<option value="ContentSize">Size</option>
+
+<option value="SystemModstamp">System Modstamp</option>
+
+<option value="Title">Title</option>
+
+<option value="ArchivedById">User ID</option></select>

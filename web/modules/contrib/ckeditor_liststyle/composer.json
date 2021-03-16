@@ -1,0 +1,22 @@
+{
+  "name": "drupal/ckeditor_liststyle",
+  "type": "drupal-module",
+  "description": "This plugin adds numbered list and ordered list properties dialogs (available in context menu) in CKEditor.",
+  "keywords": ["Drupal", "ckeditor", "list", "list-style"],
+  "license": "GPL-2.0-or-later",
+  "homepage": "http://drupal.org/project/ckeditor_liststyle",
+  "authors": [
+    {
+      "name": "Osman Gormus",
+      "homepage": "https://www.drupal.org/u/osman",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/ckeditor_liststyle",
+    "source": "https://git.drupalcode.org/project/ckeditor_liststyle"
+  },
+  "require": {
+    "drupal/ckeditor": "^8||^9"
+  }
+}

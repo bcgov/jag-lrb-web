@@ -1,0 +1,819 @@
+<select data-drupal-selector="edit-salesforce-object-type" aria-describedby="edit-salesforce-object-type--description" id="edit-salesforce-object-type" name="salesforce_object_type" class="form-select required" required="required" aria-required="true">
+
+<option value="" selected="selected">- Select -</option>
+
+<option value="WorkAccess">Access (WorkAccess)</option>
+
+<option value="WorkAccessShare">Access Share (WorkAccessShare)</option>
+
+<option value="Account">Account (Account)</option>
+
+<option value="AccountChangeEvent">Account Change Event (AccountChangeEvent)</option>
+
+<option value="AccountContactRole">Account Contact Role (AccountContactRole)</option>
+
+<option value="AccountContactRoleChangeEvent">Account Contact Role Change Event (AccountContactRoleChangeEvent)</option>
+
+<option value="AccountShare">Account Share (AccountShare)</option>
+
+<option value="ActionLinkGroupTemplate">Action Link Group Template (ActionLinkGroupTemplate)</option>
+
+<option value="ActionLinkTemplate">Action Link Template (ActionLinkTemplate)</option>
+
+<option value="AdditionalNumber">Additional Directory Number (AdditionalNumber)</option>
+
+<option value="Announcement">Announcement (Announcement)</option>
+
+<option value="ApexClass">Apex Class (ApexClass)</option>
+
+<option value="ApexEmailNotification">Apex Email Notification (ApexEmailNotification)</option>
+
+<option value="ApexTestQueueItem">Apex Test Queue Item (ApexTestQueueItem)</option>
+
+<option value="ApexTestResult">Apex Test Result (ApexTestResult)</option>
+
+<option value="ApexTestResultLimits">Apex Test Result Limit (ApexTestResultLimits)</option>
+
+<option value="ApexTestRunResult">Apex Test Run Result (ApexTestRunResult)</option>
+
+<option value="ApexTestSuite">Apex Test Suite (ApexTestSuite)</option>
+
+<option value="ApexTrigger">Apex Trigger (ApexTrigger)</option>
+
+<option value="AppMenuItem">AppMenuItem (AppMenuItem)</option>
+
+<option value="ProcessInstanceWorkitem">Approval Request (ProcessInstanceWorkitem)</option>
+
+<option value="Asset">Asset (Asset)</option>
+
+<option value="AssetChangeEvent">Asset Change Event (AssetChangeEvent)</option>
+
+<option value="ContentAsset">Asset File (ContentAsset)</option>
+
+<option value="AssetRelationship">Asset Relationship (AssetRelationship)</option>
+
+<option value="AssetTokenEvent">Asset Token Event (AssetTokenEvent)</option>
+
+<option value="AssociatedLocation">Associated Location (AssociatedLocation)</option>
+
+<option value="Attachment">Attachment (Attachment)</option>
+
+<option value="AuraDefinitionBundle">Aura Component Bundle (AuraDefinitionBundle)</option>
+
+<option value="AuthProvider">Auth. Provider (AuthProvider)</option>
+
+<option value="Automation_Settings__c">Automation Settings (Automation_Settings__c)</option>
+
+<option value="WorkBadgeDefinition">Badge (WorkBadgeDefinition)</option>
+
+<option value="WorkBadge">Badge Received (WorkBadge)</option>
+
+<option value="WorkBadgeDefinitionShare">Badge Share (WorkBadgeDefinitionShare)</option>
+
+<option value="BatchApexErrorEvent">Batch Apex Error Platform Event (BatchApexErrorEvent)</option>
+
+<option value="BrandingSet">Branding Set (BrandingSet)</option>
+
+<option value="BrandingSetProperty">Branding Set Property (BrandingSetProperty)</option>
+
+<option value="BusinessHours">Business Hours (BusinessHours)</option>
+
+<option value="BusinessProcess">Business Process (BusinessProcess)</option>
+
+<option value="CorsWhitelistEntry">CORS Allowed Origin List (CorsWhitelistEntry)</option>
+
+<option value="CPG_Settings__c">CPG Settings (CPG_Settings__c)</option>
+
+<option value="SCHED_Calendar_Resource__c">Calendar Resource (SCHED_Calendar_Resource__c)</option>
+
+<option value="Campaign">Campaign (Campaign)</option>
+
+<option value="CampaignChangeEvent">Campaign Change Event (CampaignChangeEvent)</option>
+
+<option value="CampaignMember">Campaign Member (CampaignMember)</option>
+
+<option value="Case">Case (Case)</option>
+
+<option value="Dispute_Area__c">Case Area (Dispute_Area__c)</option>
+
+<option value="LRB_Case_Certification__c">Case Certification (LRB_Case_Certification__c)</option>
+
+<option value="CaseChangeEvent">Case Change Event (CaseChangeEvent)</option>
+
+<option value="CaseComment">Case Comment (CaseComment)</option>
+
+<option value="CaseContactRole">Case Contact Role (CaseContactRole)</option>
+
+<option value="Dispute_Decision__c">Case Decision (Dispute_Decision__c)</option>
+
+<option value="Dispute_Discussion_Reply_Above__c">Case Discussion Reply Above (Dispute_Discussion_Reply_Above__c)</option>
+
+<option value="Dispute_Flag__c">Case Flag (Dispute_Flag__c)</option>
+
+<option value="Dispute_Group__c">Case Group (Dispute_Group__c)</option>
+
+<option value="LRB_Case_Group__c">Case Group link (LRB_Case_Group__c)</option>
+
+<option value="LRB_Case_Hearing__c">Case Hearing (LRB_Case_Hearing__c)</option>
+
+<option value="Dispute_Note__c">Case Note (Dispute_Note__c)</option>
+
+<option value="Dispute_Note_Lookups__c">Case Note Lookups (Dispute_Note_Lookups__c)</option>
+
+<option value="Dispute_Reject_Message_Log__c">Case Reject Message Log (Dispute_Reject_Message_Log__c)</option>
+
+<option value="CaseShare">Case Share (CaseShare)</option>
+
+<option value="Dispute_Team__c">Case Staff (Dispute_Team__c)</option>
+
+<option value="CaseSubjectParticle">Case Subject Particle (CaseSubjectParticle)</option>
+
+<option value="CaseTeamMember">Case Team Member (CaseTeamMember)</option>
+
+<option value="CaseTeamRole">Case Team Member Role (CaseTeamRole)</option>
+
+<option value="CategoryData">Category Data (CategoryData)</option>
+
+<option value="CategoryNode">Category Node (CategoryNode)</option>
+
+<option value="LRB_Certification_Employer__c">Certification Employer (LRB_Certification_Employer__c)</option>
+
+<option value="LRB_Certification_Union__c">Certification Union (LRB_Certification_Union__c)</option>
+
+<option value="Automation_Settings__ChangeEvent">Change Event: Automation Settings (Automation_Settings__ChangeEvent)</option>
+
+<option value="CPG_Settings__ChangeEvent">Change Event: CPG Settings (CPG_Settings__ChangeEvent)</option>
+
+<option value="SCHED_Calendar_Resource__ChangeEvent">Change Event: Calendar Resource (SCHED_Calendar_Resource__ChangeEvent)</option>
+
+<option value="Dispute_Area__ChangeEvent">Change Event: Case Area (Dispute_Area__ChangeEvent)</option>
+
+<option value="LRB_Case_Certification__ChangeEvent">Change Event: Case Certification (LRB_Case_Certification__ChangeEvent)</option>
+
+<option value="Dispute_Decision__ChangeEvent">Change Event: Case Decision (Dispute_Decision__ChangeEvent)</option>
+
+<option value="Dispute_Discussion_Reply_Above__ChangeEvent">Change Event: Case Discussion Reply Above (Dispute_Discussion_Reply_Above__ChangeEvent)</option>
+
+<option value="Dispute_Flag__ChangeEvent">Change Event: Case Flag (Dispute_Flag__ChangeEvent)</option>
+
+<option value="Dispute_Group__ChangeEvent">Change Event: Case Group (Dispute_Group__ChangeEvent)</option>
+
+<option value="LRB_Case_Group__ChangeEvent">Change Event: Case Group link (LRB_Case_Group__ChangeEvent)</option>
+
+<option value="LRB_Case_Hearing__ChangeEvent">Change Event: Case Hearing (LRB_Case_Hearing__ChangeEvent)</option>
+
+<option value="Dispute_Note__ChangeEvent">Change Event: Case Note (Dispute_Note__ChangeEvent)</option>
+
+<option value="Dispute_Note_Lookups__ChangeEvent">Change Event: Case Note Lookups (Dispute_Note_Lookups__ChangeEvent)</option>
+
+<option value="Dispute_Reject_Message_Log__ChangeEvent">Change Event: Case Reject Message Log (Dispute_Reject_Message_Log__ChangeEvent)</option>
+
+<option value="Dispute_Team__ChangeEvent">Change Event: Case Staff (Dispute_Team__ChangeEvent)</option>
+
+<option value="LRB_Certification_Employer__ChangeEvent">Change Event: Certification Employer (LRB_Certification_Employer__ChangeEvent)</option>
+
+<option value="LRB_Certification_Union__ChangeEvent">Change Event: Certification Union (LRB_Certification_Union__ChangeEvent)</option>
+
+<option value="Change_Log__ChangeEvent">Change Event: Change Log (Change_Log__ChangeEvent)</option>
+
+<option value="Claim_Party__ChangeEvent">Change Event: Claim Party (Claim_Party__ChangeEvent)</option>
+
+<option value="Claim_Response__ChangeEvent">Change Event: Claim Response (Claim_Response__ChangeEvent)</option>
+
+<option value="Clean_Objects_Configuration__ChangeEvent">Change Event: Clean Objects Configuration (Clean_Objects_Configuration__ChangeEvent)</option>
+
+<option value="Claim__ChangeEvent">Change Event: Code Section (Claim__ChangeEvent)</option>
+
+<option value="LRB_Collective_Bargaining_Relationship__ChangeEvent">Change Event: Collective Bargaining Relationship (LRB_Collective_Bargaining_Relationship__ChangeEvent)</option>
+
+<option value="Communication_Thread__ChangeEvent">Change Event: Communication Thread (Communication_Thread__ChangeEvent)</option>
+
+<option value="Communication_Thread_Participant__ChangeEvent">Change Event: Communication Thread Participant (Communication_Thread_Participant__ChangeEvent)</option>
+
+<option value="Copy__ChangeEvent">Change Event: Copy (Copy__ChangeEvent)</option>
+
+<option value="DRS_Clean__ChangeEvent">Change Event: DRS Clean (DRS_Clean__ChangeEvent)</option>
+
+<option value="Document__ChangeEvent">Change Event: DRS Document (Document__ChangeEvent)</option>
+
+<option value="Document_Version__ChangeEvent">Change Event: DRS Document Version (Document_Version__ChangeEvent)</option>
+
+<option value="DRS_Emails__ChangeEvent">Change Event: DRS Emails (DRS_Emails__ChangeEvent)</option>
+
+<option value="Decision_Order__ChangeEvent">Change Event: Decision/Order (Decision_Order__ChangeEvent)</option>
+
+<option value="Document_Claim__ChangeEvent">Change Event: Document Claim (Document_Claim__ChangeEvent)</option>
+
+<option value="Exploration_Data__ChangeEvent">Change Event: Exploration Data (Exploration_Data__ChangeEvent)</option>
+
+<option value="External_URL__ChangeEvent">Change Event: External URL (External_URL__ChangeEvent)</option>
+
+<option value="Fact__ChangeEvent">Change Event: Fact (Fact__ChangeEvent)</option>
+
+<option value="Fee__ChangeEvent">Change Event: Fee (Fee__ChangeEvent)</option>
+
+<option value="Fee_Waiver__ChangeEvent">Change Event: Fee Waiver (Fee_Waiver__ChangeEvent)</option>
+
+<option value="Fee_Waiver_Group__ChangeEvent">Change Event: Fee Waiver Group (Fee_Waiver_Group__ChangeEvent)</option>
+
+<option value="Fee_Waiver_Threshold__ChangeEvent">Change Event: Fee Waiver Threshold (Fee_Waiver_Threshold__ChangeEvent)</option>
+
+<option value="Field_API_Names__ChangeEvent">Change Event: Field API Names (Field_API_Names__ChangeEvent)</option>
+
+<option value="Flag__ChangeEvent">Change Event: Flag (Flag__ChangeEvent)</option>
+
+<option value="Integration_Log__ChangeEvent">Change Event: Integration Log (Integration_Log__ChangeEvent)</option>
+
+<option value="Integration_Setting__ChangeEvent">Change Event: Integration Setting (Integration_Setting__ChangeEvent)</option>
+
+<option value="Dispute__ChangeEvent">Change Event: LRB Case (Dispute__ChangeEvent)</option>
+
+<option value="LRB_Default_Settings__ChangeEvent">Change Event: LRB Default Settings (LRB_Default_Settings__ChangeEvent)</option>
+
+<option value="Log__ChangeEvent">Change Event: Log (Log__ChangeEvent)</option>
+
+<option value="Message__ChangeEvent">Change Event: Message (Message__ChangeEvent)</option>
+
+<option value="Next_Unique_ID__ChangeEvent">Change Event: Next Unique ID (Next_Unique_ID__ChangeEvent)</option>
+
+<option value="Notice_Package__ChangeEvent">Change Event: Notice Package (Notice_Package__ChangeEvent)</option>
+
+<option value="Notification__ChangeEvent">Change Event: Notification (Notification__ChangeEvent)</option>
+
+<option value="Party__ChangeEvent">Change Event: Party (Party__ChangeEvent)</option>
+
+<option value="Party_Contact__ChangeEvent">Change Event: Party Contact (Party_Contact__ChangeEvent)</option>
+
+<option value="Party_Form__ChangeEvent">Change Event: Party Form (Party_Form__ChangeEvent)</option>
+
+<option value="Party_Form_JSON_Mapping__ChangeEvent">Change Event: Party Form JSON Mapping (Party_Form_JSON_Mapping__ChangeEvent)</option>
+
+<option value="LRB_Party_Worksite_Location__ChangeEvent">Change Event: Party Worksite Location (LRB_Party_Worksite_Location__ChangeEvent)</option>
+
+<option value="Payment_Request__ChangeEvent">Change Event: Payment Request (Payment_Request__ChangeEvent)</option>
+
+<option value="Payment_Response_Codes__ChangeEvent">Change Event: Payment Response Codes (Payment_Response_Codes__ChangeEvent)</option>
+
+<option value="Payment_Transaction__ChangeEvent">Change Event: Payment Transaction (Payment_Transaction__ChangeEvent)</option>
+
+<option value="Picklist_Fields__ChangeEvent">Change Event: Picklist Fields (Picklist_Fields__ChangeEvent)</option>
+
+<option value="Portal_Settings__ChangeEvent">Change Event: Portal Settings (Portal_Settings__ChangeEvent)</option>
+
+<option value="Position__ChangeEvent">Change Event: Position (Position__ChangeEvent)</option>
+
+<option value="Process_Template__ChangeEvent">Change Event: Process Template (Process_Template__ChangeEvent)</option>
+
+<option value="Remedy__ChangeEvent">Change Event: Remedy (Remedy__ChangeEvent)</option>
+
+<option value="Remedy_Response__ChangeEvent">Change Event: Remedy Response (Remedy_Response__ChangeEvent)</option>
+
+<option value="SCHED_Resource_Types__ChangeEvent">Change Event: Resource Type (SCHED_Resource_Types__ChangeEvent)</option>
+
+<option value="Restricted_File_Types__ChangeEvent">Change Event: Restricted File Types (Restricted_File_Types__ChangeEvent)</option>
+
+<option value="LRB_Case_Vote__ChangeEvent">Change Event: Return of Poll (LRB_Case_Vote__ChangeEvent)</option>
+
+<option value="Site_URL__ChangeEvent">Change Event: Site URLs (Site_URL__ChangeEvent)</option>
+
+<option value="Snapshot_Report_Monthly_Workload__ChangeEvent">Change Event: Snapshot Report - Monthly Workload (Snapshot_Report_Monthly_Workload__ChangeEvent)</option>
+
+<option value="Support_Request__ChangeEvent">Change Event: Support Request (Support_Request__ChangeEvent)</option>
+
+<option value="TDP_Detail__ChangeEvent">Change Event: TDP Detail (TDP_Detail__ChangeEvent)</option>
+
+<option value="Target_Assignment_Days__ChangeEvent">Change Event: Target Assignment Days (Target_Assignment_Days__ChangeEvent)</option>
+
+<option value="Tribunal_Intake__ChangeEvent">Change Event: Tribunal Intake Setting (Tribunal_Intake__ChangeEvent)</option>
+
+<option value="Tribunal_Master_Settings__ChangeEvent">Change Event: Tribunal Master Settings (Tribunal_Master_Settings__ChangeEvent)</option>
+
+<option value="Tribunal_Staff_Roles_Priority_Sequence__ChangeEvent">Change Event: Tribunal Staff Roles Priority Sequence (Tribunal_Staff_Roles_Priority_Sequence__ChangeEvent)</option>
+
+<option value="Tribunal_User_Setting__ChangeEvent">Change Event: Tribunal User Setting (Tribunal_User_Setting__ChangeEvent)</option>
+
+<option value="Trigger_Settings__ChangeEvent">Change Event: Trigger Settings (Trigger_Settings__ChangeEvent)</option>
+
+<option value="LRB_Worksite_Location__ChangeEvent">Change Event: Worksite Location (LRB_Worksite_Location__ChangeEvent)</option>
+
+<option value="Change_Log__c">Change Log (Change_Log__c)</option>
+
+<option value="ChatterActivity">Chatter Activity (ChatterActivity)</option>
+
+<option value="ChatterExtensionConfig">Chatter Extension Configuration (ChatterExtensionConfig)</option>
+
+<option value="Claim_Party__c">Claim Party (Claim_Party__c)</option>
+
+<option value="Claim_Response__c">Claim Response (Claim_Response__c)</option>
+
+<option value="Clean_Objects_Configuration__c">Clean Objects Configuration (Clean_Objects_Configuration__c)</option>
+
+<option value="Claim__c">Code Section (Claim__c)</option>
+
+<option value="LRB_Collective_Bargaining_Relationship__c">Collective Bargaining Relationship (LRB_Collective_Bargaining_Relationship__c)</option>
+
+<option value="Communication_Thread__c">Communication Thread (Communication_Thread__c)</option>
+
+<option value="Communication_Thread_Participant__c">Communication Thread Participant (Communication_Thread_Participant__c)</option>
+
+<option value="ConferenceNumber">Conference Number (ConferenceNumber)</option>
+
+<option value="Contact">Contact (Contact)</option>
+
+<option value="ContactChangeEvent">Contact Change Event (ContactChangeEvent)</option>
+
+<option value="ContactRequest">Contact Request (ContactRequest)</option>
+
+<option value="ContactRequestShare">Contact Request Share (ContactRequestShare)</option>
+
+<option value="ContentDistribution">Content Delivery (ContentDistribution)</option>
+
+<option value="ContentDistributionView">Content Delivery View (ContentDistributionView)</option>
+
+<option value="ContentDocument">Content Document (ContentDocument)</option>
+
+<option value="ContentDocumentLink">Content Document Link (ContentDocumentLink)</option>
+
+<option value="ContentFolder">Content Folder (ContentFolder)</option>
+
+<option value="ContentFolderMember">Content Folder Member (ContentFolderMember)</option>
+
+<option value="CspTrustedSite">Content Security Policy Trusted Site (CspTrustedSite)</option>
+
+<option value="ContentVersion">Content Version (ContentVersion)</option>
+
+<option value="Contract">Contract (Contract)</option>
+
+<option value="ContractContactRole">Contract Contact Role (ContractContactRole)</option>
+
+<option value="Copy__c">Copy (Copy__c)</option>
+
+<option value="CustomBrand">Custom Brand (CustomBrand)</option>
+
+<option value="CustomBrandAsset">Custom Brand Asset (CustomBrandAsset)</option>
+
+<option value="WebLink">Custom Button or Link (WebLink)</option>
+
+<option value="Scontrol">Custom S-Control (Scontrol)</option>
+
+<option value="DRS_Clean__c">DRS Clean (DRS_Clean__c)</option>
+
+<option value="Document__c">DRS Document (Document__c)</option>
+
+<option value="Document_Version__c">DRS Document Version (Document_Version__c)</option>
+
+<option value="DRS_Emails__c">DRS Emails (DRS_Emails__c)</option>
+
+<option value="DataIntegrationRecordPurchasePermission">DataIntegrationRecordPurchasePermission (DataIntegrationRecordPurchasePermission)</option>
+
+<option value="Decision_Order__c">Decision/Order (Decision_Order__c)</option>
+
+<option value="Document">Document (Document)</option>
+
+<option value="Document_Claim__c">Document Claim (Document_Claim__c)</option>
+
+<option value="DocumentAttachmentMap">Document Entity Map (DocumentAttachmentMap)</option>
+
+<option value="DuplicateJob">Duplicate Job (DuplicateJob)</option>
+
+<option value="DuplicateRecordItem">Duplicate Record Item (DuplicateRecordItem)</option>
+
+<option value="DuplicateRecordSet">Duplicate Record Set (DuplicateRecordSet)</option>
+
+<option value="EmailDomainFilter">Email Domain Filter (EmailDomainFilter)</option>
+
+<option value="EmailDomainKey">Email Domain Key (EmailDomainKey)</option>
+
+<option value="EmailMessage">Email Message (EmailMessage)</option>
+
+<option value="EmailMessageRelation">Email Message Relation (EmailMessageRelation)</option>
+
+<option value="EmailRelay">Email Relay (EmailRelay)</option>
+
+<option value="EmailServicesFunction">Email Service (EmailServicesFunction)</option>
+
+<option value="EmailServicesAddress">Email Services Address (EmailServicesAddress)</option>
+
+<option value="EmailTemplate">Email Template (EmailTemplate)</option>
+
+<option value="EmailCapture">EmailCapture (EmailCapture)</option>
+
+<option value="Event">Event (Event)</option>
+
+<option value="EventChangeEvent">Event Change Event (EventChangeEvent)</option>
+
+<option value="EventRelation">Event Relation (EventRelation)</option>
+
+<option value="EventRelationChangeEvent">Event Relation Change Event (EventRelationChangeEvent)</option>
+
+<option value="Exploration_Data__c">Exploration Data (Exploration_Data__c)</option>
+
+<option value="ChatterExtension">Extension (ChatterExtension)</option>
+
+<option value="ExternalDataUserAuth">External Data User Authentication (ExternalDataUserAuth)</option>
+
+<option value="ExternalEvent">External Event (ExternalEvent)</option>
+
+<option value="ExternalEventMapping">External Event Mapping (ExternalEventMapping)</option>
+
+<option value="ExternalEventMappingShare">External Event Mapping Share (ExternalEventMappingShare)</option>
+
+<option value="External_URL__c">External URL (External_URL__c)</option>
+
+<option value="Fact__c">Fact (Fact__c)</option>
+
+<option value="Fee__c">Fee (Fee__c)</option>
+
+<option value="Fee_Waiver__c">Fee Waiver (Fee_Waiver__c)</option>
+
+<option value="Fee_Waiver_Group__c">Fee Waiver Group (Fee_Waiver_Group__c)</option>
+
+<option value="Fee_Waiver_Threshold__c">Fee Waiver Threshold (Fee_Waiver_Threshold__c)</option>
+
+<option value="FeedAttachment">Feed Attachment (FeedAttachment)</option>
+
+<option value="FeedComment">Feed Comment (FeedComment)</option>
+
+<option value="FeedItem">Feed Item (FeedItem)</option>
+
+<option value="Field_API_Names__c">Field API Names (Field_API_Names__c)</option>
+
+<option value="FieldPermissions">Field Permissions (FieldPermissions)</option>
+
+<option value="Flag__c">Flag (Flag__c)</option>
+
+<option value="FlowInterviewShare">Flow Interview Share (FlowInterviewShare)</option>
+
+<option value="FlowRecordRelation">Flow Record Relation (FlowRecordRelation)</option>
+
+<option value="Folder">Folder (Folder)</option>
+
+<option value="ForecastingAdjustment">Forecasting Adjustment (ForecastingAdjustment)</option>
+
+<option value="ForecastingOwnerAdjustment">Forecasting Owner Adjustment (ForecastingOwnerAdjustment)</option>
+
+<option value="ForecastingQuota">Forecasting Quota (ForecastingQuota)</option>
+
+<option value="ForecastingShare">Forecasting Share (ForecastingShare)</option>
+
+<option value="ForecastingUserPreference">Forecasting User Preference (ForecastingUserPreference)</option>
+
+<option value="TodayGoal">Goal (TodayGoal)</option>
+
+<option value="TodayGoalShare">Goal Share (TodayGoalShare)</option>
+
+<option value="CollaborationGroup">Group (CollaborationGroup)</option>
+
+<option value="Group">Group (Group)</option>
+
+<option value="CollaborationGroupMember">Group Member (CollaborationGroupMember)</option>
+
+<option value="CollaborationGroupMemberRequest">Group Member Request (CollaborationGroupMemberRequest)</option>
+
+<option value="CollaborationGroupRecord">Group Record (CollaborationGroupRecord)</option>
+
+<option value="Holiday">Holiday (Holiday)</option>
+
+<option value="Individual">Individual (Individual)</option>
+
+<option value="IndividualShare">Individual Share (IndividualShare)</option>
+
+<option value="Integration_Log__c">Integration Log (Integration_Log__c)</option>
+
+<option value="Integration_Setting__c">Integration Setting (Integration_Setting__c)</option>
+
+<option value="Dispute__c">LRB Case (Dispute__c)</option>
+
+<option value="LRB_Default_Settings__c">LRB Default Settings (LRB_Default_Settings__c)</option>
+
+<option value="UserAppInfo">Last Used App (UserAppInfo)</option>
+
+<option value="Lead">Lead (Lead)</option>
+
+<option value="LeadChangeEvent">Lead Change Event (LeadChangeEvent)</option>
+
+<option value="BrandTemplate">Letterhead (BrandTemplate)</option>
+
+<option value="ContentWorkspace">Library (ContentWorkspace)</option>
+
+<option value="ContentWorkspaceDoc">Library Document (ContentWorkspaceDoc)</option>
+
+<option value="ContentWorkspaceMember">Library Member (ContentWorkspaceMember)</option>
+
+<option value="ContentWorkspacePermission">Library Permission (ContentWorkspacePermission)</option>
+
+<option value="AuraDefinition">Lightning Component Definition (AuraDefinition)</option>
+
+<option value="LightningExperienceTheme">Lightning Experience Theme (LightningExperienceTheme)</option>
+
+<option value="ListEmail">List Email (ListEmail)</option>
+
+<option value="ListEmailChangeEvent">List Email Change Event (ListEmailChangeEvent)</option>
+
+<option value="ListEmailIndividualRecipient">List Email Individual Recipient (ListEmailIndividualRecipient)</option>
+
+<option value="ListEmailRecipientSource">List Email Recipient Source (ListEmailRecipientSource)</option>
+
+<option value="ListEmailShare">List Email Share (ListEmailShare)</option>
+
+<option value="ListViewChart">List View Chart (ListViewChart)</option>
+
+<option value="Location">Location (Location)</option>
+
+<option value="LocationShare">Location Share (LocationShare)</option>
+
+<option value="Log__c">Log (Log__c)</option>
+
+<option value="LogoutEventStream">Logout Event Stream (LogoutEventStream)</option>
+
+<option value="Macro">Macro (Macro)</option>
+
+<option value="MacroInstruction">Macro Instruction (MacroInstruction)</option>
+
+<option value="MacroShare">Macro Share (MacroShare)</option>
+
+<option value="MailmergeTemplate">Mail Merge Template (MailmergeTemplate)</option>
+
+<option value="MatchingInformation">Matching Information (MatchingInformation)</option>
+
+<option value="Message__c">Message (Message__c)</option>
+
+<option value="MobileApplicationDetail">Mobile Application Detail (MobileApplicationDetail)</option>
+
+<option value="Next_Unique_ID__c">Next Unique ID (Next_Unique_ID__c)</option>
+
+<option value="Note">Note (Note)</option>
+
+<option value="Notice_Package__c">Notice Package (Notice_Package__c)</option>
+
+<option value="Notification__c">Notification (Notification__c)</option>
+
+<option value="ObjectPermissions">Object Permissions (ObjectPermissions)</option>
+
+<option value="OnboardingMetrics">Onboarding Metrics (OnboardingMetrics)</option>
+
+<option value="Opportunity">Opportunity (Opportunity)</option>
+
+<option value="OpportunityChangeEvent">Opportunity Change Event (OpportunityChangeEvent)</option>
+
+<option value="OpportunityContactRole">Opportunity Contact Role (OpportunityContactRole)</option>
+
+<option value="OpportunityContactRoleChangeEvent">Opportunity Contact Role Change Event (OpportunityContactRoleChangeEvent)</option>
+
+<option value="OpportunityLineItem">Opportunity Product (OpportunityLineItem)</option>
+
+<option value="OpportunityShare">Opportunity Share (OpportunityShare)</option>
+
+<option value="OpportunityCompetitor">Opportunity: Competitor (OpportunityCompetitor)</option>
+
+<option value="Order">Order (Order)</option>
+
+<option value="OrderChangeEvent">Order Change Event (OrderChangeEvent)</option>
+
+<option value="OrderItem">Order Product (OrderItem)</option>
+
+<option value="OrderItemChangeEvent">Order Product Change Event (OrderItemChangeEvent)</option>
+
+<option value="OrgLifecycleNotification">Org Lifecycle Notification (OrgLifecycleNotification)</option>
+
+<option value="Organization">Organization (Organization)</option>
+
+<option value="OrgWideEmailAddress">Organization-wide From Email Address (OrgWideEmailAddress)</option>
+
+<option value="Partner">Partner (Partner)</option>
+
+<option value="Party__c">Party (Party__c)</option>
+
+<option value="Party_Contact__c">Party Contact (Party_Contact__c)</option>
+
+<option value="Party_Form__c">Party Form (Party_Form__c)</option>
+
+<option value="Party_Form_JSON_Mapping__c">Party Form JSON Mapping (Party_Form_JSON_Mapping__c)</option>
+
+<option value="LRB_Party_Worksite_Location__c">Party Worksite Location (LRB_Party_Worksite_Location__c)</option>
+
+<option value="Payment_Request__c">Payment Request (Payment_Request__c)</option>
+
+<option value="Payment_Response_Codes__c">Payment Response Codes (Payment_Response_Codes__c)</option>
+
+<option value="Payment_Transaction__c">Payment Transaction (Payment_Transaction__c)</option>
+
+<option value="PermissionSet">Permission Set (PermissionSet)</option>
+
+<option value="PermissionSetGroup">Permission Set Group (PermissionSetGroup)</option>
+
+<option value="Picklist_Fields__c">Picklist Fields (Picklist_Fields__c)</option>
+
+<option value="PlatformCachePartition">Platform Cache Partition (PlatformCachePartition)</option>
+
+<option value="PlatformCachePartitionType">Platform Cache Partition Type (PlatformCachePartitionType)</option>
+
+<option value="Portal_Settings__c">Portal Settings (Portal_Settings__c)</option>
+
+<option value="Position__c">Position (Position__c)</option>
+
+<option value="CaseTeamTemplate">Predefined Case Team (CaseTeamTemplate)</option>
+
+<option value="CaseTeamTemplateMember">Predefined Case Team Member (CaseTeamTemplateMember)</option>
+
+<option value="Pricebook2">Price Book (Pricebook2)</option>
+
+<option value="PricebookEntry">Price Book Entry (PricebookEntry)</option>
+
+<option value="Process_Template__c">Process Template (Process_Template__c)</option>
+
+<option value="Product2">Product (Product2)</option>
+
+<option value="Product2ChangeEvent">Product Change Event (Product2ChangeEvent)</option>
+
+<option value="Profile">Profile (Profile)</option>
+
+<option value="SearchPromotionRule">Promoted Search Term (SearchPromotionRule)</option>
+
+<option value="PushTopic">Push Topic (PushTopic)</option>
+
+<option value="QuickText">Quick Text (QuickText)</option>
+
+<option value="QuickTextShare">Quick Text Share (QuickTextShare)</option>
+
+<option value="Quote">Quote (Quote)</option>
+
+<option value="QuoteChangeEvent">Quote Change Event (QuoteChangeEvent)</option>
+
+<option value="QuoteLineItem">Quote Line Item (QuoteLineItem)</option>
+
+<option value="QuoteLineItemChangeEvent">Quote Line Item Change Event (QuoteLineItemChangeEvent)</option>
+
+<option value="QuoteShare">Quote Share (QuoteShare)</option>
+
+<option value="RecentlyViewed">Recently Viewed (RecentlyViewed)</option>
+
+<option value="RecordType">Record Type (RecordType)</option>
+
+<option value="RecordAction">RecordAction (RecordAction)</option>
+
+<option value="Remedy__c">Remedy (Remedy__c)</option>
+
+<option value="Remedy_Response__c">Remedy Response (Remedy_Response__c)</option>
+
+<option value="SCHED_Resource_Types__c">Resource Type (SCHED_Resource_Types__c)</option>
+
+<option value="Restricted_File_Types__c">Restricted File Types (Restricted_File_Types__c)</option>
+
+<option value="LRB_Case_Vote__c">Return of Poll (LRB_Case_Vote__c)</option>
+
+<option value="UserRole">Role (UserRole)</option>
+
+<option value="SecurityCustomBaseline">Security Custom Baseline (SecurityCustomBaseline)</option>
+
+<option value="SCHED_Calendar_Resource__Share">Share: Calendar Resource (SCHED_Calendar_Resource__Share)</option>
+
+<option value="Dispute_Area__Share">Share: Case Area (Dispute_Area__Share)</option>
+
+<option value="Dispute_Group__Share">Share: Case Group (Dispute_Group__Share)</option>
+
+<option value="Dispute_Note__Share">Share: Case Note (Dispute_Note__Share)</option>
+
+<option value="Dispute_Reject_Message_Log__Share">Share: Case Reject Message Log (Dispute_Reject_Message_Log__Share)</option>
+
+<option value="Change_Log__Share">Share: Change Log (Change_Log__Share)</option>
+
+<option value="Claim__Share">Share: Code Section (Claim__Share)</option>
+
+<option value="Copy__Share">Share: Copy (Copy__Share)</option>
+
+<option value="DRS_Clean__Share">Share: DRS Clean (DRS_Clean__Share)</option>
+
+<option value="Decision_Order__Share">Share: Decision/Order (Decision_Order__Share)</option>
+
+<option value="Exploration_Data__Share">Share: Exploration Data (Exploration_Data__Share)</option>
+
+<option value="Fee_Waiver__Share">Share: Fee Waiver (Fee_Waiver__Share)</option>
+
+<option value="Fee_Waiver_Group__Share">Share: Fee Waiver Group (Fee_Waiver_Group__Share)</option>
+
+<option value="Fee_Waiver_Threshold__Share">Share: Fee Waiver Threshold (Fee_Waiver_Threshold__Share)</option>
+
+<option value="Flag__Share">Share: Flag (Flag__Share)</option>
+
+<option value="Integration_Log__Share">Share: Integration Log (Integration_Log__Share)</option>
+
+<option value="Integration_Setting__Share">Share: Integration Setting (Integration_Setting__Share)</option>
+
+<option value="Dispute__Share">Share: LRB Case (Dispute__Share)</option>
+
+<option value="Log__Share">Share: Log (Log__Share)</option>
+
+<option value="Next_Unique_ID__Share">Share: Next Unique ID (Next_Unique_ID__Share)</option>
+
+<option value="Party__Share">Share: Party (Party__Share)</option>
+
+<option value="Party_Contact__Share">Share: Party Contact (Party_Contact__Share)</option>
+
+<option value="Party_Form__Share">Share: Party Form (Party_Form__Share)</option>
+
+<option value="Process_Template__Share">Share: Process Template (Process_Template__Share)</option>
+
+<option value="SCHED_Resource_Types__Share">Share: Resource Type (SCHED_Resource_Types__Share)</option>
+
+<option value="Support_Request__Share">Share: Support Request (Support_Request__Share)</option>
+
+<option value="Site_URL__c">Site URLs (Site_URL__c)</option>
+
+<option value="Snapshot_Report_Monthly_Workload__c">Snapshot Report - Monthly Workload (Snapshot_Report_Monthly_Workload__c)</option>
+
+<option value="SocialPersona">Social Persona (SocialPersona)</option>
+
+<option value="SocialPost">Social Post (SocialPost)</option>
+
+<option value="SocialPostShare">Social Post Share (SocialPostShare)</option>
+
+<option value="Solution">Solution (Solution)</option>
+
+<option value="StaticResource">Static Resource (StaticResource)</option>
+
+<option value="StreamingChannel">Streaming Channel (StreamingChannel)</option>
+
+<option value="StreamingChannelShare">Streaming Channel Share (StreamingChannelShare)</option>
+
+<option value="Support_Request__c">Support Request (Support_Request__c)</option>
+
+<option value="TDP_Detail__c">TDP Detail (TDP_Detail__c)</option>
+
+<option value="Target_Assignment_Days__c">Target Assignment Days (Target_Assignment_Days__c)</option>
+
+<option value="Task">Task (Task)</option>
+
+<option value="TaskChangeEvent">Task Change Event (TaskChangeEvent)</option>
+
+<option value="TaskRelationChangeEvent">Task Relation Change Event (TaskRelationChangeEvent)</option>
+
+<option value="TestSuiteMembership">Test Suite Membership (TestSuiteMembership)</option>
+
+<option value="WorkThanks">Thanks (WorkThanks)</option>
+
+<option value="WorkThanksShare">Thanks Share (WorkThanksShare)</option>
+
+<option value="Topic">Topic (Topic)</option>
+
+<option value="TopicAssignment">Topic Assignment (TopicAssignment)</option>
+
+<option value="TransactionSecurityPolicy">Transaction Security Policy (TransactionSecurityPolicy)</option>
+
+<option value="Tribunal_Intake__c">Tribunal Intake Setting (Tribunal_Intake__c)</option>
+
+<option value="Tribunal_Master_Settings__c">Tribunal Master Settings (Tribunal_Master_Settings__c)</option>
+
+<option value="Tribunal_Staff_Roles_Priority_Sequence__c">Tribunal Staff Roles Priority Sequence (Tribunal_Staff_Roles_Priority_Sequence__c)</option>
+
+<option value="Tribunal_User_Setting__c">Tribunal User Setting (Tribunal_User_Setting__c)</option>
+
+<option value="Trigger_Settings__c">Trigger Settings (Trigger_Settings__c)</option>
+
+<option value="SiteIframeWhiteListUrl">Trusted Domains for Inline Frames (SiteIframeWhiteListUrl)</option>
+
+<option value="User">User (User)</option>
+
+<option value="UserChangeEvent">User Change Event (UserChangeEvent)</option>
+
+<option value="UserEmailPreferredPerson">User Email Preferred Person (UserEmailPreferredPerson)</option>
+
+<option value="UserEmailPreferredPersonShare">User Email Preferred Person Share (UserEmailPreferredPersonShare)</option>
+
+<option value="UserListView">User List View (UserListView)</option>
+
+<option value="UserListViewCriterion">User List View Criteria (UserListViewCriterion)</option>
+
+<option value="UserLogin">User Login (UserLogin)</option>
+
+<option value="UserPreference">User Preference (UserPreference)</option>
+
+<option value="UserProvAccount">User Provisioning Account (UserProvAccount)</option>
+
+<option value="UserProvAccountStaging">User Provisioning Account Staging (UserProvAccountStaging)</option>
+
+<option value="UserProvisioningConfig">User Provisioning Config (UserProvisioningConfig)</option>
+
+<option value="UserProvisioningLog">User Provisioning Log (UserProvisioningLog)</option>
+
+<option value="UserProvMockTarget">User Provisioning Mock Target (UserProvMockTarget)</option>
+
+<option value="UserProvisioningRequest">User Provisioning Request (UserProvisioningRequest)</option>
+
+<option value="UserProvisioningRequestShare">User Provisioning Request Share (UserProvisioningRequestShare)</option>
+
+<option value="UserShare">User Share (UserShare)</option>
+
+<option value="UserAppMenuCustomization">UserAppMenuCustomization (UserAppMenuCustomization)</option>
+
+<option value="UserAppMenuCustomizationShare">UserAppMenuCustomization Share (UserAppMenuCustomizationShare)</option>
+
+<option value="ApexComponent">Visualforce Component (ApexComponent)</option>
+
+<option value="ApexPage">Visualforce Page (ApexPage)</option>
+
+<option value="Vote">Vote (Vote)</option>
+
+<option value="WaveAutoInstallRequest">Wave Auto Install Request (WaveAutoInstallRequest)</option>
+
+<option value="LRB_Worksite_Location__c">Worksite Location (LRB_Worksite_Location__c)</option></select>

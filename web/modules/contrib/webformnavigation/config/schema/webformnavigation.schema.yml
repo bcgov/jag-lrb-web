@@ -1,0 +1,7 @@
+webform.settings.third_party.webformnavigation:
+  type: mapping
+  label: 'Webform Navigation settings'
+  mapping:
+    forward_navigation:
+      type: boolean
+      label: 'Forward Navigation'

@@ -1,0 +1,6 @@
+name: 'Weaver Design Cooperative Import Module'
+type: module
+description: 'Imports various content and should be deleted on production'
+package: 'Weaver'
+core_version_requirement: '^8.8.0 || ^9.0'
+dependencies:

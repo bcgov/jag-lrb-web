@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.weaver_twocol_text.field_weaver_left_text
+    - field.field.paragraph.weaver_twocol_text.field_weaver_right_text
+    - paragraphs.paragraphs_type.weaver_twocol_text
+  module:
+    - text
+id: paragraph.weaver_twocol_text.default
+targetEntityType: paragraph
+bundle: weaver_twocol_text
+mode: default
+content:
+  field_weaver_left_text:
+    weight: 0
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_weaver_right_text:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true

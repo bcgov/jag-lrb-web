@@ -1,0 +1,9 @@
+<?php
+
+include drupal_get_path('module', 'weaver_import') . '/weaver_import.ca.inc';
+include drupal_get_path('module', 'weaver_import') . '/weaver_import.decisions.inc';
+
+function weaver_test($mid) {
+	$context = [];
+	weaver_link_decisions($mid, $context);
+}

@@ -1,0 +1,5 @@
+admin:
+  version: 0.1
+  css:
+    layout:
+      css/salesforce.css: {}

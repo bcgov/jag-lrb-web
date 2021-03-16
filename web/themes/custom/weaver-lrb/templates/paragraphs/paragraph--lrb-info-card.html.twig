@@ -1,0 +1,33 @@
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished',
+    'col-lg-4', 'col-md-6'
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes).addClass(custom_classes) }} {% if anchor|length %}id="{{ anchor }}"{% endif %}>
+
+    <div class="card bg-grey-lighter">
+      {% block content %}
+        {% if paragraph.field_weaver_heading.value %}
+          <div class="card-header mb-2">
+            <h3>{{ paragraph.field_weaver_heading.value|raw }}</h3>
+          </div>
+        {% endif %}
+
+        <div class="card-body">
+          {{ content.field_weaver_text }}
+        </div>
+
+        <div class="card-footer mt-3">
+          {{ content.field_weaver_links }}
+        </div>
+      {% endblock %}
+    </div>
+
+  </div>
+{% endblock paragraph %}

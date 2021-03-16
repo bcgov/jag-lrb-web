@@ -1,0 +1,21 @@
+{% if previous or next %}
+	<div class="row align-items-center">
+		<div class="weaver-previous col-md-5">
+			{% if previous %}
+				<a class="link-blue d-flex d-sm-block d-lg-flex justify-content-start align-items-center" href="{{ path('entity.node.canonical', {'node': previous.id()}) }}">
+					<i class="fal fa-arrow-left fa-2x mr-3"></i>
+					<div class="pt-2 pt-lg-0 font-weight-bold">{{ previous.label() }}</div>
+				</a>
+			{% endif %}
+		</div>
+	
+		<div class="weaver-next col-md-5 offset-md-2">
+			{% if next %}
+				<a class="link-blue d-flex d-sm-block d-lg-flex justify-content-end align-items-center" href="{{ path('entity.node.canonical', {'node': next.id()}) }}">
+					<div class="pb-2 pb-lg-0 font-weight-bold">{{ next.label() }}</div>
+					<i class="fal fa-arrow-right fa-2x ml-3"></i>
+				</a>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

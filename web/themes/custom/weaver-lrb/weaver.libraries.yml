@@ -1,0 +1,49 @@
+a11y:
+  js:
+    //cdnjs.cloudflare.com/ajax/libs/ally.js/1.4.1/ally.min.js: { minified: true }
+animations:
+  js:
+    dist/js/animations.js: {}
+  dependencies:
+    - weaver/kute
+bootstrap_cdn:
+  js:
+    //cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js: {}
+    //stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js: {}
+global-styling:
+  version: VERSION
+  js:
+    //kit.fontawesome.com/b59efc4fdb.js: {}
+    dist/js/accordions.js: {}
+    dist/js/global.js: {}
+    dist/js/takeover.js: {}
+    dist/js/views.js: {}
+    dist/js/yearpicker.js: {}
+  css:
+    theme:
+      dist/css/style.css: {}
+  dependencies:
+    - core/drupal.ajax
+kute:
+  version: VERSION
+  js:
+    /libraries/kute.js/dist/kute.min.js: { minified: true }
+modernizr:
+  version: VERSION
+  js:
+    dist/js/modernizr-output.js: {}
+print-styling:
+  css:
+    theme:
+      dist/css/print-style.css: { media: all }
+throbber:
+  js:
+    dist/js/throbber.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+typekit:
+  css:
+    theme:
+      https://use.typekit.net/dzz5bwj.css: { external: true }
+

@@ -1,0 +1,51 @@
+<select data-drupal-selector="edit-field-mappings-7-config-salesforce-field" aria-describedby="edit-field-mappings-7-config-salesforce-field--description" id="edit-field-mappings-7-config-salesforce-field" name="field_mappings[7][config][salesforce_field]" class="form-select">
+
+<option value="">- Select -</option>
+
+<option value="LRB_Case__c">Case</option>
+
+<option value="Name">Case Hearing Name</option>
+
+<option value="Case_Hearing_date__c">Case Hearing date</option>
+
+<option value="Case_Number__c">Case Number</option>
+
+<option value="Case_Title__c">Case Title</option>
+
+<option value="CreatedById">Created By ID</option>
+
+<option value="CreatedDate">Created Date</option>
+
+<option value="IsDeleted">Deleted</option>
+
+<option value="LRB_Is_Public__c">Display Hearing on Website</option>
+
+<option value="LRB_Is_Expedited_Hearing__c">Display in Expedited Hearing Section</option>
+
+<option value="LRB_Existing_Hearing__c">Existing Hearing</option>
+
+<option value="LRB_Existing_Hearing_Date__c">Existing Hearing Date</option>
+
+<option value="Hearing_Comment__c">Hearing Comment</option>
+
+<option value="LRB_Hearing_Date__c">Hearing Date</option>
+
+<option value="LRB_Hearing_Time__c">Hearing Time</option>
+
+<option value="LastModifiedById">Last Modified By ID</option>
+
+<option value="LastModifiedDate">Last Modified Date</option>
+
+<option value="LRB_Location__c" selected="selected">Location</option>
+
+<option value="Old_Hearing_ID__c">Old Hearing ID</option>
+
+<option value="LRB_Panel__c">Panel</option>
+
+<option value="Id">Record ID</option>
+
+<option value="LRB_Status__c">Status</option>
+
+<option value="SystemModstamp">System Modstamp</option>
+
+<option value="LRB_Type__c">Type</option></select>

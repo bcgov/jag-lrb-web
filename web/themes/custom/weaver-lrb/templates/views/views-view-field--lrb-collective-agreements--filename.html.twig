@@ -1,0 +1,9 @@
+{% if url %}
+	<a href="{{ url }}" data-extension="pdf" target="_blank">
+{% endif %}
+
+{{ output }} {% if filesize %}({{ filesize }}){% endif %}
+
+{% if url %}
+</a>
+{% endif %}

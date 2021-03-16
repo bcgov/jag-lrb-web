@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_weaver_hero_buttons
+    - paragraphs.paragraphs_type.weaver_hero
+  module:
+    - link
+id: paragraph.weaver_hero.field_weaver_hero_buttons
+field_name: field_weaver_hero_buttons
+entity_type: paragraph
+bundle: weaver_hero
+label: 'Hero Buttons'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

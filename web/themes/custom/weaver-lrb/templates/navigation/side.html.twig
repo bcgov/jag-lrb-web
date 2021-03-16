@@ -1,0 +1,50 @@
+<div id="side-menu">
+	<div class="side-menu-inner text-center d-flex align-items-center flex-nowrap justify-content-between justify-content-sm-center d-lg-block">
+		
+		<div id="takeover-button" class="d-none d-lg-block">
+			<a tabindex=0 data-target="takeover-menu" role="button" aria-expanded="false" aria-controls="takeover-menu" title="{{ 'Click to view expanded navigation options'|t }}" data-toggle="tooltip" data-placement="right">
+				<span>
+					<i class="fal fa-2x fa-fw fa-bars" id="bars-original"></i>
+					<i class="fal fa-2x fa-fw fa-bars d-none" id="bars-icon"></i>
+					<i class="fal fa-2x fa-fw fa-times d-none" id="close-icon"></i><br/>
+					{{ 'MENU'|t }}
+				</span>
+			</a>
+		</div>
+
+    {% include '@weaver/navigation/takeover.html.twig' with { takeover : takeover} %}
+	
+		<div id="search-button">
+ 			<a href="/search" tabindex=0 data-target="takeover-search" role="button" aria-expanded="false" aria-controls="takeover-search" title="{{ 'Click to view all search options'|t }}" data-toggle="tooltip" data-placement="right">
+				<span>
+					<i class="fal fa-2x fa-fw fa-search" id="search-original"></i>
+					<i class="fal fa-2x fa-fw fa-search d-none" id="search-icon"></i>
+					<i class="fal fa-2x fa-fw fa-times d-none" id="close-icon"></i><br/>
+					{{ 'SEARCH'|t }}
+				</span>
+			</a>
+		</div>
+
+    {% include '@weaver/navigation/search.html.twig' %}
+
+		{% for button in side_nav %}
+			<div class="side-menu-button">
+				<a href="{{ button.link }}" {% if button.tooltip %}data-toggle="tooltip" data-placement="right" title="{{ button.tooltip }}"{% endif %}>
+					<span>
+						<i class="fal fa-2x fa-{{ button.icon }}"></i><br/>
+						{{ button.title }}
+					</span>
+				</a>
+			</div>
+		{% endfor %}
+			<div class="side-menu-button d-none d-md-block">
+				<a id="newsletter-button" tabindex="0" data-toggle="modal" data-target="#mailchimp-signup-modal" data-placement="right" title="{{ mailchimp_signup_cta|raw }}">
+					<span>
+						<i class="fal fa-2x fa-envelope-open-text"></i><br/>
+						{{ 'NEWSLETTER SIGNUP'|t }}
+					</span>
+				</a>
+			</div>
+
+	</div>
+</div>

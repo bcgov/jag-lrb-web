@@ -1,0 +1,43 @@
+.block-views-blocklrb-troubleshooter-block-1 {
+	position: relative;
+	margin: 2rem 0;
+	padding: 3rem 3rem 2rem;
+	box-shadow: $shadow;
+	transition: all 500ms;
+
+	p {
+		margin-bottom: 0;
+		line-height: 1.4rem;
+	}
+	
+	a {
+		text-decoration: none;
+		font-weight: $font-weight-bold;
+
+	 	@include hoverStates() {
+			text-decoration: underline !important;
+		}
+	}
+
+	.view-footer {
+		margin-top: 1rem;
+		text-align: right;
+		font-size: $font-size-sm;
+		font-weight: $font-weight-bold;
+	}
+
+	.expanded-full {
+
+		.carousel,
+		.view-footer {
+			display: none !important;
+			visibility: hidden;
+		}
+	}
+
+	.troubleshooter-full-close {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+	}
+}

@@ -1,0 +1,10 @@
+name: 'Weaver Design Cooperative Custom Module'
+type: module
+description: 'Adds miscellaneous features'
+package: 'Weaver'
+core_version_requirement: '^8.8.0 || ^9.0'
+dependencies:
+  - drupal:ckeditor
+  - fontawesome
+  - select2
+  - social_media

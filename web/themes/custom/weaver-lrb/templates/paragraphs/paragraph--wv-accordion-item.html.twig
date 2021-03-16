@@ -1,0 +1,49 @@
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished', 'mb-4'
+  ]
+%}
+{%
+  set expanded = paragraph.field_lrb_accordion_expanded.value
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes).addClass(custom_classes) }} {% if anchor|length %}id="{{ anchor }}"{% endif %}>
+
+    {% block content %}
+      <a tabindex="0" data-target="#section{{ paragraph.id() }}" role="button" aria-expanded="{% if expanded == 1 %}true{% else %}false{% endif %}" aria-controls="section{{ paragraph.id() }}" data-toggle="collapse" class="d-flex align-items-center justify-content-between border-bottom border-color-grey-medium no-underline accordion-toggle">
+        
+        <h3 class="accordion-heading text-teal font-weight-bold pb-1 mt-0">
+          {{ paragraph.field_wv_accordion_title.value|raw }}
+        </h3>
+        
+          <div class="icon-morph-group">
+            {% if expanded == 1 %}
+              <i class="fal fa-chevron-up morph-original"></i>
+              <i class="fal fa-chevron-up morph-beep"></i>
+              <i class="fal fa-chevron-down morph-boop"></i>
+            {% else %}
+              <i class="fal fa-chevron-down morph-original"></i>
+              <i class="fal fa-chevron-down morph-beep"></i>
+              <i class="fal fa-chevron-up morph-boop"></i>
+            {% endif %}
+          </div>
+      </a>
+
+      <div id="section{{ paragraph.id() }}" class="pl-4 py-4 collapse{% if expanded == 1 %} show{% endif %}">
+
+        <div class="accordion-item-text">
+          {{ content.field_wv_accordion_body }}
+        </div>
+
+        <p class="m-0 text-right">
+          <a class="accordion-toggle" tabindex="0" data-target="#section{{ paragraph.id() }}" aria-expanded="false" aria-controls="section{{ paragraph.id() }}" data-toggle="collapse">{{ 'CLOSE'|t }}</a>
+        </p>
+      </div>
+    {% endblock %}
+
+  </div>
+{% endblock paragraph %}

@@ -1,0 +1,18 @@
+--- src/Entity/Schedule.php
++++ src/Entity/Schedule.php
+@@ -36,7 +36,14 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
+  *   config_export = {
+  *     "id",
+  *     "label",
+- *     "uuid"
++ *     "uuid",
++ *     "enabled",
++ *     "keep",
++ *     "period",
++ *     "cron",
++ *     "source_id",
++ *     "destination_id",
++ *     "settings_profile_id"
+  *   }
+  * )
+  */

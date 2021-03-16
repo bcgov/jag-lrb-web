@@ -1,0 +1,34 @@
+{%
+  set body_classes = [
+    logged_in ? 'user-logged-in',
+    not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
+    node_type ? 'node--type-' ~ node_type|clean_class,
+    db_offline ? 'db-offline',
+  ]
+%}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+  <head>
+    <head-placeholder token="{{ placeholder_token|raw }}">
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    <css-placeholder token="{{ placeholder_token|raw }}">
+    <js-placeholder token="{{ placeholder_token|raw }}">
+
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="/{{ directory }}/images/favicons/LRB-logo-icon.svg">
+    <link rel="mask-icon" href="/{{ directory }}/images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="apple-touch-icon" sizes="152x152" href="/{{ directory }}/images/favicons/apple-touch-icon.png">
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="/{{ directory }}/images/favicons/favicon-32x32.png">
+    <link rel="manifest" href="/{{ directory }}/images/favicons/site.webmanifest" crossorigin="use-credentials">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+
+  </head>
+  <body{{ attributes.addClass(body_classes) }}>
+    {% include '@weaver/misc/skip-link.html.twig' %}
+    {{ page_top }}
+    {{ page }}
+    {{ page_bottom }}
+    <js-bottom-placeholder token="{{ placeholder_token|raw }}">
+  </body>
+</html>

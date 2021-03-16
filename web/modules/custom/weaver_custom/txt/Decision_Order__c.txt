@@ -1,0 +1,128 @@
+Name => string (16) "DO-2019-025419-1"
+Dispute_Order_Number__c => double 1
+Issued_Date__c => string (10) "2019-12-02"
+LRB_Case_Title__c => string (47) "Mountain Equipment Co-operative -and- UFCW 1518"
+LRB_Case_Type__c => null
+LRB_Certification__c => null
+LRB_Decision_Name__c => string (55) "<a href="/a0C0A000000IRe5" target="_self">2019-B174</a>"
+LRB_Disposition_Number__c => string (9) "2019-B174"
+LRB_Employer_Trade_Union__c => null
+LRB_Is_Public_Decision__c => boolean true
+LRB_Key_Decision__c => string (8) "KD-35091"
+⧉Legacy_Decision_Name__c => string (104) "Mountain Equipment Co-Operative -and- United Food and Commercial Workers Int...
+Status__c => null
+Title__c => null
+LRB_Type__c => string (18) "Publish to Website"
+⧉LRB_File_Url__c => string (87) "https://lrb--c.na99.content.force.com/servlet/servlet.FileDownload?file=00P0...
+Decision_Id__c => null
+Id => string (18) "a0C0A000000IRe5UAG"
+
+<select data-drupal-selector="edit-field-mappings-0-config-salesforce-field" aria-describedby="edit-field-mappings-0-config-salesforce-field--plmoKdPubTg--description" id="edit-field-mappings-0-config-salesforce-field--plmoKdPubTg" name="field_mappings[0][config][salesforce_field]" class="form-select">
+
+<option value="" selected="selected">- Select -</option>
+
+<option value="Amendment__c">Amendment</option>
+
+<option value="LRB_Amendment_Date__c">Amendment Date</option>
+
+<option value="LRB_Amendment_Details__c">Amendment Details</option>
+
+<option value="Amendment_For_Decision_Name__c">Amendment For Decision Name</option>
+
+<option value="Amendment_For_Decision_Order__c">Amendment For Decision/Order</option>
+
+<option value="Amendment_Number__c">Amendment Number</option>
+
+<option value="Primary_Dispute__c">Case</option>
+
+<option value="Dispute_Order_Number__c">Case Order Number</option>
+
+<option value="LRB_Primary_Case_Status__c">Case Status</option>
+
+<option value="LRB_Case_Title__c">Case Title</option>
+
+<option value="LRB_Case_Type__c">Case Type</option>
+
+<option value="LRB_Certification__c">Certification</option>
+
+<option value="LRB_Disposition_Number__c">Citation</option>
+
+<option value="CreatedById">Created By ID</option>
+
+<option value="CreatedDate">Created Date</option>
+
+<option value="LRB_Decision_Name__c">Decision Name</option>
+
+<option value="Name">Decision/Order Name</option>
+
+<option value="IsDeleted">Deleted</option>
+
+<option value="LRB_Disposition_Details__c">Disposition Details</option>
+
+<option value="Disposition_Number__c">Disposition Number</option>
+
+<option value="Due_Date__c">Due Date</option>
+
+<option value="LRB_Employer_Trade_Union__c">Employer/Trade Union</option>
+
+<option value="External_ID__c">External ID</option>
+
+<option value="Internal_Notes__c">Internal Notes</option>
+
+<option value="Is_Imported_With_Name__c">Is Imported With Name?</option>
+
+<option value="LRB_Is_Public_Decision__c">Is Public Decision</option>
+
+<option value="Issued_By__c">Issued By</option>
+
+<option value="Issued_Date__c">Issued Date</option>
+
+<option value="LRB_Key_Decision__c">Key Decision</option>
+
+<option value="LastModifiedById">Last Modified By ID</option>
+
+<option value="LastModifiedDate">Last Modified Date</option>
+
+<option value="LastReferencedDate">Last Referenced Date</option>
+
+<option value="LastViewedDate">Last Viewed Date</option>
+
+<option value="Legacy_Decision_Name__c">Legacy Decision Name</option>
+
+<option value="Legacy_Panel_Member_List__c">Legacy Panel Member List</option>
+
+<option value="Old_Decision_Year__c">Old Decision Year</option>
+
+<option value="Old_Repost_Date__c">Old Repost Date</option>
+
+<option value="OwnerId">Owner ID</option>
+
+<option value="Parent_Decision__c">Parent Decision</option>
+
+<option value="Primary_Dispute_Name__c">Primary Dispute Name</option>
+
+<option value="Published_Date__c">Published Date</option>
+
+<option value="Id">Record ID</option>
+
+<option value="RecordTypeId">Record Type ID</option>
+
+<option value="Request_Received_Date__c">Request Received Date</option>
+
+<option value="Status__c">Status</option>
+
+<option value="LRB_Sub_Type__c">Sub Type</option>
+
+<option value="SystemModstamp">System Modstamp</option>
+
+<option value="Title__c">Title</option>
+
+<option value="LRB_Type__c">Type</option>
+
+<option value="Type__c">Type</option>
+
+<option value="Visual_Type__c">Visual Type</option>
+
+<option value="LRB_File_Url__c">Website Decision Url</option>
+
+<option value="Decision_Id__c">legacy Decision Id</option></select>

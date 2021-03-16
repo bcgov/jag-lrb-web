@@ -1,0 +1,13 @@
+services:
+  weaver_custom.twig.WeaverNewsCategoryUrl:
+    class: Drupal\weaver_custom\Twig\WeaverNewsCategoryUrl
+    tags:
+      - { name: twig.extension }
+  weaver_custom.twig.WeaverNextPreviousLinks:
+    class: Drupal\weaver_custom\Twig\WeaverNextPreviousLinks
+    tags:
+      - { name: twig.extension }
+  weaver_custom_salesforce_pull_event:
+    class: '\Drupal\weaver_custom\EventSubscriber\WeaverCustomSalesforcePullEvent'
+    tags:
+      - { name: 'event_subscriber' }      

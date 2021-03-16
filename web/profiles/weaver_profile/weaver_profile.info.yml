@@ -1,0 +1,97 @@
+name: Weaver Design Cooperative Installation Profile
+type: profile
+description: 'Base installation profile that adds modules and themes needed for development.'
+core_version_requirement: '^8.8 || ^9'
+
+dependencies:
+  - block
+  - config
+  - field
+  - file
+  - media
+  - node
+  - path
+  - system
+  - user
+  - views
+  - views_ui
+
+install:
+  - address
+  - admin_toolbar
+  - admin_toolbar_tools
+  - automated_cron
+  - backup_migrate
+  - better_exposed_filters
+  - big_pipe
+  - block_class
+  - block_content
+  - breakpoint
+  - captcha
+  - ckeditor
+  - classy_paragraphs
+  - contextual
+  - ctools
+  - ctools_block
+  - ctools_views
+  - datetime
+  - dblog
+  - devel
+  - devel_kint_extras
+  - devel_php
+  - draggableviews
+  - dynamic_page_cache
+  - editor
+  - editor_advanced_link
+  - entity_reference_revisions
+  - field_group
+  - field_ui
+  - filter
+  - help
+  - history
+  - honeypot
+  - image
+  - jquery_ui
+  - jquery_ui_datepicker
+  - jquery_ui_slider
+  - jquery_ui_tabs
+  - jquery_ui_tooltip
+  - link
+  - link_attributes
+  - linkit
+  - media_library
+  - menu_link_attributes
+  - menu_link_content
+  - menu_ui
+  - metatag
+  - metatag_views
+  - module_filter
+  - options
+  - page_cache
+  - paragraphs
+  - path_alias
+  - pathauto
+  - quickedit
+  - rdf
+  - redirect
+  - rename_admin_paths
+  - shortcut
+  - taxonomy
+  - telephone
+  - text
+  - token
+  - toolbar
+  - twig_tweak
+  - views_bootstrap
+  - views_bulk_operations
+  - webform
+  - webform_submission_log
+  - webform_ui
+  - webform_views
+  - xmlsitemap_custom
+  - xmlsitemap_engines
+  - webform_bootstrap
+  - xmlsitemap
+themes:
+  - seven
+  - adminimal_theme

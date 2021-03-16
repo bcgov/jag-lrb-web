@@ -1,0 +1,124 @@
+# Schema for the configuration files of the Salesforce Mapping module
+
+salesforce_mapping.salesforce_mapping.*:
+  type: config_object
+  label: 'Salesforce Mapping'
+  mapping:
+    id:
+      type: string
+      label: 'machine name'
+    label:
+      type: label
+      label: 'Human readable name'
+    weight:
+      type: integer
+      label: 'Weight'
+    type:
+      type: string
+      label: 'Type'
+    key:
+      type: string
+      label: 'Upsert Key'
+    always_upsert:
+      type: boolean
+      label: 'Always Upsert'
+    async:
+      type: boolean
+      label: 'Push async'
+    push_standalone:
+      type: boolean
+      label: 'Standalone push queue processing'
+    pull_standalone:
+      type: boolean
+      label: 'Standalone pull queue processing'
+    pull_trigger_date:
+      type: string
+      label: 'Pull Trigger Date Field'
+    pull_frequency:
+      type: integer
+      label: 'Pull Frequency'
+    push_frequency:
+      type: integer
+      label: 'Push Frequency'
+    push_limit:
+      type: integer
+      label: 'Push Time Limit'
+    push_retries:
+      type: integer
+      label: 'Push Retries'
+    pull_where_clause:
+      type: string
+      label: 'Pull query SOQL "WHERE" clause'
+    sync_triggers:
+      type: mapping
+      label: 'Sync triggers'
+      mapping:
+        push_create:
+          type: boolean
+          label: 'Drupal entity create'
+        push_update:
+          type: boolean
+          label: 'Drupal entity update'
+        push_delete:
+          type: boolean
+          label: 'Drupal entity delete'
+        pull_create:
+          type: boolean
+          label: 'Salesforce object create'
+        pull_update:
+          type: boolean
+          label: 'Salesforce object update'
+        pull_delete:
+          type: boolean
+          label: 'Salesforce object delete'
+    salesforce_object_type:
+      type: string
+      label: 'Salesforce Object Type'
+    drupal_entity_type:
+      type: string
+      label: 'Drupal Entity Type'
+    drupal_bundle:
+      type: string
+      label: 'Drupal Bundle'
+    field_mappings:
+      type: sequence
+      label: 'Field Mappings'
+      sequence:
+        - type: mapping
+          label: 'Field Mapping'
+          mapping:
+            drupal_field_type:
+              type: string
+              label: 'Fieldmap Type'
+            drupal_field_value:
+              type: string
+              label: 'Fieldmap Value'
+            direction:
+              type: string
+              label: 'Direction'
+            salesforce_field:
+              type: string
+              label: 'Salesforce Field Name'
+            id:
+              type: integer
+              label: 'Field Id'
+            drupal_constant:
+              type: string
+              label: 'Drupal Constant'
+            description:
+              type: text
+              label: 'Description'
+
+# Schema / Config API requires that we add these:
+    status:
+      type: boolean
+      label: 'Status'
+    langcode:
+      type: string
+      label: 'Default language'
+    dependencies:
+      type: config_dependencies
+      label: 'Dependencies'
+    uuid:
+      type: string
+      label: 'UUID'

@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+    config:
+        - field.field.node.weaver_news.body
+        - node.type.weaver_news
+    module:
+        - text
+        - user
+id: node.weaver_news.default
+targetEntityType: node
+bundle: weaver_news
+mode: default
+content:
+    body:
+        label: hidden
+        type: text_default
+        weight: 101
+        settings: {  }
+        third_party_settings: {  }
+    links:
+        weight: 100
+hidden: {  }

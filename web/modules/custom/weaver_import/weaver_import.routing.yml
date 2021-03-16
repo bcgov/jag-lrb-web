@@ -1,0 +1,14 @@
+weaver_import.ca_import:
+  path: '/admin/config/weaver_import/ca'
+  defaults:
+    _form: '\Drupal\weaver_import\Form\WeaverImportCaForm'
+    _title: 'LRB CA Import'
+  requirements:
+    _permission: 'administer content'
+weaver_import.decisions_import:
+  path: '/admin/config/weaver_import/decisions'
+  defaults:
+    _form: '\Drupal\weaver_import\Form\WeaverImportDecisionsForm'
+    _title: 'LRB Decisions Import'
+  requirements:
+    _permission: 'administer content'

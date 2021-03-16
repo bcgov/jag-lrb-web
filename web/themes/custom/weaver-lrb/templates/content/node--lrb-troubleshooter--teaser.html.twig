@@ -1,0 +1,12 @@
+<div class="col-md-5 pb-md-4">
+	{{ content.body }}
+</div>
+<div class="col-md-2 text-center py-2 py-md-0 ">
+	<i class="fal fa-arrow-down d-block d-md-none"></i>
+	<i class="fal fa-arrow-right d-none d-md-block mx-auto"></i>
+</div>
+<div class="col-md-5 pb-5 pb-xl-0">
+	<a href="{{ content.field_lrb_trouble_link.0 }}" {{ target }} class="underline">
+		{{ node.field_lrb_trouble_hint.value|raw }}
+	</a>
+</div>

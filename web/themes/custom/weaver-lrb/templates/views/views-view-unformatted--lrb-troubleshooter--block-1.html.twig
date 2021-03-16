@@ -1,0 +1,84 @@
+{# 
+  allows each carousel item to contain two rows 
+  didn't use boostrap-carousel format because it wasn't allowing links around descriptions
+#}
+
+<div id="{{ view.id }}" class="carousel slide d-none d-lg-block"
+    data-interval="5000"
+    data-ride="carousel"
+    data-pause="hover"
+>
+
+  {# Carousel body. #}
+  <div class="carousel-inner">
+    {% for key, row in rows %}
+  
+      {% set row_classes = ['carousel-item', loop.first ? 'active'] %}
+
+      {% if key is same as 0 or key is even %}
+        <div class="{{ row_classes|join(' ') }}">
+          <div class="d-flex justify-content-start align-items-center">
+      {% endif %}
+
+        <div class="carousel-item-inner">
+          {{ row.content }}
+        </div>
+
+      {% if key is odd or loop.last %}
+          </div>
+        </div>
+      {% endif %}
+
+    {% endfor %}
+  </div>
+  {# Controls #}
+  <a class="carousel-control-prev link-teal" href="#{{ view.id }}" role="button" data-slide="prev">
+    <i class="fal fa-angle-left fa-2x" aria-hidden="true"></i>
+    <span class="sr-only">{{ 'Previous'|t }}</span>
+  </a>
+  <a class="carousel-control-next link-teal" href="#{{ view.id }}" role="button" data-slide="next">
+    <i class="fal fa-angle-right fa-2x" aria-hidden="true"></i>
+    <span class="sr-only">{{ 'Next'|t }}</span>
+  </a>
+</div>
+
+<div id="mobile-{{ view.id }}" class="carousel carousel-mobile slide d-lg-none"
+    data-interval="5000"
+    data-ride="carousel"
+    data-pause="hover"
+>
+
+  {# Carousel body. #}
+  <div class="carousel-inner">
+    {% for key, row in rows %}
+  
+      {% set row_classes = ['carousel-item', loop.first ? 'active'] %}
+
+      <div class="{{ row_classes|join(' ') }}">
+        <div class="d-flex justify-content-start align-items-center">
+
+          <div class="carousel-item-inner">
+            {{ row.content }}
+          </div>
+
+        </div>
+      </div>
+
+    {% endfor %}
+  </div>
+  {# Controls #}
+  <a class="carousel-control-prev link-teal" href="#mobile-{{ view.id }}" role="button" data-slide="prev">
+    <i class="fal fa-angle-left fa-2x" aria-hidden="true"></i>
+    <span class="sr-only">{{ 'Previous'|t }}</span>
+  </a>
+  <a class="carousel-control-next link-teal" href="#mobile-{{ view.id }}" role="button" data-slide="next">
+    <i class="fal fa-angle-right fa-2x" aria-hidden="true"></i>
+    <span class="sr-only">{{ 'Next'|t }}</span>
+  </a>
+</div>
+
+{# Full list #}
+<div class="collapse" id="troubleshooter-full">
+  <a class="troubleshooter-full-close" tabindex="0" data-toggle="collapse" data-target="#troubleshooter-full"><i class="fal fa-times"></i></a>
+  {{ drupal_view('lrb_troubleshooter', 'block_2') }}
+</div>

@@ -1,0 +1,150 @@
+.ajax-progress-fullscreen {
+  width: auto;
+  height: auto;
+  padding: 1rem;
+  background-image: none;
+  background-color: $white;
+  border: 1px solid $teal;
+  border-radius: 50%;
+  opacity: 1;
+
+  svg,
+  path {
+    animation-duration: 3500ms;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+  
+  svg {
+    animation-name: logoIconSvg;
+  }
+
+  path {
+    fill: $blue;
+    transform: translateX(-3px);
+    animation-name: logoIconRight;
+
+    &:nth-child(2) { /* this is the one on the left actually */
+      fill: $teal;
+      transform: translateX(3px);
+      animation-name: logoIconLeft;
+    }
+  }
+}
+
+.icon-morph-group {
+	display: inline;
+	
+	.morph-beep,
+	.morph-boop {
+		display: none;
+	}
+}
+
+
+@keyframes logoText {
+  from {
+  	opacity: 0;
+  	transform: translateY(-1rem);
+  }
+
+/*  50% {
+  	transform: translateY(-0.5rem);
+  }*/
+
+  to {
+  	opacity: 1;
+  	transform: translateY(0);
+  }
+}
+
+@keyframes logoRest {
+	from {
+		opacity: 0;
+		transform: translateX(1rem);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes logoIconSvg {
+  from {
+  }
+
+  40% {
+    transform: rotate(360deg);
+  }
+  
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes logoIconLeft {
+  from {
+    transform: translateX(3px);
+    fill: $teal;
+  }
+
+  30% {
+    transform: translateX(-2px);
+  }
+  
+  60% {
+    transform: translateX(0);
+  }
+
+  70% {
+    fill: $teal;
+  }
+  
+  71% {
+    fill: #DCC72A;
+  }
+
+  80% {
+    transform: translateX(0);
+  }
+  
+  to {
+    transform: translateX(3px);
+    fill: $teal;
+  }
+}
+
+@keyframes logoIconRight {
+  from {
+    transform: translateX(-3px);
+    fill: $blue;
+  }
+
+  30% {
+    transform: translateX(2px);
+    fill: $blue;  
+  }
+  
+  60% {
+    transform: translateX(0);
+  }
+  
+  73% {
+    fill: $blue;
+  }
+  
+  74% {
+    fill: #DCC72A;
+  }
+  
+  80% {
+    transform: translateX(0);
+  }
+  
+  to {
+    transform: translateX(-3px);
+    fill: $blue;
+  }
+}

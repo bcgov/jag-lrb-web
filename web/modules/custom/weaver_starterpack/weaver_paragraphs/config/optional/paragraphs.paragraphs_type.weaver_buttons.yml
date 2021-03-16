@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: weaver_buttons
+label: Buttons
+icon_uuid: null
+icon_default: null
+description: 'Adds a group of buttons that will be side-by-side on desktop and table, and vertically stacked on mobile.'
+behavior_plugins: {  }

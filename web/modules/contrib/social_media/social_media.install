@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Remove google plus configuration.
+ */
+function social_media_update_8001() {
+  \Drupal::configFactory()->getEditable('social_media.settings')->clear('google_plus')->save();
+}
+
+/**
+ * Implements hook_install().
+ */
+function social_media_install() {
+  social_media_update_8001();
+}

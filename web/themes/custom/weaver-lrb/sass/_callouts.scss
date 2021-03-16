@@ -1,0 +1,117 @@
+.callout {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	width: fit-content;
+  margin: 2.5rem 0;
+	padding: 0 !important;
+  background-color: $white;
+  text-align: left !important;
+  font-weight: $font-weight-bold;
+
+  &p {
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  
+  .cke_editable & {
+    display: block;
+    padding: 1.5rem !important;
+    border: 1px solid $grey-medium;
+  }
+
+  /* the text */
+  span {
+		padding: 1.5rem;
+    border: 1px solid $grey-medium;
+	  border-left: 0 none;
+  	background-color: $white;
+		transition: all 500ms;
+  }
+
+  /* the icon */
+  &:before {
+    display: none;
+  }
+
+	svg {
+  	min-width: 72px;
+    min-height: 72px;
+    padding: 1rem;
+	}
+
+	@each $name, $value in $colors {
+
+    &.callout-#{$name} {
+  		background-color: #{$value};
+    	color: #{$value};
+
+      /* adapt for when inside ckeditor */
+      .cke_editable & {
+        border-left: #{$value};
+        background-color: transparent !important;
+      }
+
+    	svg {
+    		color: $white !important;
+    	}
+    } 
+  }
+
+  /* special case for yellow */
+  &.callout-yellow:not(a) {
+    color: $black;
+  }
+
+  &.callout-comment-exclamation:before {
+    content: "\f4af";
+  }
+
+/*  &.callout-virus:before {
+    content: "\e074";
+  }
+*/}
+
+a.callout {
+  margin: 1.5rem 0;
+	text-decoration: none !important;
+  box-shadow: $shadow;
+  font-weight: $font-weight-bold;
+
+  span {
+    max-width: 425px;
+    border: 0 none;
+  }
+
+  svg {
+    transition: all 500ms;
+  }
+
+  @include hoverStates() {
+    
+    svg {
+      transform: scale(1.5);
+    }
+  }
+
+	@each $name, $value in $colors {
+	
+    &.callout-#{$name} {
+      border: $border-width solid #{$value};
+
+      .cke_editable & {
+        border-color: #{$value};
+      }
+
+			@include hoverStates() {
+	  		
+	  		span {
+	  			background-color: #{$value} !important;
+	  			color: $white !important;	
+	  		}
+
+	  	}
+	  }
+  }
+}

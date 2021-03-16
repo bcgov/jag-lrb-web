@@ -1,0 +1,381 @@
+<select data-drupal-selector="edit-field-mappings-0-config-salesforce-field" aria-describedby="edit-field-mappings-0-config-salesforce-field--ZYIeApY_mzs--description" id="edit-field-mappings-0-config-salesforce-field--ZYIeApY_mzs" name="field_mappings[0][config][salesforce_field]" class="form-select">
+
+<option value="" selected="selected">- Select -</option>
+
+<option value="Num_Party_Contacts_EvidenceAccessFormula__c"># of Portal Users With Edit Evidence</option>
+
+<option value="Add_Another_Process_Details__c">Additional: Another Process Details</option>
+
+<option value="Add_Another_Process__c">Additional: Another Process?</option>
+
+<option value="Add_Immediate_Risk_Details__c">Additional: Immediate Risk Details</option>
+
+<option value="Add_Immediate_Risk__c">Additional: Immediate Risk?</option>
+
+<option value="Add_Motor_Vehicle_Accident__c">Additional: Motor Vehicle Accident?</option>
+
+<option value="Add_Requested_Strata_Hearing_Details__c">Additional: Requested Strata Hearing Det</option>
+
+<option value="Add_Requested_Strata_Hearing__c">Additional: Requested Strata Hearing?</option>
+
+<option value="Agreed_to_Max_Fee__c">Agreed to Max Fee</option>
+
+<option value="Agreed_to_Privacy_Statements__c">Agreed to Privacy Statements</option>
+
+<option value="Allow_Evidence_On_Portal__c">Allow Evidence On Portal</option>
+
+<option value="Allow_Evidence_On_Portal_Formula__c">Allow Evidence On Portal Formula</option>
+
+<option value="Amended_Claim_Respondent_ResponseDueDate__c">Amended Claim Respondent ResponseDueDate</option>
+
+<option value="Amended_Claim_Response_Due_Date__c">Amended Claim Response Due Date</option>
+
+<option value="Appeal_Category__c">Appeal Category</option>
+
+<option value="Appeal_Comment__c">Appeal Comment</option>
+
+<option value="LRB_Applicant_Names__c">Applicant Name(s)</option>
+
+<option value="Can_Update_Evidence_based_on_Status__c">Can Update Evidence? (based on Status)</option>
+
+<option value="Dispute_Area_Full_Name__c">Case Area Full Name</option>
+
+<option value="Dispute_Area_ID__c">Case Area ID</option>
+
+<option value="Dispute_Area_Is_Strata__c">Case Area Is Strata?</option>
+
+<option value="Dispute_Area_Link__c">Case Area Link</option>
+
+<option value="Dispute_Area_Max_Fee__c">Case Area Max Disputable Amount</option>
+
+<option value="Dispute_Area_Name__c">Case Area Name</option>
+
+<option value="LRB_Case_Details__c">Case Details</option>
+
+<option value="Dispute_Group__c">Case Group</option>
+
+<option value="Dispute_Group_Title__c">Case Group Title</option>
+
+<option value="Name">Case Id</option>
+
+<option value="Dispute_Link__c">Case Number</option>
+
+<option value="Dispute_Number_Prefix__c">Case Number Prefix</option>
+
+<option value="LRB_Case_Title__c">Case Title</option>
+
+<option value="LRB_Case_Type__c">Case Type</option>
+
+<option value="LRB_Certification__c">Certification</option>
+
+<option value="Change_Owner__c">Change Owner</option>
+
+<option value="Closed_Date__c">Close Date</option>
+
+<option value="LRB_CodeSection__c">Code Section</option>
+
+<option value="LRB_Code_Section__c">Code Section</option>
+
+<option value="LRB_Confidential_Remarks__c">Confidential Remarks</option>
+
+<option value="CreatedById">Created By ID</option>
+
+<option value="CreatedDate">Created Date</option>
+
+<option value="DST__c">DST?</option>
+
+<option value="Days_Since__c">Days Since</option>
+
+<option value="LRB_Days_Since_Received__c">Days Since Received</option>
+
+<option value="LRB_Days_Since_Received_Flag__c">Days Since Received</option>
+
+<option value="IsDeleted">Deleted</option>
+
+<option value="Email_Attention__c">Email Attention</option>
+
+<option value="Email_Claim_List__c">Email Claim List</option>
+
+<option value="LRB_Certification_Employers__c">Employer(s)</option>
+
+<option value="CBR_Employers__c">Employer(s)</option>
+
+<option value="Enable_Statement_of_Facts_in_Portal__c">Enable Statement of Facts in Portal?</option>
+
+<option value="Encrypted_Name__c">Encrypted Name</option>
+
+<option value="Expired_BF_Dispute_Flags__c">Expired BF</option>
+
+<option value="Exploration_Data__c">Exploration Data</option>
+
+<option value="Extension_Details__c">Extension Details</option>
+
+<option value="Extension_Requests__c">Extension Requests</option>
+
+<option value="External_Stage_Deadline__c">External Stage Deadline</option>
+
+<option value="External_Status_Closed__c">External Status Closed</option>
+
+<option value="External_Status_Open__c">External Status Open</option>
+
+<option value="External_Status_Stage__c">External Status/Stage</option>
+
+<option value="LRB_File_Manager__c">File Manager</option>
+
+<option value="First_Notice_Date__c">First Notice Date</option>
+
+<option value="Unresolved_Dispute_Flags_Flag__c">Flags</option>
+
+<option value="Full_Status_Stage__c">Full Status &amp; Stage</option>
+
+<option value="Notice_Generated_For_CPG__c">Generated For</option>
+
+<option value="Generated_Notice_Package__c">Generated Notice Package?</option>
+
+<option value="Grievance_Code__c">Grievance Code</option>
+
+<option value="Incomplete_and_Expired__c">Incomplete and Expired</option>
+
+<option value="LRB_Industry__c">Industry</option>
+
+<option value="Initiator_Actions_Email_Reminder_Flag__c">Initiator Actions Email Reminder Flag</option>
+
+<option value="Intake_Applicant_Is_Strata__c">Intake Applicant Is Strata</option>
+
+<option value="Intake_Completed_Status__c">Intake Completed Status</option>
+
+<option value="Intake_Completed_Steps__c">Intake Completed Steps</option>
+
+<option value="Intake_Completed__c">Intake Completed?</option>
+
+<option value="Intake_Step__c">Intake Current Step</option>
+
+<option value="Intake_Furthest_Step_Reached__c">Intake Furthest Step Reached</option>
+
+<option value="Order_Case_Created__c">Intake Order</option>
+
+<option value="Order_Queue__c">Intake Order</option>
+
+<option value="Intake_Payment_Submitted__c">Intake Payment Submitted</option>
+
+<option value="Session_Expiration__c">Intake Session Last Modified</option>
+
+<option value="Intake_Type__c">Intake Type</option>
+
+<option value="Intake_Type_Reason__c">Intake Type Reason</option>
+
+<option value="LRB_Intervener_Names__c">Intervener Name(s)</option>
+
+<option value="Is_Active__c">Is Active?</option>
+
+<option value="Is_Owner_Current_User__c">Is Owner Current User</option>
+
+<option value="Is_Ready_for_Tribunal_Decision__c">Is Ready for Tribunal Decision</option>
+
+<option value="Is_Test_Data__c">Is Test Data?</option>
+
+<option value="Is_Tribunal_Decision_Process__c">Is Tribunal Decision Process</option>
+
+<option value="Is_Trigger_Running__c">Is Trigger Running?</option>
+
+<option value="LastActivityDate">Last Activity Date</option>
+
+<option value="LastModifiedById">Last Modified By ID</option>
+
+<option value="LastModifiedDate">Last Modified Date</option>
+
+<option value="LastReferencedDate">Last Referenced Date</option>
+
+<option value="LastViewedDate">Last Viewed Date</option>
+
+<option value="Line_of_Business_Name__c">Line of Business Name</option>
+
+<option value="Linked__c">Linked</option>
+
+<option value="Missed_Notice_Flag__c">Missed Notice</option>
+
+<option value="Missed_Response_Flag__c">Missed Response</option>
+
+<option value="Monetary_Amount__c">Monetary Amount</option>
+
+<option value="Needs_Attention__c">Needs Attention</option>
+
+<option value="LRB_New_Bargaining_Unit_Description__c">New Bargaining Unit Description</option>
+
+<option value="LRB_New_Employer_Address__c">New Employer Address</option>
+
+<option value="LRB_New_Employer_Name__c">New Employer Name</option>
+
+<option value="LRB_New_Union_Name__c">New Union Name</option>
+
+<option value="No_Remedy_Dollar_Amount__c">No Remedy Dollar Amount</option>
+
+<option value="No_Strata_Council_Hearing__c">No Strata Council Hearing</option>
+
+<option value="Notice_Served_Ratio__c">Notice</option>
+
+<option value="Notice_Date__c">Notice Date</option>
+
+<option value="Notice_Due_Date__c">Notice Due Date</option>
+
+<option value="Notice_Last_Generated__c">Notice Generated</option>
+
+<option value="Notice_Last_Generated_Flag__c">Notice Generated</option>
+
+<option value="Notice_Last_Generated_Claim_Ids__c">Notice Last Generated Claim Ids</option>
+
+<option value="Initiator_Actions_Email_Reminder_Date__c">Notice Reminder Date</option>
+
+<option value="Number__c">Number</option>
+
+<option value="Number_Expired_Dispute_Flags__c">Number Expired Dispute Flags</option>
+
+<option value="Number_Late_Responses__c">Number Late Responses</option>
+
+<option value="Number_Not_Served_By_Due_Date__c">Number Not Served By Due Date</option>
+
+<option value="Number_Of_Party_Contacts_Evidence_Access__c">Number Of Party Contacts Evidence Access</option>
+
+<option value="Number_Respondents__c">Number Respondents</option>
+
+<option value="Number_Respondents_Served_Notice__c">Number Respondents Served Notice</option>
+
+<option value="Number_Respondents_With_Response__c">Number Respondents With Response</option>
+
+<option value="LRB_Number_of_Employees__c">Number of Employees</option>
+
+<option value="LRB_Number_of_Employees_Range__c">Number of Employees Range</option>
+
+<option value="Number_of_Overdue_Tasks__c">Number of Overdue Tasks</option>
+
+<option value="Old_Bargaining_Unit_Size__c">Old Bargaining Unit Size</option>
+
+<option value="Old_Case_Close_Date__c">Old Case Close Date</option>
+
+<option value="Old_External_Id__c">Old External Id</option>
+
+<option value="OwnerId">Owner ID</option>
+
+<option value="Owner_Tribunal_Role__c">Owner Tribunal Role</option>
+
+<option value="Owner_is_Guest__c">Owner is Guest?</option>
+
+<option value="Owner_is_Queue__c">Owner is Queue?</option>
+
+<option value="LRB_Vice_Chair_Assigned__c">Panel Assigned</option>
+
+<option value="LRB_Vice_Chair_Assigned_By__c">Panel Assigned By</option>
+
+<option value="LRB_Vice_Chair_Assigned_Date__c">Panel Assigned Date</option>
+
+<option value="LRB_Vice_Chair_Remarks__c">Panel Remarks</option>
+
+<option value="Party_Count__c">Party Count</option>
+
+<option value="LRB_Party_Union_Names__c">Party: Union Name(s)</option>
+
+<option value="Primary_Claim__c">Primary Claim</option>
+
+<option value="Primary_Claim_Category__c">Primary Claim Category</option>
+
+<option value="Priority_Flag__c">Priority</option>
+
+<option value="Priority__c">Priority</option>
+
+<option value="Is_Private__c">Private Session</option>
+
+<option value="Process_Template_Type__c">Process</option>
+
+<option value="Process_Template__c">Process Template</option>
+
+<option value="Process_Template_Name__c">Process Template Name</option>
+
+<option value="Process_Template_Related_Stage__c">Process Template Related Stage</option>
+
+<option value="Queue_DateTime__c">Queue Date Time</option>
+
+<option value="Reached_Active_Tribunal_Decision_Stage__c">Reached Active Tribunal Decision Stage?</option>
+
+<option value="Reason__c">Reason</option>
+
+<option value="LRB_Received_Date__c">Received Date</option>
+
+<option value="Id">Record ID</option>
+
+<option value="Report_Applicant_Email__c">Report: Applicant Email</option>
+
+<option value="Report_Applicant_Name__c">Report: Applicant Name</option>
+
+<option value="Report_Applicant_Subtype__c">Report: Applicant Subtype</option>
+
+<option value="Report_Applicant_Type__c">Report: Applicant Type</option>
+
+<option value="LRB_Respondent_Names__c">Respondent Name(s)</option>
+
+<option value="Response_Received_Ratio__c">Response</option>
+
+<option value="Response_Time__c">Response Time</option>
+
+<option value="Responsible_Applicant__c">Responsible Applicant</option>
+
+<option value="Responsible_Applicant_Party_Contact__c">Responsible Applicant Party Contact</option>
+
+<option value="Send_Abandoned_Email__c">Send Abandoned Email</option>
+
+<option value="Sent_Abandoned_Email_At__c">Sent Abandoned Email At</option>
+
+<option value="Session_Key__c">Session Key</option>
+
+<option value="Session_Timeout__c">Session Timeout</option>
+
+<option value="Stage__c">Stage</option>
+
+<option value="LRB_Stage__c">Stage</option>
+
+<option value="Stage_In_Queue__c">Stage In Queue?</option>
+
+<option value="Stage_Status_Legend__c">Stage/Status Legend</option>
+
+<option value="Standard_Taxonomy__c">Standard Taxonomy</option>
+
+<option value="Statement_of_Fact_Response_Due_Date__c">Statement of Fact Response Due Date</option>
+
+<option value="Status__c">Status</option>
+
+<option value="LRB_Status__c">Status</option>
+
+<option value="Strata_City__c">Strata City</option>
+
+<option value="Strata_Registration_Number__c">Strata Registration Number</option>
+
+<option value="Strata_Section_Number__c">Strata Section Number</option>
+
+<option value="SubStage__c">SubStage</option>
+
+<option value="SubStatus__c">SubStatus</option>
+
+<option value="Subject_Line__c">Subject Line</option>
+
+<option value="SystemModstamp">System Modstamp</option>
+
+<option value="To_Be_Deleted__c">To Be Deleted</option>
+
+<option value="LRB_Certification_Unions__c">Trade Union(s)</option>
+
+<option value="CBR_Trade_Unions__c">Trade Union(s)</option>
+
+<option value="Unique_Count_Dispute__c">Unique Count - Dispute</option>
+
+<option value="Unresolved_Dispute_Flags__c">Unresolved Dispute Flags</option>
+
+<option value="Visual_Status__c">Visual Status</option>
+
+<option value="Withdraw_Approved__c">Withdraw Approved</option>
+
+<option value="Withdraw_Approved_By__c">Withdraw Approved By</option>
+
+<option value="Withdraw_Approved_Date__c">Withdraw Approved Date</option>
+
+<option value="Withdraw_Reason__c">Withdraw Details</option>
+
+<option value="Withdraw_Request_Date__c">Withdraw Request Date</option></select>

@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.preview
+    - field.field.paragraph.weaver_text.field_weaver_text
+    - paragraphs.paragraphs_type.weaver_text
+  module:
+    - text
+id: paragraph.weaver_text.preview
+targetEntityType: paragraph
+bundle: weaver_text
+mode: preview
+content:
+  field_weaver_text:
+    weight: 0
+    label: hidden
+    settings:
+      trim_length: 200
+    third_party_settings: {  }
+    type: text_trimmed
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true

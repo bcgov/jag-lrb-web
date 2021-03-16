@@ -1,0 +1,6 @@
+services:
+  salesforce_example.push_params:
+    class: Drupal\salesforce_example\EventSubscriber\SalesforceExampleSubscriber
+    arguments: []
+    tags:
+      - { name: event_subscriber }

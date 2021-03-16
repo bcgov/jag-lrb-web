@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.wv_accordion_item.field_wv_accordion_body
+    - field.field.paragraph.wv_accordion_item.field_wv_accordion_title
+    - paragraphs.paragraphs_type.wv_accordion_item
+  module:
+    - text
+id: paragraph.wv_accordion_item.default
+targetEntityType: paragraph
+bundle: wv_accordion_item
+mode: default
+content:
+  field_wv_accordion_body:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_wv_accordion_title:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  search_api_excerpt: true

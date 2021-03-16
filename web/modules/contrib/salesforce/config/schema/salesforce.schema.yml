@@ -1,0 +1,76 @@
+salesforce.settings:
+  type: config_object
+  label: 'Salesforce Settings'
+  mapping:
+    consumer_key:
+      type: string
+      label: 'Salesforce consumer key'
+      description: 'Consumer key of the Salesforce remote application you want to grant access to.'
+    consumer_secret:
+      type: string
+      label: 'Salesforce consumer secret'
+      description: 'Consumer secret of the Salesforce remote application you want to grant access to.'
+    login_url:
+      type: string
+      label: 'Login URL'
+      description: 'API login URL, either https://login.salesforce.com or https://test.salesforce.com.'
+    global_push_limit:
+      type: integer
+      label: 'Global push queue limit'
+      description: 'Set the maximum number of records to be processed during each push queue process. Use 0 for no limit.'
+    pull_max_queue_size:
+      type: integer
+      label: 'Pull queue max size'
+      description: 'Set the maximum number of items which can be enqueued for pull at any given time. Note this setting is not exactly analogous to the push queue limit, since Drupal Cron API does not offer such granularity. Use 0 for no limit.'
+    standalone:
+      type: boolean
+      label: 'Provide standalone queue processing endpoint and disable cron processing.'
+      description: 'Enable standalone queue processing, and do not process push mappings during cron. Pull queue will be populated and processed via standalone endpoint, and may also be processed during cron. Note: when enabled, you must set up your own service to query this endpoint.'
+    show_all_objects:
+      type: boolean
+      label: 'Show all Salesforce objects in mapping UI, including system and non-writeable tables'
+      description: 'Expose all Salesforce objects to the Mapping interface. By default, Salesforce objects like custom settings, read-only objects, non-triggerable objects, etc. are hidden from the Salesforce Mapping interface to improve usability.'
+    use_latest:
+      type: boolean
+      label: 'Use latest REST API Version (recommended)'
+      description: 'Always use the latest Rest API version when connecting to Salesforce. In general, Rest API is backwards-compatible for many years. Unless you have a very specific reason, you should probably just use the latest version.'
+    limit_mapped_object_revisions:
+      type: integer
+      label: 'Limit mapped object revisions'
+      description: 'Specify a maximum number of revisions to retain for Mapped Object content. Use 0 for no limit.'
+    salesforce_auth_provider:
+      type: string
+      label: 'Default authorization provider id'
+      description: 'A salesforce_auth config entity id which provides API authorization.'
+    rest_api_version:
+      type: mapping
+      label: 'REST API Version'
+      description: 'A specific version of REST API to use, if not using latest'
+      mapping:
+        label:
+          type: string
+          label: 'Label'
+        url:
+          type: string
+          label: 'URL'
+        version:
+          type: string
+          label: 'Version'
+
+salesforce.salesforce_auth.*:
+  type: config_entity
+  label: 'Salesforce Auth Provider'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+      translatable: true
+    provider:
+      type: string
+      label: 'Provider Plugin'
+    provider_settings:
+      type: salesforce.auth_provider_settings.[%parent.provider]
+      label: 'Provider Plugin Settings'

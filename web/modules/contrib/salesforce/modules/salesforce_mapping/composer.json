@@ -1,0 +1,23 @@
+{
+  "name": "drupal/salesforce_mapping",
+  "description": "This module maps Drupal entities to Salesforce objects.",
+  "type": "drupal-module",
+  "authors": [
+    {
+      "name": "Aaron Bauman",
+      "email": "aaron@messageagency.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0",
+    "drupal/dynamic_entity_reference": "^1.9 || ^2.0",
+    "drupal/typed_data": "^1.0-alpha5"
+  },
+  "extra": {
+    "drush": {
+      "services": {
+        "drush.services.yml": "^9"
+      }
+    }
+  }
+}

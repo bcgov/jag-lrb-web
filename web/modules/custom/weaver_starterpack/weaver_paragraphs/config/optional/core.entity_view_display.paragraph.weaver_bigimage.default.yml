@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.weaver_bigimage.field_weaver_bigimage
+    - paragraphs.paragraphs_type.weaver_bigimage
+  module:
+    - media
+id: paragraph.weaver_bigimage.default
+targetEntityType: paragraph
+bundle: weaver_bigimage
+mode: default
+content:
+  field_weaver_bigimage:
+    type: media_thumbnail
+    weight: 0
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true

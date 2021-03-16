@@ -1,0 +1,12 @@
+{% if q is not empty %}
+	{{ q }}
+{% endif %}
+{% if form_id == 'views-exposed-form-lrb-site-search-page-1' %}
+	<h1 class="page-title mb-0 pt-5">{{ 'Site Search'|t }}</h1>
+	<div class="form-row my-5 d-md-flex justify-content-md-between align-items-md-start flex-wrap">
+{% else %}
+	<div class="form-row my-5 d-md-flex justify-content-md-between align-items-md-end flex-wrap">
+{% endif %}
+
+  {{ form }}
+</div>

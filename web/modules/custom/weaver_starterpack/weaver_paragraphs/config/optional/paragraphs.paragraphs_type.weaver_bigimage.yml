@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: weaver_bigimage
+label: 'Big Image'
+icon_uuid: null
+icon_default: null
+description: 'Adds an image that spans full content width.'
+behavior_plugins: {  }

@@ -1,0 +1,4 @@
+<h5 class="mb-0 font-weight-bold link-teal">{{ drupal_link(label, path('entity.node.canonical', { 'node': node.id()})) }}</h5>
+<p class="mb-0 text-black">{{ 'News and updates'|t }} | {{ node.created.value|format_date('medium') }}</p>
+<p class="mb-0 text-black">{{ excerpt }}</p>
+<p class="mb-0 text-black">{{ drupal_link(path('entity.node.canonical', { 'node': node.id()}), path('entity.node.canonical', { 'node': node.id()}), {attributes: {class: 'underline'}}) }}</p>

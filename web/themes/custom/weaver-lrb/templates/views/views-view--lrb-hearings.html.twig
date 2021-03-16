@@ -1,0 +1,79 @@
+{%
+  set classes = [
+    'view',
+    'view-' ~ id|clean_class,
+    'view-id-' ~ id,
+    'view-display-id-' ~ display_id,
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+    'lrb-search-view'
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if title %}
+    {{ title }}
+  {% endif %}
+  {{ title_suffix }}
+
+  {% if exposed %}
+    <a tabindex="0" data-toggle="collapse" data-target="#view-filters" aria-expanded="false" aria-controls="view-filters" role="button" title="{{ 'Expand search options'|t }}" class="morph-collapse d-flex align-items-center justify-content-start">
+      <p class="h3 mr-3">{{ 'Search hearings schedule'|t }}</p>
+      <div class="icon-morph-group">
+        {% if search_params is defined %}
+          <i id="times-original" class="fal fa-times morph-original"></i>
+          <i id="chevron-down-icon" class="fal fa-chevron-down morph-beep"></i>
+          <i id="times-icon" class="fal fa-times morph-boop"></i>
+        {% else %}
+          <i id="chevron-down-original" class="fal fa-chevron-down morph-original"></i>
+          <i id="times-icon" class="fal fa-times morph-beep"></i>
+          <i id="chevron-down-icon" class="fal fa-chevron-down morph-boop"></i>
+        {% endif %}
+      </div>
+    </a>
+    <div id="view-filters" aria-hidden="true" tabindex="-1" aria-labelledBy="{{ 'Search hearings schedule'|t }}" class="collapse view-filters{% if search_params is defined %} show{% endif %}">
+      {{ exposed }}
+    </div>
+  {% endif %}
+  {% if header %}
+    <div class="view-header">
+      {{ header }}
+    </div>
+  {% endif %}
+  {% if attachment_before %}
+    <div class="attachment attachment-before">
+      {{ attachment_before }}
+    </div>
+  {% endif %}
+
+  {% if rows %}
+    <div class="view-content row {{ views_content_classes }}">
+      {{ rows }}
+    </div>
+  {% elseif empty %}
+    <div class="view-empty">
+      {{ empty }}
+    </div>
+  {% endif %}
+
+  {% if pager %}
+    {{ pager }}
+  {% endif %}
+  {% if attachment_after %}
+    <div class="attachment attachment-after">
+      {{ attachment_after }}
+    </div>
+  {% endif %}
+  {% if more %}
+    {{ more }}
+  {% endif %}
+  {% if footer %}
+    <div class="view-footer">
+      {{ footer }}
+    </div>
+  {% endif %}
+  {% if feed_icons %}
+    <div class="feed-icons">
+      {{ feed_icons }}
+    </div>
+  {% endif %}
+</div>

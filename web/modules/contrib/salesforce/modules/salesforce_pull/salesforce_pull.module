@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Pull updates from Salesforce when a Salesforce object is updated.
+ */
+
+/**
+ * Implements hook_cron().
+ */
+function salesforce_pull_cron() {
+  if (\Drupal::config('salesforce.settings')->get('standalone')) {
+    // If global standalone processing is enabled, stop here.
+    return;
+  }
+
+  if (\Drupal::service('plugin.manager.salesforce.auth_providers')->getToken()) {
+    \Drupal::service('salesforce_pull.queue_handler')->getUpdatedRecords();
+    \Drupal::service('salesforce_pull.delete_handler')->processDeletedRecords();
+  }
+}

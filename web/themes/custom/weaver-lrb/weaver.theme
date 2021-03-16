@@ -1,0 +1,324 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the SASS Starterkit subtheme.
+ */
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\file\Entity\File;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\paragraphs\Entity\Paragraph;
+use \Drupal\views\Views;
+
+include_once('weaver.field.inc');
+include_once('weaver.node.inc');
+include_once('weaver.paragraphs.inc');
+include_once('weaver.views.inc');
+
+function weaver_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  switch ($form_id) {
+    case 'views_exposed_form':
+      $form['actions']['submit']['#attributes']['class'] = ['btn', 'btn-yellow', 'btn-wide'];
+      $form['actions']['reset']['#attributes']['class'] = ['btn', 'btn-outline-teal', 'btn-wide'];
+      break;
+  }
+}
+/**
+ * Implements hook_form_system_theme_settings_alter() for settings form.
+ *
+ * Replace Barrio setting options with subtheme ones.
+ *
+ * Example on how to alter theme settings form
+ */
+function weaver_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  $form['components']['navbar']['bootstrap_barrio_navbar_top_background']['#options'] = [
+    'bg-primary' => t('Primary'),
+    'bg-secondary' => t('Secondary'),
+    'bg-light' => t('Light'),
+    'bg-dark' => t('Dark'),
+    'bg-white' => t('White'),
+    'bg-transparent' => t('Transparent'),
+  ];
+  $form['components']['navbar']['bootstrap_barrio_navbar_background']['#options'] = [
+    'bg-primary' => t('Primary'),
+    'bg-secondary' => t('Secondary'),
+    'bg-light' => t('Light'),
+    'bg-dark' => t('Dark'),
+    'bg-white' => t('White'),
+    'bg-transparent' => t('Transparent'),
+  ];
+}
+
+function weaver_preprocess_breadcrumb(&$variables) {
+ 
+  $route = \Drupal::routeMatch();
+  $params = $route->getParameters()->all();
+
+  // get News and updates to show correct breadcrumbs
+  if (isset($params['view_id']) && $params['view_id'] == 'lrb_news') {
+
+    $news_view_title = Views::getView('lrb_news')->getTitle();
+
+    $current_term = (isset($params['arg_0'])) ? $params['arg_0'] : null;
+
+    if ($current_term != null) {
+      $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => str_replace('-', ' ', $params['arg_0'])]);
+      $term = reset($terms);
+
+      foreach ($variables['breadcrumb'] as $key => $breadcrumb) {
+
+        // cases of category page
+        if ($breadcrumb['url'] == '' && $breadcrumb['text'] == $news_view_title) {
+          $variables['breadcrumb'][$key]['text'] = $term->label();
+        }
+      }
+    }
+  }
+
+  // cases where news category is a link
+  if (isset($params['node']) && $params['node']->bundle() == 'weaver_news') {
+    foreach ($variables['breadcrumb'] as $key => $breadcrumb) {
+
+      if (strpos($breadcrumb['url'], '/updates/') === 0) {
+        // get taxonomy terms
+        if (isset($params['node']->get('field_lrb_news_category')->target_id)) {
+          $term = Term::load($params['node']->get('field_lrb_news_category')->target_id);
+          $variables['breadcrumb'][$key]['text'] = $term->label();
+        }
+      }
+    }
+  }
+}
+
+function weaver_preprocess_entity_print(&$variables) {
+
+  $config = \Drupal::config('weaver_custom.settings');
+
+  $variables['custom_classes'] = '';
+
+  $route = \Drupal::routeMatch();
+  $entity_type = $route->getParameter('entity_type');
+  $entity_id = $route->getParameter('entity_id');
+
+  $variables['url'] = 'https://lrb.bc.ca/';
+
+  switch ($entity_type) {
+
+    case 'node':
+      $node = Node::load($entity_id);
+
+      $title = $node->label();
+      $variables['pdf_title'] = $title;
+      $variables['content']['#title'] = $title;
+      
+      $variables['url'] = Url::fromRoute('entity.node.canonical', ['node' => $entity_id], ['absolute' => TRUE]);
+
+      if ($entity_id == 3568) {
+        $variables['custom_classes'] .= ' front';
+      }
+
+      break;
+
+    case 'view':
+      $view = \Drupal\views\Entity\View::load($entity_id);
+      $variables['pdf_title'] = $view->label();
+      $variables['url'] = Url::fromRoute('view.' . $entity_id . '.page_1', [], ['absolute' => TRUE]);
+      break;
+  }
+
+  // set disclaimer
+  $variables['disclaimer'] = $config->get('weaver_custom.site_elements.disclaimer')['value'];
+
+  // set territorial acknowledgement
+  $variables['territorial'] = $config->get('weaver_custom.site_elements.territorial')['value'];
+
+  // site name for header
+  $config = \Drupal::config('system.site');
+  $variables['site_name'] = $config->getOriginal('name', false);  
+}
+
+function weaver_preprocess_media(&$variables) {
+  $media_entity = $variables['media'];
+
+  switch ($media_entity->bundle()) {
+
+    case 'document':
+    case 'lrb_collective_agreement':
+    case 'lrb_decision':
+      $file_id = $media_entity->get('field_media_file')->target_id;
+      $file = File::load($file_id);
+
+      $variables['name'] = $media_entity->label();
+      $variables['body'] = '';
+
+      if ($file != NULL) {
+        $url = Url::fromRoute(
+          'media_entity_download.download',
+          [
+            'media' => $media_entity->id(),
+            'inline' => null,
+          ]
+        );
+        $variables['url'] = $url;
+      
+        $filesize = $file->getSize();
+        $variables['filesize'] = weaverformatBytes($filesize, 0);
+      }
+      break;
+  }
+
+  switch ($media_entity->bundle()) {
+    case 'lrb_collective_agreement':
+      $ca_id = $media_entity->get('field_lrb_ca_id')->value;
+      if ($ca_id) {
+        $variables['name'] = $ca_id;
+      }
+      break;
+
+    case 'lrb_decision':
+      $decision_id = $media_entity->get('field_lrb_decision_id')->value;
+      if ($decision_id) {
+        $variables['name'] = $decision_id;
+      }
+      
+      $decision_parties = $media_entity->get('field_lrb_decision_parties')->value;
+      if ($decision_parties) {
+        $variables['body'] = $decision_parties;
+      }
+      break;
+  }
+}
+
+function weaver_preprocess_page(&$variables) {
+  $config = \Drupal::config('weaver_custom.settings');
+  $theme_path = \Drupal::theme()->getActiveTheme()->getPath();
+  $variables['base_url'] = \Drupal::request()->getSchemeAndHttpHost();
+
+  // get logo svg files
+  $variables['logo_icon'] = file_get_contents($theme_path . '/images/LRB-logo-icon.svg');
+  $variables['logo_text'] = file_get_contents($theme_path . '/images/LRB-logo-text.svg');
+
+  // strip navbar of padding
+  $variables['navbar_attributes']->addClass('p-0');
+
+  // add side navigation
+  $variables['side_nav'] = $config->get('weaver_custom.site_elements.side_nav');
+
+  // get takeover menu
+  $menu_tree_service = \Drupal::service('menu.link_tree');
+  $menu_parameters = new \Drupal\Core\Menu\MenuTreeParameters();
+  $tree = $menu_tree_service->load('lrb-takeover', $menu_parameters);
+  $takeover_build = $menu_tree_service->build($tree);
+  foreach ($takeover_build['#items'] as $menu_link) {
+    $menu_link['attributes']->addClass('col-md-3 h3');
+
+    if (isset($menu_link['below']) && count($menu_link['below'])) {
+      foreach ($menu_link['below'] as $child_link) {
+        $child_link['attributes']->addClass('font-size-p');
+      }
+    }
+  }
+  $takeover_render = \Drupal::service('renderer')->renderPlain($takeover_build);
+  $variables['takeover'] = $takeover_render;
+
+  // add social sharing modal
+  if (!isset($variables['node']) || (isset($variables['node']) && $variables['node']->getType() != 'weaver_news')) {
+    $weaver_sharing_modal_renderable = [
+      '#theme' => 'weaver_sharing_modal',
+    ];
+    $variables['weaver_sharing_modal'] = \Drupal::service('renderer')->renderPlain($weaver_sharing_modal_renderable);
+  }
+
+  // add text resizer
+  $weaver_resizer_renderable = [
+    '#theme' => 'weaver_text_resizer',
+  ];
+  $variables['weaver_text_resizer'] = \Drupal::service('renderer')->renderPlain($weaver_resizer_renderable);
+
+  // set newsletter signup
+  $variables['newsletter_privacy'] = $config->get('weaver_custom.site_elements.newsletter_privacy');
+  $variables['mailchimp_signup_cta'] = $config->get('weaver_custom.site_elements.mailchimp_signup');
+
+  // set disclaimer
+  $variables['disclaimer'] = $config->get('weaver_custom.site_elements.disclaimer')['value'];
+
+  // set territorial acknowledgement
+  $variables['territorial'] = $config->get('weaver_custom.site_elements.territorial')['value'];
+
+  // page-specific features
+
+  // add Update Bar to home page
+  if (\Drupal::service('path.matcher')->isFrontPage() == TRUE) {
+    $home_settings = $config->get('weaver_custom.site_elements.home');
+    $variables['update_bar'] = '<div class="col">' . $home_settings['updates']['value'] . '</div>';
+  } else {
+    $all_settings = $config->get('weaver_custom.site_elements.all');
+    $variables['update_bar'] = '<div class="col-md-6">' . $all_settings['updates_left']['value'] . '</div><div class="col-md-6 text-right">' . $all_settings['updates_right']['value'] . '</div>';
+  }
+}
+
+function weaver_preprocess_page_title(&$variables) {
+  $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+}
+
+function weaver_preprocess_region(&$variables) {
+  switch ($variables['region']) {
+
+    case 'footer_bottom':
+      // don't need this "row" class for footer_bottom
+      if (isset($variables['attributes']['class'])) {
+        foreach ($variables['attributes']['class'] as $key => $class) {
+          if ($class == 'row') {
+            unset($variables['attributes']['class'][$key]);
+          }
+        }
+      }
+      break;
+  }
+}
+
+function weaver_preprocess_social_media_links(&$variables) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node && $node->getType() == 'weaver_news') {
+    $variables['node_type'] = 'news';
+  }
+
+  // renders Font Awesome icons instead of images
+  foreach ($variables['elements'] as $key => $element) {
+    if (isset($element['attr']['icon'])) {
+      $variables['elements'][$key]['icon'] = $element['attr']['icon']->offsetGet('icon')->value();
+      $variables['elements'][$key]['icon'] = str_replace('far fa-envelope', 'fal fa-envelope', $variables['elements'][$key]['icon']);
+    }
+  }
+}
+
+function weaver_preprocess_weaver_sharing_modal(&$variables) {
+  $variables['button_classes'] = 'btn btn-round btn-outline-yellow bg-white';
+  $variables['close_button_classes'] = 'btn btn-round btn-yellow';
+
+  // get print link
+  $entity = NULL;
+  $params = \Drupal::routeMatch()->getParameters();
+
+  if ($params->get('view_id')) {
+    $entity = \Drupal\views\Entity\View::load($params->get('view_id'));
+
+  } else {
+
+    foreach ($params as $param) {
+      if ($param instanceof \Drupal\Core\Entity\EntityInterface) {
+        $entity = $param;
+        break;
+      }
+    }
+  }
+
+  if ($entity) {
+    $url = \Drupal\Core\Url::fromRoute('entity_print.view', ['export_type' => 'pdf', 'entity_type' => $entity->getEntityTypeId(), 'entity_id' => $entity->id()]);
+    $variables['print_link'] = $url->toString();
+  }
+}

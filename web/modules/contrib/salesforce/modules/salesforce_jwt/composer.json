@@ -1,0 +1,32 @@
+{
+  "name": "drupal/salesforce_jwt",
+  "description": "Salesforce JWT OAuth provider.",
+  "type": "drupal-module",
+  "homepage": "https://drupal.org/project/salesforce",
+  "authors": [
+    {
+      "name": "Aaron Bauman (aaronbauman)",
+      "homepage": "https://www.drupal.org/u/aaronbauman",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Alexander Rhodes (ironsizide)",
+      "homepage": "https://www.drupal.org/u/ironsizide",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Colin Corrigan",
+      "homepage": "https://www.drupal.org/u/cwcorrigan",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://drupal.org/project/issues/salesforce",
+    "source": "http://cgit.drupalcode.org/salesforce"
+  },
+  "require": {
+    "drupal/key": "^1.14",
+    "firebase/php-jwt": "^5.0",
+    "lusitanian/oauth": "^0.8.11"
+  }
+}

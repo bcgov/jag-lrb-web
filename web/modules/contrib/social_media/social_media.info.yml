@@ -1,0 +1,14 @@
+name: Social media share
+type: module
+description: Share current page to social media
+core_version_requirement: ^8.8 || ^9
+package: Others
+configure: social_media.admin_form
+dependencies:
+- token:token
+- drupal:field
+
+# Information added by Drupal.org packaging script on 2020-10-19
+version: '8.x-1.9-rc2'
+project: 'social_media'
+datestamp: 1603094980

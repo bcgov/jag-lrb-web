@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.weaver_gallery.field_weaver_gallery_images
+    - paragraphs.paragraphs_type.weaver_gallery
+  module:
+    - media
+id: paragraph.weaver_gallery.default
+targetEntityType: paragraph
+bundle: weaver_gallery
+mode: default
+content:
+  field_weaver_gallery_images:
+    type: media_thumbnail
+    weight: 0
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true

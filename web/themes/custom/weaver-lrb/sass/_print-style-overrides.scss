@@ -1,0 +1,194 @@
+@use "sass:map";
+
+$black: #000;
+$blue: #05334A;
+$blue-darker: #022e47;
+$blue-lighter: #186075;
+$grey: #EAEEEF;
+$gray: $grey;
+$grey-darker: #4e4e4e;
+$gray-darker: $grey-darker;
+$grey-lighter: #F8F9FB;
+$gray-lighter: $grey-lighter;
+$grey-medium: #707070;
+$gray-medium: $grey-medium;
+$grey-shadow: #6b6b6b;
+$red: #69282D;
+$red-darker: #470f13;
+$red-lighter: #a56b6f;
+$teal: #186075;
+$teal-darker: #06334a;
+$teal-lighter: #4f9fb5;
+$yellow: #DCC72A;
+$yellow-darker: #bca50f;
+$yellow-lighter: #f7eb9e;
+$yellow-overlay: rgba(245, 236, 219, 0.5);
+$white: #FFFFFF;
+
+/*Social Media*/
+$facebook-blue: #4188C8;
+$twitter-blue:  #3790C5;
+$pinterest-red: #CA3224;
+
+/*Alerts*/
+$primary:       $teal;
+$secondary:     $yellow;
+$success:       $teal-lighter;
+$info:          $yellow;
+$warning:       $yellow-darker;
+$danger:        $red-darker;
+$light:         $gray-lighter;
+$dark:          $black;
+
+/*Bootstrap*/
+$theme-colors: ();
+$theme-colors: map-merge(
+  (
+    "primary":    $teal,
+    "secondary":  $yellow,
+    "success":    $success,
+    "info":       $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "light":      $light,
+    "dark":       $dark
+  ),
+  $theme-colors
+);
+
+$lighten: 25%;
+$darken: 25%;
+
+$colors: (
+  "black": $black,
+	"blue": $blue,
+	"blue-darker": darken($blue, $darken),
+	"blue-lighter": lighten($blue, $lighten),
+	"grey": $grey,
+	"grey-darker": $grey-darker,
+	"grey-lighter": $grey-lighter,
+  "grey-medium": $grey-medium,
+  "grey-shadow": $grey-shadow,
+	"red": $red,
+	"red-darker": darken($red, $darken),
+	"red-lighter": lighten($red, $lighten),
+	"teal": $teal,
+	"teal-darker": darken($teal, $darken),
+	"teal-lighter": lighten($teal, $lighten),
+	"yellow": $yellow,
+	"yellow-darker": darken($yellow, $darken),
+	"yellow-lighter": lighten($yellow, $lighten),
+	"white": $white,
+);
+
+
+@each $name, $value in $colors {
+
+  .bg-#{$name} {
+  	background-color: #{$value} !important;
+  }
+
+  .text-#{$name} {
+    color: #{$value} !important;
+  }
+  
+  .link-#{$name} {
+    color: #{$value} !important;
+  }
+
+  .border.border-color-#{$name},
+  .border-top.border-color-#{$name},
+  .border-left.border-color-#{$name},
+  .border-right.border-color-#{$name},
+  .border-bottom.border-color-#{$name} {
+  	border-color: #{$value} !important;
+  }
+}
+
+// Links
+//
+// Style anchor elements.
+
+$link-color:                              $teal;
+$link-decoration:                         underline;
+$link-hover-color:                        $teal-lighter;
+$link-hover-decoration:                   underline;
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+
+@font-face {
+font-family:"aktiv-grotesk";
+src:url("https://use.typekit.net/af/28158e/00000000000000003b9b4066/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/28158e/00000000000000003b9b4066/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/28158e/00000000000000003b9b4066/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+font-style:normal;font-weight:400;
+}
+
+@font-face {
+font-family:"aktiv-grotesk";
+src:url("https://use.typekit.net/af/62681e/00000000000000003b9b406a/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/62681e/00000000000000003b9b406a/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/62681e/00000000000000003b9b406a/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3") format("opentype");
+font-style:normal;font-weight:700;
+}
+
+@font-face {
+font-family:"aktiv-grotesk";
+src:url("https://use.typekit.net/af/76d40d/00000000000000003b9b4064/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3") format("woff2"),url("https://use.typekit.net/af/76d40d/00000000000000003b9b4064/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3") format("woff"),url("https://use.typekit.net/af/76d40d/00000000000000003b9b4064/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3") format("opentype");
+font-style:normal;font-weight:300;
+}
+
+@font-face {
+font-family:"aktiv-grotesk";
+src:url("https://use.typekit.net/af/e604a2/00000000000000003b9b4069/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/e604a2/00000000000000003b9b4069/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/e604a2/00000000000000003b9b4069/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3") format("opentype");
+font-style:normal;font-weight:500;
+}
+
+.tk-aktiv-grotesk { font-family: "aktiv-grotesk",sans-serif; }
+
+$font-family-sans-serif:      aktiv-grotesk, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+$font-family-base:            $font-family-sans-serif;
+// stylelint-enable value-keyword-case
+
+$font-size-base:              1rem; // Assumes the browser default, typically `16px`
+$font-size-lg:                $font-size-base * 1.313;
+$font-size-sm:                $font-size-base * .875;
+$font-size-xs:								$font-size-base * 0.75;
+
+$font-weight-lighter:         lighter;
+$font-weight-light:           300;
+$font-weight-normal:          400;
+$font-weight-bold:            500; /* medium */
+$font-weight-bolder:          700;
+
+$font-weight-base:            $font-weight-normal;
+$line-height-base:            1.8;
+
+$h1-font-size:                $font-size-base * 2.25; /* 36px */
+$h2-font-size:                $font-size-base * 2.25; /* h2 purposefully the same as h1 */
+$h3-font-size:                $font-size-base * 1.5; /* 24px */
+$h4-font-size:                $font-size-base * 1.313; /* 21px */
+$h5-font-size:                $font-size-base * 1.125; /* 18px */
+$h6-font-size:                $font-size-base;
+
+$headings-margin-bottom:      2rem;
+$headings-font-family:        $font-size-base;
+$headings-font-weight:        500;
+$headings-line-height:        1.2;
+$headings-color:              null;
+
+$display1-size:               6rem;
+$display2-size:               5.5rem;
+$display3-size:               4.5rem;
+$display4-size:               3.5rem;
+
+$display1-weight:             300;
+$display2-weight:             300;
+$display3-weight:             300;
+$display4-weight:             300;
+$display-line-height:         $headings-line-height;
+
+$lead-font-size:              $font-size-base * 1.25;
+$lead-font-weight:            300;
+
+$small-font-size:             80%;

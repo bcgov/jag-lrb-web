@@ -1,0 +1,11 @@
+smart_date:
+  version: 1.x
+  css:
+    component:
+      css/smart_date.css: {}
+  js:
+    js/smart_date.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/jquery.once

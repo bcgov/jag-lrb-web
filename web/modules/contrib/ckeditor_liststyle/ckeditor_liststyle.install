@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * Implements hook_requirements().
+ */
+function ckeditor_liststyle_requirements($phase) {
+  $requirements = [];
+
+  if ($phase == 'install' || $phase == 'runtime') {
+    $plugin_paths = [
+      '/libraries/liststyle/plugin.js',
+      '/libraries/ckeditor/plugins/liststyle/plugin.js',
+    ];
+
+    $plugin = FALSE;
+    foreach ($plugin_paths as $plugin_path) {
+      if (file_exists(DRUPAL_ROOT . $plugin_path)) {
+        $plugin = $plugin_path;
+      }
+    }
+
+    if ($plugin) {
+      $requirements['ckeditor_liststyle'] = [
+        'title' => t('CKEditor List Style'),
+        'value' => t('Plugin detected'),
+        'severity' => REQUIREMENT_OK,
+        'description' => t('The plugin is installed at <code>@plugin</code>', ['@plugin' => $plugin]),
+      ];
+    }
+    else {
+      $requirements['ckeditor_liststyle'] = [
+        'title' => t('CKEditor List Style'),
+        'value' => t('Plugin not detected'),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => t('Download the <a href=":plugin_url">CKEditor List Style</a> plugin and copy into the <em>libraries</em> folder before enabling this module.<br>i.e. <code>@path1</code> or <code>@path0</code>', [
+          ':plugin_url' => 'https://ckeditor.com/cke4/addon/liststyle',
+          '@path0' => $plugin_paths[0],
+          '@path1' => $plugin_paths[1],
+        ]),
+      ];
+    }
+  }
+
+  return $requirements;
+}

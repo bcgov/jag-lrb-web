@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: weaver_twocol_text_image
+label: 'Two-Column Text and Image'
+icon_uuid: null
+icon_default: null
+description: 'Adds text in one column and an image in another column with an option to have the image on either side. The image will always go stack on top of the text on mobile devices.'
+behavior_plugins: {  }

@@ -1,0 +1,8 @@
+name: Weaver Design Cooperative News Content Type
+type: module
+description: 'Adds News/Blog content type'
+package: Weaver
+
+core_version_requirement: ^8.8.0 || ^9.0
+dependencies:
+  - weaver_starterpack:weaver_starterpack

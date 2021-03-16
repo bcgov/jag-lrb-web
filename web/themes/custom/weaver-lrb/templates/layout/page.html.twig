@@ -1,0 +1,179 @@
+<div id="page-wrapper">
+  <div id="page">
+
+    <header id="header" class="header" role="banner" aria-label="{{ 'Site header'|t}}">
+
+      {% include '@weaver/navigation/side.html.twig' with { takeover : takeover } %}
+
+      {% block head %}
+        <nav{{ navbar_attributes }}>
+          <div class="navbar-logo-icon text-center d-flex align-items-center">
+            <a href="/" title="{{'Home Page'|t }}" tabindex="-1">
+              {{ logo_icon|raw }}
+              <div class="no-svg-fallback">
+                <img src="/{{ directory }}/images/logo-icon.png" />
+              </div>
+            </a>
+          </div>
+
+          {% if container_navbar %}
+            <div class="container-fluid d-flex flex-nowrap align-items-center">
+          {% endif %}
+                    
+            <div class="navbar-logo-text">
+              <a href="/" title="{{'Home Page'|t }}">
+                {{ logo_text|raw }}
+                <div class="no-svg-fallback">
+                  <img src="/{{ directory }}/images/logo-text.png" title="{{ site_name }}" alt="Logo for {{ site_name }}" />
+                </div>
+              </a>
+            </div>
+
+            {{ page.header }}
+          
+            {% if page.primary_menu or page.header_form %}
+              <button class="navbar-toggler navbar-toggler-right" type="button" data-target="takeover-menu" role="button" aria-expanded="false" aria-controls="takeover-menu">
+                <div class="icon-morph-group">
+                  <i id="bars-original" class="fal fa-bars morph-original fa-2x text-teal"></i>
+                  <i id="times-down-icon" class="fal fa-times morph-beep fa-2x text-teal"></i>
+                  <i id="bars-icon" class="fal fa-bars morph-boop fa-2x text-teal"></i>
+                </div>
+              </button>
+              
+              <div class="d-none d-lg-block justify-content-end">
+                
+                {{ page.primary_menu }}
+
+                {{ weaver_text_resizer }}
+
+                {% if page.header_form %}
+                  <div class="form-inline navbar-form justify-content-end">
+                    {{ page.header_form }}
+                  </div>
+                {% endif %}
+	            </div>
+            {% endif %}
+          
+          {% if container_navbar %}
+            </div>
+          {% endif %}
+        </nav>
+      
+      {% endblock %}
+    </header>
+    
+    {% if page.highlighted %}
+      <div class="highlighted">
+        <aside class="{{ container }} section clearfix" role="complementary">
+          {{ page.highlighted }}
+        </aside>
+      </div>
+    {% endif %}
+    
+    {% if page.featured_top %}
+      {% block featured %}
+        <div class="featured-top">
+          <aside class="featured-top__inner section {{ container }} clearfix" role="complementary">
+            {{ page.featured_top }}
+          </aside>
+        </div>
+      {% endblock %}
+    {% endif %}
+    
+    <div id="main-wrapper" class="layout-main-wrapper clearfix">
+
+      {% if update_bar is not null %}
+        <div class="update-bar d-none d-md-block">
+          <div class="container">
+            <div class="row">
+              {{ update_bar|raw }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% block content %}
+        <div id="main" class="{{ container }}">
+    
+          {{ page.breadcrumb }}
+    
+          <div class="row row-offcanvas row-offcanvas-left clearfix">
+              <main{{ content_attributes }}>
+                <section class="section">
+                  <a id="main-content" tabindex="-1"></a>
+
+                  {{ page.content }}
+                </section>
+              </main>
+    
+            {% if page.sidebar_first %}
+              <div{{ sidebar_first_attributes }}>
+                <aside class="section" role="complementary">
+                  {{ page.sidebar_first }}
+                </aside>
+              </div>
+            {% endif %}
+    
+            {% if page.sidebar_second %}
+              <div{{ sidebar_second_attributes }}>
+                <aside class="section" role="complementary">
+                  {{ page.sidebar_second }}
+                </aside>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endblock %}
+    </div>
+    
+    {% if page.featured_bottom_first or page.featured_bottom_second or page.featured_bottom_third %}
+      <div class="featured-bottom">
+        <aside class="{{ container }} clearfix" role="complementary">
+          {{ page.featured_bottom_first }}
+          {{ page.featured_bottom_second }}
+          {{ page.featured_bottom_third }}
+        </aside>
+      </div>
+    {% endif %}
+
+    {% include '@weaver/misc/back-top.html.twig' %}
+
+    {% include '@weaver/layout/mailchimp-signup.html.twig' with { base_url: base_url } %}
+
+    {% include '@weaver/layout/disclaimer.html.twig' with { disclaimer: disclaimer } %}
+
+    {% include '@weaver/layout/territorial-acknowledgement.html.twig' with { territorial: territorial } %}
+
+    <footer class="site-footer bg-blue text-white link-white container-full-width">
+      {% block footer %}
+        <div class="{{ container }}">
+
+          {% if page.footer_bottom %}
+            <div class="site-footer__bottom">
+              <div class="row">
+
+                <div id="footer-menu" class="col-12">
+                  {{ drupal_menu('lrb-takeover') }}
+                </div>
+                
+                <div class="col-sm-8">
+                  {{ page.footer_bottom }}
+                </div>
+
+                <div class="footer-attribution col-sm-4">
+                  <p class="text-center text-md-right font-size-sm">
+                    <a href="https://weaver.coop" target="_blank" title="{{ 'Site created by Weaver Digital Design & Storytelling Cooperative'|t }}">{{ 'Built by Weaver'|t }}</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endblock %}
+    </footer>
+    
+    {% if weaver_sharing_modal %}
+      {{ weaver_sharing_modal }}
+    {% endif %}
+  </div>
+</div>

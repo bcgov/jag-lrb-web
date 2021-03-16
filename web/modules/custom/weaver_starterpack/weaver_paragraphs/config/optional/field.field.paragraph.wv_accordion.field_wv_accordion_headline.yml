@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_wv_accordion_headline
+    - paragraphs.paragraphs_type.wv_accordion
+  module:
+    - text
+id: paragraph.wv_accordion.field_wv_accordion_headline
+field_name: field_wv_accordion_headline
+entity_type: paragraph
+bundle: wv_accordion
+label: Headline
+description: 'This headline will appear before the accordion items'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

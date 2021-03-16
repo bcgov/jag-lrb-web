@@ -1,0 +1,6 @@
+weaver_custom.admin:
+  title: 'LRB custom settings'
+  description: 'LRB settings for various features'
+  parent: system.admin_config
+  route_name: weaver_custom.settings_page
+  weight: 100

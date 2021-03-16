@@ -1,0 +1,64 @@
+<div id="lrb-mailchimp-signup" class="py-5">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+
+				<div class="d-lg-flex justify-content-lg-between align-items-lg-center text-left">
+						<label class="text-teal font-size-lg" for="">{{ mailchimp_signup_cta|raw }}</label>
+						<input type="text" name="lrb-mailchimp" class="form-text bg-grey" placeholder="{{ 'Your email'|t }}" />
+						<button type="button" class="btn btn-yellow btn-wide" data-toggle="modal" data-target="#mailchimp-signup-modal">{{ 'Subscribe'|t }}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="mailchimp-signup-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'LRB newsletter subscription'|t }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fal fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+
+				<form action="https://app.cyberimpact.com/optin" method="post" accept-charset="utf-8">
+			    <fieldset>
+		        <legend></legend>
+              <div class="form-group">
+                <label for="ci_firstname">{{ 'First name:'|t }}</label>
+                <input type="text" id="ci_firstname" name="ci_firstname" maxlength="255" class="form-text form-control"/>
+	            </div>
+              <div class="form-group">
+                <label for="ci_lastname">{{ 'Last name:'|t }}</label>
+                <input type="text" id="ci_lastname" name="ci_lastname" maxlength="255" class="form-text form-control" />
+	            </div>
+		                                                
+		        
+		        <div class="form-group">
+	            <label for="ci_email">{{ 'Email:'|t }}</label>
+	            <input type="text" id="ci_email" name="ci_email" maxlength="255" class="form-email form-control" />
+		        </div>
+		        <div style="display:block; visibility:hidden; height:1px;">
+	            <input type="hidden" id="ci_groups" name="ci_groups" value="2"/>
+	            <input type="hidden" id="ci_account" name="ci_account" value="a9e874f1-eee8-485c-25d5-86cfa1532bad"/>
+	            <input type="hidden" id="ci_language" name="ci_language" value="en_ca"/>
+	            <input type="hidden" id="ci_sent_url" name="ci_sent_url" value=""/>
+	            <input type="hidden" id="ci_error_url" name="ci_error_url" value="" />
+            <input type="hidden" id="ci_confirm_url" name="ci_confirm_url" value="{{ base_url }}/subscribe" />
+		        </div>
+
+		        <div class="form-group">
+		        	<p class="font-size-sm mb-0">{{ newsletter_privacy|raw }}</p>
+		        </div>
+
+		        <input type="submit" value="{{ 'Subscribe'|t }}" class="btn btn-teal mt-3" />
+			    </fieldset>
+				</form>
+
+      </div>
+    </div>
+  </div>
+</div>

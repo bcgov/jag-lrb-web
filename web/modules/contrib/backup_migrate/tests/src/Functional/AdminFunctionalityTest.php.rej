@@ -1,0 +1,93 @@
+--- tests/src/Functional/BackupMigratePageLoadTest.php
++++ tests/src/Functional/AdminFunctionalityTest.php
+@@ -6,11 +6,11 @@
+ use Drupal\Tests\BrowserTestBase;
+ 
+ /**
+- * Checks if pages loads successfully.
++ * Checks if admin functionality works correctly.
+  *
+  * @group backup_migrate
+  */
+-class BackupMigratePageLoadTest extends BrowserTestBase {
++class AdminFunctionalityTest extends BrowserTestBase {
+ 
+   /**
+    * {@inheritdoc}
+@@ -51,7 +51,9 @@ public function setUp() {
+   }
+ 
+   /**
+-   * Tests if site quick backup function loads.
++   * Tests each of the admin pages loads correctly.
++   *
++   * This is to be unsed until a 
+    *
+    * @param string $path
+    *   The path to check.
+@@ -82,11 +84,63 @@ public function pagesListProvider() {
+       ['admin/config/development/backup_migrate/schedule/add', 'Add schedule'],
+       ['admin/config/development/backup_migrate/settings', 'Settings'],
+       ['admin/config/development/backup_migrate/settings/add', 'Add settings profile'],
+-      ['admin/config/development/backup_migrate/settings/destination', 'Backup Destination'],
+-      ['admin/config/development/backup_migrate/settings/destination/add', 'Add destination'],
+       ['admin/config/development/backup_migrate/settings/source', 'Backup sources'],
+       ['admin/config/development/backup_migrate/settings/source/add', 'Add Backup Source'],
+     ];
+   }
+ 
++  /**
++   * Make sure the 'destinations' system works correctly.
++   */
++  public function testDestinationsAdmin() {
++    // Load the destination page.
++    $this->drupalGet('admin/config/development/backup_migrate/settings/destination');
++    $session = $this->assertSession();
++    $session->statusCodeEquals(200);
++    $session->pageTextContains('Backup Destination');
++    $session->pageTextContains('Private Files Directory');
++    $session->pageTextContains('private_files');
++    $session->pageTextContains('Server File Directory');
++    // @todo Confirm the table only has one record.
++
++    // Load the destination-add form.
++    $this->drupalGet('admin/config/development/backup_migrate/settings/destination/add');
++    $session = $this->assertSession();
++    $session->statusCodeEquals(200);
++    $session->pageTextContains('Add destination');
++    $session->fieldExists('label');
++    $session->fieldExists('id');
++    $session->fieldExists('type');
++    $session->buttonExists('Save and edit');
++
++    // Create a new destination.
++    $edit = [
++      'label' => 'Test destination',
++      'id' => 'test_destination',
++      'type' => 'Directory',
++    ];
++    $this->drupalPostForm(NULL, $edit, 'Save and edit');
++
++    // This should load a new version of the form with the directory filled in.
++    $session = $this->assertSession();
++    $session->statusCodeEquals(200);
++    $session->addressEquals('admin/config/development/backup_migrate/settings/destination/edit/test_destination');
++    $session->fieldExists('label');
++    $session->fieldExists('config[directory]');
++    $session->buttonExists('Save');
++    $session->linkExists('Delete');
++
++    // Fill in a path.
++    $edit = [
++      'config[directory]' => 'test_path',
++    ];
++    $this->drupalPostForm(NULL, $edit, 'Save');
++    $session = $this->assertSession();
++    $session->statusCodeEquals(200);
++    $session->addressEquals('admin/config/development/backup_migrate/settings/destination');
++    $session->pageTextContains('Saved Test destination.');
++    $session->pageTextContains('Private Files Directory');
++    $session->pageTextContains('private_files');
++  }
++
+ }

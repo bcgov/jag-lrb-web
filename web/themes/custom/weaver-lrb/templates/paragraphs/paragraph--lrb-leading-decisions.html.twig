@@ -1,0 +1,35 @@
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished',
+    'container',
+    custom_classes
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes).addClass(custom_classes) }} {% if anchor|length %}id="{{ anchor }}"{% endif %}>
+
+    <div class="row">
+      {% block content %}
+        <div class="col-md-10 leading-decisions-wrapper border-color-teal border">
+          {% if paragraph.field_weaver_heading.value %}
+            <h3 class="headline thick-underline thick-underline-teal text-teal mb-2">{{ paragraph.field_weaver_heading.value|raw }}</h3>
+          {% endif %}
+          
+          {% if leading_decisions_intro.value is defined and leading_decisions_intro.value != '' %}
+            <div class="leading-decisions-intro mt-3 mb-5">
+              {{ leading_decisions_intro.value|raw }}
+            </div>
+          {% endif %}
+
+          <div class="mt-2">
+            {{ content.field_lrb_leading_decisions }}
+          </div>
+        </div>
+      {% endblock %}
+    </div>
+  </div>
+{% endblock paragraph %}

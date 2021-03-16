@@ -1,0 +1,14 @@
+name: 'Facets Search API dependecy'
+type: module
+description: 'Provides a Search API dependecy.'
+package: 'Testing'
+hidden: true
+dependencies:
+  - search_api:search_api
+  - search_api:search_api_test_db
+  - drupal:views
+
+# Information added by Drupal.org packaging script on 2020-11-03
+version: '8.x-1.6'
+project: 'facets'
+datestamp: 1604397982

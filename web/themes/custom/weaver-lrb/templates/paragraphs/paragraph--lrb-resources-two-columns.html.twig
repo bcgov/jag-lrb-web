@@ -1,0 +1,35 @@
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished',
+    'container'
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes).addClass(custom_classes) }} {% if anchor|length %}id="{{ anchor }}"{% endif %}>
+
+      <div class="row">
+        {% block content %}
+          <div class="col-md-10 resources-wrapper bg-grey-lighter">
+              <div class="row">
+                <div class="col-12">
+                  <h3 class="headline thick-underline thick-underline-teal text-teal mb-4">{{ 'Resources'|t }}</h3>
+                </div>
+
+                <div class="col-md-5">
+                  {{ content.field_weaver_left_text }}
+                </div>
+                <div class="col-md-5 offset-md-1">
+                  {{ content.field_weaver_right_text }}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endblock %}
+      </div>
+
+  </div>
+{% endblock paragraph %}

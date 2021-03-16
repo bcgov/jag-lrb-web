@@ -1,0 +1,20 @@
+$admin_height: 80px;
+
+$header_height: 130px;
+$reduced_header_height: 90px;
+
+$header_mobile_height: 75px;
+
+$images: '/themes/custom/weaver-lrb/images';
+
+$side_menu_height: 130px;
+$side_menu_width: 130px;
+
+$side_menu_mobile_height: 100px;
+
+$shadow: 1px 3px 5px -1px $grey-shadow;
+.box-shadow {
+	box-shadow: $shadow;
+}
+
+$fontawesome: "Font Awesome 5 Pro";

@@ -1,0 +1,67 @@
+social_media:
+  facebook_share:
+    enable: 1
+    text: "Facebook"
+    api_url: "http://www.facebook.com/share.php?u=[current-page:url]&title=[current-page:title]"
+    api_event : "href"
+    default_img: 1
+    weight: 1
+    attributes : "target|_blank\nclass|facebook-share\nrel|noopener noreferrer"
+  facebook_msg:
+    enable: 1
+    api_url: "FB.ui({method: 'send',link: '[current-page:url]'})"
+    api_event : "onclick"
+    drupalSettings: "application_id|Your Application ID"
+    library: "social_media/facebook"
+    text: "Facebook messenger"
+    default_img: 1
+    weight: 2
+    attributes : "target|_blank\nclass|facebook-msg\nrel|noopener noreferrer"
+  linkedin:
+    enable: 1
+    api_url: "http://www.linkedin.com/shareArticle?mini=true&url=[current-page:url]&title=[current-page:title]&source=[current-page:url]"
+    api_event : "href"
+    text: "Linkedin"
+    default_img: 1
+    weight: 3
+    attributes : "target|_blank\nclass|linkedin\nrel|noopener noreferrer"
+  twitter:
+    enable: 1
+    api_url: "https://twitter.com/intent/tweet?url=[current-page:url]&url=[current-page:url]&hashtags=Hashtag"
+    api_event : "href"
+    text: "Twitter"
+    default_img: 1
+    weight: 4
+    attributes : "target|_blank\nclass|twitter\nrel|noopener noreferrer"
+  pinterest:
+    enable: 1
+    api_url: "https://www.pinterest.com/pin/create/button/?url=[current-page:url]&description=[current-page:title]"
+    api_event : "href"
+    text: "Pinterest"
+    default_img: 1
+    weight: 5
+    attributes : "target|_blank\nclass|pinterest\nrel|noopener noreferrer"
+  whatsapp:
+    enable: 0
+    api_url: "https://wa.me/?text=[current-page:url]"
+    api_event: "href"
+    default_img: 1
+    attributes: "class|whatsapp show-for-small-only\ndata-action|share/whatsapp/share"
+    weight: 6
+  email:
+    enable: 1
+    api_url: "mailto:?subject=[current-page:title]&body=Check out this site [current-page:url]"
+    api_event : "href"
+    text: "Email"
+    default_img: 1
+    weight: 7
+    attributes : "class|email"
+  print:
+    enable: 0
+    api_url: "window.print()"
+    api_event : "onclick"
+    text: "Print"
+    default_img: 1
+    attributes : "class|print"
+    weight: 8
+langcode: en

@@ -13,3 +13,4 @@ $databases['default']['default'] = array (
 $settings['hash_salt'] = json_encode($databases);
 $settings['file_public_path'] = 'files';
 $settings['file_private_path'] = 'files/private';
+$settings['config_sync_directory'] = 'files';

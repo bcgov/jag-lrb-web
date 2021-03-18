@@ -6,6 +6,43 @@ set -e
 
 SCRIPT_HOME="$( cd "$( dirname "$0" )" && pwd )"
 
+#
+# Global utility functions - START
+#
+function echoError (){
+  _msg=${1}
+  _red='\e[31m'
+  _nc='\e[0m' # No Color
+  echo -e "${_red}${_msg}${_nc}"
+}
+
+function echoWarning (){
+  _msg=${1}
+  _yellow='\e[33m'
+  _nc='\e[0m' # No Color
+  echo -e "${_yellow}${_msg}${_nc}"
+}
+
+function isInstalled () {
+  rtnVal=$(type "$1" >/dev/null 2>&1)
+  rtnCd=$?
+  if [ ${rtnCd} -ne 0 ]; then
+    return 1
+  else
+    return 0
+  fi
+}
+
+function isS2iInstalled () {
+  S2I_EXE=s2i
+  if ! isInstalled ${S2I_EXE}; then
+    echoError "The ${S2I_EXE} executable is needed and not on your path."
+    echoError "It can be downloaded from here: https://github.com/openshift/source-to-image/releases"
+    echoError "Make sure you extract the binary and place it in a directory on your path."
+    exit 1
+  fi
+}
+
 # =================================================================================================================
 # Usage:
 # -----------------------------------------------------------------------------------------------------------------
@@ -109,27 +146,25 @@ getStartupParams() {
 }
 
 build() {
+  echo -e "\nBuilding solr-base image ..."
+  docker build \
+    https://github.com/bcgov/openshift-solr.git#solr-8.8.1 \
+    -t 'solr-base'
+
+  echo -e "\nBuilding solr image ..."
+  ${S2I_EXE} build \
+    --copy \
+    -e "HTTP_PROXY=${HTTP_PROXY}" \
+    -e "HTTPS_PROXY=${HTTPS_PROXY}" \
+    '../solr/cores' \
+    'solr-base' \
+    'solr'
+
   # Build all containers in the docker-compose file
   echo -e "\nBuilding remaining containers ..."
   echo docker-compose build $@
   docker-compose build $@
 }
-
-# build-solr() {
-#   echo -e "\nBuilding solr-base image ..."
-#   docker build \
-#     https://github.com/bcgov/openshift-solr.git#solr-8.8.1 \
-#     -t 'solr-base'
-
-#   echo -e "\nBuilding solr image ..."
-#   ${S2I_EXE} build \
-#     --copy \
-#     -e "HTTP_PROXY=${HTTP_PROXY}" \
-#     -e "HTTPS_PROXY=${HTTPS_PROXY}" \
-#     '../solr/cores' \
-#     'solr-base' \
-#     'solr'
-# }
 
 deleteVolumes() {
   _projectName=${COMPOSE_PROJECT_NAME:-docker}
@@ -164,6 +199,7 @@ case "$COMMAND" in
     deleteVolumes
     ;;
   build)
+    isS2iInstalled
     _startupParams=$(getStartupParams $@)
     configureEnvironment $@
     build ${_startupParams}

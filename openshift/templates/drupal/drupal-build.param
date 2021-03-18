@@ -4,9 +4,16 @@
 # Template File: ../openshift/templates/drupal/drupal-build.yaml
 #=========================================================
 NAME=drupal
-APP_NAME=drupal
+APP_NAME=jag-lrb-web
 APP_GROUP=jag-lrb-web
-OUTPUT_IMAGE_TAG=9.1.5-fpm
-SOURCE_IMAGE_KIND=DockerImage
-SOURCE_IMAGE_NAME=docker-remote.artifacts.developer.gov.bc.ca/drupal
-SOURCE_IMAGE_TAG=9.1.5-fpm
+ENV_NAME=tools
+NAMESPACE_NAME=6b08a3
+SOURCE_IMAGE_NAME=docker-remote.artifacts.developer.gov.bc.ca/drupal:9.0.11-apache
+GIT_REPO_URL=https://github.com/esune/jag-lrb-web.git
+GIT_REF=devops
+OUTPUT_IMAGE_TAG=latest
+DOCKER_FILE_PATH=docker/drupal/Dockerfile
+CPU_LIMIT=1
+MEMORY_LIMIT=4Gi
+CPU_REQUEST=250m
+MEMORY_REQUEST=2Gi

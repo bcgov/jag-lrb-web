@@ -104,7 +104,7 @@ objects:
                 periodSeconds: 10
                 successThreshold: 1
                 tcpSocket:
-                  port: 9000
+                  port: 8080
                 timeoutSeconds: 5
               name: ${NAME}
               env:
@@ -130,7 +130,7 @@ objects:
                 - name: SITE_SETTINGS_FILE_NAME
                   value: ${SITE_SETTINGS_FILE_NAME}
               ports:
-                - containerPort: 9000
+                - containerPort: 8080
                   protocol: TCP
               readinessProbe:
                 failureThreshold: 3
@@ -138,7 +138,7 @@ objects:
                 periodSeconds: 10
                 successThreshold: 1
                 tcpSocket:
-                  port: 9000
+                  port: 8080
                 timeoutSeconds: 5
               resources:
                 requests:
@@ -149,54 +149,14 @@ objects:
                   memory: ${MEMORY_LIMIT}
               terminationMessagePath: /dev/termination-log
               volumeMounts:
-                - name: ${NAME}-source
-                  mountPath: /var/www/drupal
                 - name: ${NAME}-data
-                  mountPath: /data
+                  mountPath: /opt/drupal/web/sites/default/files
                 - name: ${NAME}-php-ini
                   mountPath: ${PHP_INI_MOUNT_PATH}${PHP_INI_FILE_NAME}
                   subPath: ${PHP_INI_FILE_NAME}
                 - name: ${NAME}-settings-php
-                  mountPath: /tmp/${SITE_SETTINGS_FILE_NAME}
+                  mountPath: /opt/drupal/web/sites/default/${SITE_SETTINGS_FILE_NAME}
                   subPath: ${SITE_SETTINGS_FILE_NAME}
-              lifecycle:
-                postStart:
-                  exec:
-                    command:
-                      - "/bin/sh"
-                      - "-c"
-                      - >
-                        cp -fr /opt/drupal/. /var/www/drupal/;
-                        rm -rf /var/www/drupal/web/sites/default/files;
-                        ln -s /data /var/www/drupal/web/sites/default/files;
-                        ln -s /tmp/${SITE_SETTINGS_FILE_NAME} /var/www/drupal/web/sites/default/${SITE_SETTINGS_FILE_NAME};
-            - image: ${NAME}-proxy
-              imagePullPolicy: Always
-              livenessProbe:
-                failureThreshold: 3
-                initialDelaySeconds: 1
-                periodSeconds: 10
-                successThreshold: 1
-                tcpSocket:
-                  port: 8080
-                timeoutSeconds: 1
-              name: ${NAME}-proxy
-              ports:
-                - containerPort: 8080
-                  protocol: TCP
-              readinessProbe:
-                failureThreshold: 3
-                initialDelaySeconds: 1
-                periodSeconds: 10
-                successThreshold: 1
-                tcpSocket:
-                  port: 8080
-                timeoutSeconds: 1
-              resources: {}
-              terminationMessagePath: /dev/termination-log
-              volumeMounts:
-                - mountPath: /var/www/drupal
-                  name: drupal-source
 
   - kind: PersistentVolumeClaim
     apiVersion: v1
@@ -230,12 +190,15 @@ objects:
         haproxy.router.openshift.io/timeout: ${ROUTE_TIMEOUT}
     spec:
       host: ${APPLICATION_DOMAIN}
+      port:
+        targetPort: 8080-tcp
       tls:
         insecureEdgeTerminationPolicy: Redirect
         termination: edge
       to:
         kind: Service
         name: ${NAME}
+        weight: 100
 
   - kind: Secret
     apiVersion: v1

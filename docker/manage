@@ -149,7 +149,7 @@ build() {
   echo -e "\nBuilding solr-base image ..."
   docker build \
     https://github.com/bcgov/openshift-solr.git#solr-8.8.1 \
-    -t 'solr-base'
+    -t 'lrb-solr-base'
 
   echo -e "\nBuilding solr image ..."
   ${S2I_EXE} build \
@@ -157,8 +157,8 @@ build() {
     -e "HTTP_PROXY=${HTTP_PROXY}" \
     -e "HTTPS_PROXY=${HTTPS_PROXY}" \
     '../solr/cores' \
-    'solr-base' \
-    'solr'
+    'lrb-solr-base' \
+    'lrb-solr'
 
   # Build all containers in the docker-compose file
   echo -e "\nBuilding remaining containers ..."

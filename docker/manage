@@ -1,0 +1,175 @@
+#!/bin/bash
+
+export DOCKERHOST=${APPLICATION_URL-$(docker run --rm --net=host eclipse/che-ip)}
+export MSYS_NO_PATHCONV=1
+set -e
+
+SCRIPT_HOME="$( cd "$( dirname "$0" )" && pwd )"
+
+# =================================================================================================================
+# Usage:
+# -----------------------------------------------------------------------------------------------------------------
+
+usage() {
+  cat <<-EOF
+
+  Usage: $0 [command] [options]
+
+  Commands:
+
+  build - Build the docker images for the project.
+          You need to do this first, since the builds require
+          a combination of Docker images.
+
+  up  - Creates the application container from the built images
+        and starts the services based on the docker-compose.yml file.
+  start - Same as up
+
+  logs - Display the logs from the docker compose run (ctrl-c to exit).
+
+  stop - Stops the services.  This is a non-destructive process.  The volumes and containers
+         are not deleted so they will be reused the next time you run start.
+
+  down - Brings down the services and removes the volumes (storage) and containers.
+  rm - Same as down
+
+EOF
+exit 1
+}
+
+# -----------------------------------------------------------------------------------------------------------------
+# Default Settings:
+# -----------------------------------------------------------------------------------------------------------------
+
+DEFAULT_CONTAINERS=""
+
+# -----------------------------------------------------------------------------------------------------------------
+# Functions:
+# -----------------------------------------------------------------------------------------------------------------
+
+configureEnvironment () {
+
+  if [ -f .env ]; then
+    while read line; do
+      if [[ ! "$line" =~ ^\# ]] && [[ "$line" =~ .*= ]]; then
+        export $line
+      fi
+    done < .env
+  fi
+
+  for arg in $@; do
+    case "$arg" in
+      *=*)
+        export ${arg}
+        ;;
+    esac
+  done
+
+  # global
+  export COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME:-jag-lrb}"
+  export LOG_LEVEL=${LOG_LEVEL:-DEBUG}
+
+  # db
+  export MYSQL_ROOT_PASSWORD="admin"
+  export MYSQL_DATABASE="drupal"
+  export MYSQL_USER="drupal-user"
+  export MYSQL_PASSWORD="drupal-pwd"
+  export MYSQL_HOST="lrb-db"
+  export MYSQL_PORT=3306
+
+  # solr
+  SOLR_HOST="lrb-solr"
+  SOLR_PORT=8983
+}
+
+getStartupParams() {
+  CONTAINERS=""
+  ARGS=""
+  if [ "$COMMAND" == "start" ]; then
+    ARGS+="--force-recreate"
+  fi
+
+  for arg in $@; do
+    case "$arg" in
+      *=*)
+        # Skip it
+        ;;
+     -*)
+        ARGS+=" $arg";;
+      *)
+        CONTAINERS+=" $arg";;
+    esac
+  done
+
+  if [ -z "$CONTAINERS" ]; then
+    CONTAINERS="$DEFAULT_CONTAINERS"
+  fi
+
+  echo ${ARGS} ${CONTAINERS}
+}
+
+build() {
+  # Build all containers in the docker-compose file
+  echo -e "\nBuilding remaining containers ..."
+  echo docker-compose build $@
+  docker-compose build $@
+}
+
+# build-solr() {
+#   echo -e "\nBuilding solr-base image ..."
+#   docker build \
+#     https://github.com/bcgov/openshift-solr.git#solr-8.8.1 \
+#     -t 'solr-base'
+
+#   echo -e "\nBuilding solr image ..."
+#   ${S2I_EXE} build \
+#     --copy \
+#     -e "HTTP_PROXY=${HTTP_PROXY}" \
+#     -e "HTTPS_PROXY=${HTTPS_PROXY}" \
+#     '../solr/cores' \
+#     'solr-base' \
+#     'solr'
+# }
+
+deleteVolumes() {
+  _projectName=${COMPOSE_PROJECT_NAME:-docker}
+
+  echo "Stopping and removing any running containers ..."
+  docker-compose down -v
+}
+
+# =================================================================================================================
+
+pushd ${SCRIPT_HOME} >/dev/null
+COMMAND=$1
+shift || true
+
+case "$COMMAND" in
+  start|up)
+    _startupParams=$(getStartupParams $@)
+    configureEnvironment $@
+    docker-compose up -d ${_startupParams}
+    docker-compose logs -f
+    ;;
+  logs)
+    configureEnvironment $@
+    docker-compose logs -f
+    ;;
+  stop)
+    configureEnvironment $@
+    docker-compose stop
+    ;;
+  rm|down)
+    configureEnvironment $@
+    deleteVolumes
+    ;;
+  build)
+    _startupParams=$(getStartupParams $@)
+    configureEnvironment $@
+    build ${_startupParams}
+    ;;
+  *)
+    usage
+esac
+
+popd >/dev/null

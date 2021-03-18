@@ -1,0 +1,49 @@
+version: "3"
+services:  
+  lrb-web:
+    build:
+      context: ..
+      dockerfile: docker/drupal/Dockerfile
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_PORT=${MYSQL_PORT}
+      - SOLR_HOST=${SOLR_HOST}
+      - SOLR_PORT=${SOLR_PORT}
+    networks:
+      - lrb-web
+    ports:
+      - 8080:80
+    volumes:
+      - lrb-web-data:/opt/drupal/web/sites/default/files
+      - ./drupal/config/settings.php:/opt/drupal/web/sites/default/settings.php
+  
+  lrb-db:
+    image: mariadb:10
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    networks:
+      - lrb-web
+    ports:
+      - 3306:3306
+
+  # lrb-solr:
+  #   image: solr
+  #   environment:
+  #     - CORE_NAME=${CORE_NAME}
+  #     - SOLR_LOG_LEVEL=WARN
+  #   networks:
+  #     - lrb-web
+  #   ports:
+  #     - 8983:8983
+
+networks:
+  lrb-web:
+
+volumes: 
+  lrb-web-data:

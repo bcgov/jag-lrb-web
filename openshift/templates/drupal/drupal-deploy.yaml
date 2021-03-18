@@ -78,8 +78,6 @@ objects:
             env: ${TAG_NAME}
         spec:
           volumes:
-            - name: ${NAME}-source
-              emptyDir: {}
             - name: ${NAME}-data
               persistentVolumeClaim:
                 claimName: ${NAME}-data

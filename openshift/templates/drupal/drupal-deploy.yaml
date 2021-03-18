@@ -55,15 +55,6 @@ objects:
               kind: ImageStreamTag
               namespace: ${IMAGE_NAMESPACE}
               name: ${SOURCE_IMAGE_NAME}:${TAG_NAME}
-        - type: ImageChange
-          imageChangeParams:
-            automatic: true
-            containerNames:
-              - ${NAME}-proxy
-            from:
-              kind: ImageStreamTag
-              namespace: ${IMAGE_NAMESPACE}
-              name: ${SOURCE_IMAGE_NAME}-proxy:${TAG_NAME}
       replicas: 1
       test: false
       selector:

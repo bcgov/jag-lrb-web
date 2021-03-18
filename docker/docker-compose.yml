@@ -15,7 +15,7 @@ services:
     networks:
       - lrb-web
     ports:
-      - 8080:80
+      - 8080:8080
     volumes:
       - lrb-web-data:/opt/drupal/web/sites/default/files
       - ./drupal/config/settings.php:/opt/drupal/web/sites/default/settings.php

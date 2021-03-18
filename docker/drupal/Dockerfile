@@ -7,14 +7,13 @@ WORKDIR /opt/drupal
 
 ADD . .
 
-RUN composer self-update --2 \
-    && composer update -W \
-    && composer install
+RUN composer install
 
-RUN mkdir -p /opt/drupal/web/sites/default/files \
-    && chgrp -R 0 /opt/drupal/web/sites/default \
-    && chmod -R g+rwX /opt/drupal/web/sites/default \
-    && chown -LR www-data:root /opt/drupal/web/sites/default
+# Ensure the custom files location is writeable
+RUN mkdir -p /opt/drupal/web/files \
+    && chgrp -R 0 /opt/drupal/web/files \
+    && chmod -R g+rwX /opt/drupal/web/files \
+    && chown -LR www-data:root /opt/drupal/web/files
 
 # Replace default port with a higher one to run in OpenShift as non-root user
 RUN sed -i 's/80/8080/g' /etc/apache2/ports.conf \

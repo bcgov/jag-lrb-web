@@ -11,3 +11,5 @@ $databases['default']['default'] = array (
    'collation' => 'utf8mb4_general_ci',
 );
 $settings['hash_salt'] = json_encode($databases);
+$settings['file_public_path'] = 'files';
+$settings['file_private_path'] = 'files/private';

@@ -1,5 +1,5 @@
 version: "3"
-services:  
+services:
   lrb-web:
     build:
       context: ..
@@ -17,9 +17,10 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - lrb-web-data:/opt/drupal/web/sites/default/files
+      - lrb-web-files:/opt/drupal/web/files
+      - lrb-web-private:/opt/drupal/private
       - ./drupal/config/settings.php:/opt/drupal/web/sites/default/settings.php
-  
+
   lrb-db:
     image: mariadb:10
     environment:
@@ -45,5 +46,6 @@ services:
 networks:
   lrb-web:
 
-volumes: 
-  lrb-web-data:
+volumes:
+  lrb-web-files:
+  lrb-web-private:

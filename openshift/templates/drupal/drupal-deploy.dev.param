@@ -19,6 +19,7 @@ APPLICATION_DOMAIN=jag-lrb-web-dev.apps.silver.devops.gov.bc.ca
 # PHP_INI_MOUNT_PATH=/usr/local/etc/php/
 # SITE_SETTINGS_FILE_NAME=settings.php
 # DRUPAL_CONFIG_MAP_NAME=drupal-settings
+# DRUPAL_DATA_MOUNT_PATH=/opt/drupal/web/files
 # PERSISTENT_VOLUME_SIZE=1Gi
 # PERSISTENT_VOLUME_CLASS=netapp-file-standard
 # CPU_REQUEST=250m

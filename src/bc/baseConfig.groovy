@@ -12,8 +12,8 @@ class baseConfig {
   public static final String  NAME_SPACE = '6b08a3'
 
   // Apps - Listed in the order they should be built
-  public static final String[] BUILD_APPS = ['drupal-proxy', 'solr']
+  public static final String[] BUILD_APPS = ['drupal', 'solr']
 
   // Apps - Listed in the order they should be deployed
-  public static final String[] DEPLOY_APPS = ['drupal-db', 'drupal-proxy', 'drupal', 'solr', 'backup-mariadb']
+  public static final String[] DEPLOY_APPS = ['drupal-db', 'drupal', 'solr', 'backup-mariadb']
 }

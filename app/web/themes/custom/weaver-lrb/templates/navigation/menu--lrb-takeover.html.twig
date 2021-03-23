@@ -29,7 +29,7 @@
             item.in_active_trail ? 'active',
             item.url.getOption('attributes').class ? item.url.getOption('attributes').class | join(''),
             'nav-link-' ~ item.url.toString() | clean_class,
-            'd-flex', 'justify-content-between', 'd-lg-block'
+            'd-flex', 'justify-content-between', 'align-items-center', 'd-lg-block'
           ]
         %}
         {% if item.below %}

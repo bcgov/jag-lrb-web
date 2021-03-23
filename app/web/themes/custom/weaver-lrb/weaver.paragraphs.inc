@@ -38,6 +38,12 @@ function weaver_preprocess_paragraph(&$variables) {
         $accordion_aria_ids .= 'section' . $item->target_id . ',';
       }
       $variables['accordion_aria_ids'] = $accordion_aria_ids;
+
+      // if inside two-column container, don't use Bootstrap container div wrappers
+      $variables['use_container'] = TRUE;
+      if ($paragraph->getParentEntity()->bundle() == 'wv_container') {
+        $variables['use_container'] = FALSE;
+      }
       break;
 
     case 'wv_accordion_item':
@@ -91,17 +97,22 @@ function weaver_preprocess_paragraph(&$variables) {
 
       $links = $paragraph->get('field_lrb_resources_links')->getValue();
       foreach ($links as $link) {
-        $variables['links'][] = Link::fromTextAndUrl(Markup::create($link['title']), Url::fromUri($link['uri']));
+        $variables['links'][] = Link::fromTextAndUrl(Markup::create($link['title']), Url::fromUri($link['uri'], $link['options']));
       }
       break;
 
     case 'weaver_text':
-      $variables['column_classes'] = 'col-md-10 pl-md-0 pr-md-0';
+      $variables['column_classes'] = 'col-md-10';
       $variables['in_container'] = FALSE;
+      $variables['in_container_full'] = FALSE;
       if ($paragraph->getParentEntity()->bundle() == 'wv_container') {
         $variables['in_container'] = TRUE;
-        $variables['column_classes'] = 'col-md-12 pl-md-0 pr-md-0';
+        $variables['column_classes'] = 'col-md-12';
       }        
+      if ($paragraph->getParentEntity()->bundle() == 'wv_container_full') {
+        $variables['in_container_full'] = TRUE;
+        $variables['column_classes'] = 'col-md-12 px-0 px-md-3';
+      }
       break;
 
     case 'weaver_twocol_text_image':
@@ -109,12 +120,12 @@ function weaver_preprocess_paragraph(&$variables) {
       $align = $paragraph->get('field_weaver_col_options')->value;
       $align_class = 'image-left';
       $variables['image_offset'] = '';
-      $variables['text_offset'] = 'px-3 px-lg-5';
+      $variables['text_offset'] = 'pl-3 pl-lg-5';
 
       if ($align == 'right') {
         $align_class = 'image-right';
-        $variables['image_offset'] = '';
-        $variables['text_offset'] = '';
+        $variables['image_offset'] = 'pl-lg-5';
+        $variables['text_offset'] = 'pr-lg-5';
       }
       $variables['custom_classes'][] = $align_class;
       break;

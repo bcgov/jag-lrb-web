@@ -5,6 +5,7 @@ namespace Drupal\weaver_ckeditor\Plugin\Filter;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
+use Drupal\media\Entity\Media;
 
 /**
  * @Filter(
@@ -15,6 +16,23 @@ use Drupal\filter\Plugin\FilterBase;
  * )
  */
 class FilterFileIcons extends FilterBase {
+
+  public function getMediaFileSize($media) {
+    if ($media->bundle() == 'document' || $media->bundle() == 'lrb_collective_agreement' || $media->bundle() == 'lrb_decision') {
+      
+      if ($media->bundle() == 'document') {
+        $file = $media->get('field_media_document')->entity;
+      } else {
+        $file = $media->get('field_media_file')->entity;
+      }
+
+      if ($file->get('filemime')->value == 'application/pdf') {
+        $pdf = TRUE;
+
+        return weaverFormatBytes($file->get('filesize')->value, 0);
+      }
+    }
+  }
 
 	public function process($text, $langcode) {
 
@@ -41,34 +59,32 @@ class FilterFileIcons extends FilterBase {
           // check if locally hosted
           global $base_url;
           if (strpos($href, $base_url) == 0) {
-            $filename = str_replace($base_url, '', $href);
+            $filename = trim(str_replace($base_url, '', $href));
 
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . $filename)) {
-              $filesize = weaverFormatBytes(filesize($_SERVER['DOCUMENT_ROOT'] . $filename), 0);
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/web' . $filename)) {
+              $filesize = weaverFormatBytes(filesize($_SERVER['DOCUMENT_ROOT'] . '/web' . $filename), 0);
             } else {
               $filesize = 'N/A';
             }
           }
 
         } else if ($data_entity_type == 'media') {
+          $pdf = TRUE;
           $uuid = $element->getAttribute('data-entity-uuid');
 
           // check that term belongs to Glossary vocabulary
           $media = \Drupal::service('entity.repository')->loadEntityByUuid('media', $uuid);
+          $filesize = $this->getMediaFileSize($media);
           
-          if ($media->bundle() == 'document' || $media->bundle() == 'lrb_collective_agreement' || $media->bundle() == 'lrb_decision') {
-            
-            if ($media->bundle() == 'document') {
-              $file = $media->get('field_media_document')->entity;
-            } else {
-              $file = $media->get('field_media_file')->entity;
-            }
-
-            if ($file->get('filemime')->value == 'application/pdf') {
-              $pdf = TRUE;
-
-              $filesize = weaverFormatBytes($file->get('filesize')->value, 0);
-            }
+        } else if (strpos($href, '/media/') === 0) {
+          // for Decisions and Collective Agreements linked directly
+          $url = explode('/', $href);
+          $media_id = (is_numeric($url[2])) ? $url[2] : null;
+          
+          if ($media_id) {
+            $pdf = TRUE;
+            $media = Media::load($media_id);
+            $filesize = $this->getMediaFileSize($media);
           }
         }
 

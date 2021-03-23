@@ -1,0 +1,24 @@
+salesforce.auth_config:
+  route_name: salesforce.auth_config
+  base_route: salesforce.auth_config
+  title: 'Authorization'
+
+entity.salesforce_auth.collection:
+  route_name: entity.salesforce_auth.collection
+  base_route: salesforce.auth_config
+  title: 'Providers'
+
+entity.salesforce_auth.edit_form:
+  route_name: entity.salesforce_auth.edit_form
+  base_route: entity.salesforce_auth.edit_form
+  title: 'Edit'
+
+entity.salesforce_auth.revoke:
+  route_name: entity.salesforce_auth.revoke
+  base_route: entity.salesforce_auth.edit_form
+  title: 'Revoke'
+
+entity.salesforce_auth.delete_form:
+  route_name: entity.salesforce_auth.delete_form
+  base_route: entity.salesforce_auth.edit_form
+  title: 'Delete'

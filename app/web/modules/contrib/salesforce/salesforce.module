@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @file
+ * API and module for Salesforce integration.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_help().
+ */
+function salesforce_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'salesforce.structure_index':
+      $output = '';
+      if (!\Drupal::moduleHandler()->moduleExists('salesforce_mapping_ui')) {
+        $output .= '<p>' . t('In order to configure Salesforce Mappings, you must first enable the <a href=":url">Salesforce Mapping</a> module.', [':url' => (new Url('system.modules_list'))->toString()]) . '</p>';
+      }
+
+      if (!\Drupal::service('plugin.manager.salesforce.auth_providers')->getToken()) {
+        $output .= '<p>' . t('You must <a href=":authorize">authorize your account with Salesforce</a> in order to configure Salesforce Mappings.', [':authorize' => (new Url('salesforce.admin_config_salesforce'))->toString()]) . '</p>';
+      }
+      return $output;
+
+    case 'help.page.salesforce':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module suite implements a mapping functionality between Salesforce
+  objects and Drupal entities. In other words, for each of your supported Drupal
+  entities (e.g. node, user, or entities supported by extensions), you can
+  assign Salesforce objects that will be created / updated when the entity is
+  saved. For each such assignment, you choose which Drupal and Salesforce fields
+  should be mapped to one another.') . '</p>';
+      $output .= '<p>' . t('This suite also includes an API architecture which allows for additional
+  modules to be easily plugged in (e.g. for webforms, contact form submits,
+  etc).') . '</p>';
+
+      $output .= '<p>' . t('For a more detailed description of each component module, see below.') . '</p>';
+      $output .= '<h3>' . t('Requirements') . '</h3>';
+      $output .= '<ol>';
+      $output .= '<li>' . t('You need a Salesforce account. Developers can <a href=":url">@text</a>.', [':url' => 'http://www.developerforce.com/events/regular/registration.php', '@text' => 'register here']) . '</li>';
+      $output .= '<li>' . t('You will need to create a remote application/connected app for authorization.') . '</li>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('In Salesforce go to Your Name > Setup > Create > Apps then create a new Connected App. (Depending on your Salesforce instance, you may need to go to Your Name > Setup > Develop > Remote Access.)') . '</li>';
+      $url = new Url('salesforce.oauth_callback', [], ['absolute' => TRUE]);
+      $output .= '<li>' . t('Set the callback URL to: :url (SSL is required)',
+          [':url' => str_replace('http:', 'https:', $url->toString())]) . '</li>';
+      $output .= '<li>' . t('Select at least "Perform requests on your behalf at any time" for OAuth Scope
+  as well as the appropriate other scopes for your application. Note that "Full access" does not include the "Perform requests on your behalf at any time" scope! <a href=":url">Additional Information</a>.', [':url' => 'https://help.salesforce.com/help/doc/en/remoteaccess_about.htm']) . '</li>';
+      $output .= '<li>' . t('For more help see <a href=":url">the salesforce.com documentation</a>.', [':url' => 'https://www.salesforce.com/us/developer/docs/api_rest/Content/quickstart_oauth.htm']) . '</li>';
+      $output .= '</ul>';
+      $output .= '<li>' . t('Your site needs to be SSL enabled to authorize the remote application using OAUTH.') . '</li>';
+      $output .= '</ol>';
+      $output .= '<h3>' . t('Modules') . '</h3>';
+      $output .= '<h4>' . t('Salesforce (salesforce)') . '</h4>';
+      $output .= '<p>' . t('OAUTH2 authorization and wrapper around the Salesforce REST API.') . '</p>';
+      $output .= '<h4>' . t('Salesforce Mapping (salesforce_mapping)') . '</h4>';
+      $output .= '<p>' . t('Map Drupal entities to Salesforce fields, including field level mapping.') . '</p>';
+      $output .= '<h4>' . t('Salesforce Push (salesforce_push)') . '</h4>';
+      $output .= '<p>' . t('Push Drupal entity updates into Salesforce.') . '</p>';
+      $output .= '<h4>' . t('Salesforce Pull (salesforce_pull)') . '</h4>';
+      $output .= '<p>' . t('Pull Salesforce object updates into Drupal on cron run. (Salesforce Outbound Notifications are not supported.)') . '</p>';
+      return $output;
+
+    case 'salesforce.authorize':
+      return '<p>' . t('Visit <a href=":help">the Salesforce module help page</a> if you need help obtaining a consumer key and secret.', [':help' => (new Url('help.page', ['name' => 'salesforce']))->toString()]) . '</p>';
+  }
+}

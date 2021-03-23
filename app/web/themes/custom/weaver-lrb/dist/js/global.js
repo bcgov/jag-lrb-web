@@ -57,6 +57,30 @@
       }
     },
     attach: function attach(context, settings) {
+      /////////////////////////////////////////
+      // ANCHORS
+      // if (window.location.hash != null) {
+      //   let scrollToElement = document.getElementById(window.location.hash.replace('#', ''));
+      //   scrollToHash(scrollToElement);
+      //   return false;
+      // }
+      // let anchorLinks = document.querySelectorAll("a[href^='#']");
+      // if (anchorLinks) {  
+      //   anchorLinks.forEach((anchorLink) => {
+      //     anchorLink.addEventListener('click', (e) => {
+      //       let scrollToElement = document.getElementById(anchorLink.getAttribute('href').replace('#', ''));
+      //       console.log(scrollToElement);
+      //       scrollToHash(scrollToElement);
+      //       e.preventDefault();
+      //     });
+      //   });
+      // }
+      // function scrollToHash(scrollToElement) {
+      //   if (scrollToElement) {
+      //     let scrollPosition = scrollToElement.getBoundingClientRect().top + window.pageYOffset - 150;
+      //     window.scrollTo({ top: scrollPosition });
+      //   }
+      // }
       // ensures javascript runs only once per page load and not with every ajax call
       $('body', context).once('weaver').each(function () {
         var weaver = Drupal.behaviors.weaver; /////////////////////////////////////////
@@ -139,22 +163,28 @@
         $('[data-toggle="popover"]').popover({
           html: true
         }); ///////////////////////////////////////
-        // RESOURCES
-        // if Resources is in right column and is first on the page, move the page title down into the left column
+        // FIRST CONTAINERS
+        // if Resources or image is in right column and is first on the page, move the page title down into the left column
 
         var pageTitle = document.getElementById('block-weaver-page-title'); // only on topics page
 
         if (document.body.classList.contains('node--type-lrb-topic') || document.body.classList.contains('node--type-wv-content-page')) {
-          // only if first paragraph on page is a two-column container and Resources block is first paragraph in right column
+          // only if first paragraph on page is a two-column container and text block is first paragraph in left column
           var firstParagraph = document.querySelector('.field--name-field-wv-content .field__item').children[0];
 
           if (firstParagraph.classList.contains('paragraph--type--wv-container')) {
-            var rightColumnParagraph = firstParagraph.querySelector('.field--name-field-wv-container-content .field__item').children[0];
+            var leftColumnParagraph = firstParagraph.querySelector('.field--name-field-wv-container-content .field__item').children[0];
 
-            if (rightColumnParagraph.classList.contains('paragraph--type--weaver-text')) {
+            if (leftColumnParagraph.classList.contains('paragraph--type--weaver-text')) {
               // move Page Title into this text block
-              rightColumnParagraph.querySelector('.field__item').prepend(pageTitle);
+              leftColumnParagraph.querySelector('.field__item').prepend(pageTitle);
             }
+          } // if first element on a page is two-column text and image and image is on the right, move the page title down into the left column
+
+
+          if (firstParagraph.classList.contains('paragraph--type--weaver-twocol-text-image') && firstParagraph.classList.contains('image-right')) {
+            var leftColumn = firstParagraph.querySelector('.text-col .text-formatted');
+            leftColumn.prepend(pageTitle);
           }
         } ///////////////////////////////////////
         // SOCIAL LINKS (News Pages)
@@ -235,11 +265,19 @@
             tooltipToggles.forEach(function (tooltipToggle) {
               if (tooltipToggle.dataset.target != null && tooltipToggle.dataset.target == 'takeover-menu' || tooltipToggle.classList.contains('btn-round')) {
                 $(tooltipToggle).tooltip({
+                  animation: true,
+                  delay: {
+                    show: 500
+                  },
                   trigger: 'hover',
                   template: '<div class="tooltip tooltip-yellow" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
                 });
               } else {
                 $(tooltipToggle).tooltip({
+                  animation: true,
+                  delay: {
+                    show: 500
+                  },
                   trigger: 'hover'
                 });
               }
@@ -250,6 +288,10 @@
 
           if (newsletterButton) {
             $(newsletterButton).tooltip({
+              animation: true,
+              delay: {
+                show: 500
+              },
               trigger: 'hover'
             });
           }

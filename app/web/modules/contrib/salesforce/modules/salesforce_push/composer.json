@@ -1,0 +1,21 @@
+{
+    "name": "drupal/salesforce_push",
+    "description": "Push data from drupal to salesforce.",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "Aaron Bauman",
+            "email": "aaron@messageagency.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "extra": {
+        "drush": {
+            "services": {
+                "drush.services.yml": "^9"
+            }
+        }
+    }
+}

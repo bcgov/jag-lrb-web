@@ -205,6 +205,16 @@
 	}
 }
 
+/* Special Paragraphs */
+.field--name-field-lrb-special {
+
+	.block-views {
+
+		&> h2 {
+			font-size: 1.75rem;
+		}
+	}
+}
 
 /* Topic Grid */
 .paragraph--type--lrb-topic-grid {

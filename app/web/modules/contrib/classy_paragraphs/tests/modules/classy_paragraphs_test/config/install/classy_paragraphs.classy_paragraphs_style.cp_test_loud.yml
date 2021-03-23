@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: cp_test_loud
+label: Loud
+classes: loud-background

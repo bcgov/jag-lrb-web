@@ -41,7 +41,7 @@
 				color: $teal-lighter !important;
 
 				@include hoverStates() {
-					color: $white !important;
+					text-decoration: underline !important;
 				}
 
 				svg {

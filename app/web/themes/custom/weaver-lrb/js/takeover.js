@@ -182,12 +182,29 @@
 
       		if (takeoverButton) {
             weaverTakeover.activateTakeover('menu', takeoverButton, takeoverCover);
-          }
+         }
 
           var tabHandle;
           takeoverButton.addEventListener('click', function(e) {
             e.preventDefault();
 
+            // IE fix, turns link into anchor to footer
+            var ie = 0;
+            try { 
+              ie = navigator.userAgent.match( /(MSIE |Trident.*rv[ :])([0-9]+)/ )[ 2 ];
+              if (ie !== 0) {
+                takeoverButton.removeAttribute('data-target');
+                takeoverButton.removeAttribute('href');
+               
+                let footerMenu = document.getElementById('footer-menu');
+                let footerPosition = footerMenu.getBoundingClientRect().top + window.pageYOffset - 150;
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: footerPosition
+                }, 500);
+              }
+            }
+            catch(exception){}
+            
             if (tabHandle) {
               tabHandle.disengage();
               tabHandle = null;

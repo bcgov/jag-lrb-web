@@ -1,0 +1,458 @@
+<?php
+
+/**
+ * @file
+ * Salesforce install file.
+ */
+
+use Drupal\Component\Serialization\Json;
+use Drupal\Core\Url;
+use Drupal\salesforce\Entity\SalesforceAuthConfig;
+use Drupal\salesforce\Token\SalesforceToken;
+use OAuth\Common\Storage\Exception\TokenNotFoundException;
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Purge Salesforce module state variables.
+ */
+function salesforce_uninstall() {
+  $delete = [
+    'salesforce.instance_url',
+    'salesforce.access_token',
+    'salesforce.refresh_token',
+    'salesforce.identity',
+    'salesforce.last_requirements_check',
+    'salesforce.usage',
+    'salesforce.tls_status',
+  ];
+  \Drupal::state()->deleteMultiple($delete);
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function salesforce_requirements($phase) {
+  if ($phase != 'runtime') {
+    return [];
+  }
+
+  // Check requirements once per 24 hours.
+  $last = \Drupal::state()->get('salesforce.last_requirements_check', 0);
+
+  $requirements['salesforce_auth_provider'] = salesforce_get_auth_provider_requirements();
+
+  // Don't bother checking usage if we aren't connected to Salesforce.
+  if ($requirements['salesforce_auth_provider']['severity'] == REQUIREMENT_OK) {
+    $requirements['salesforce_usage'] = salesforce_get_usage_requirements();
+  }
+
+  $requirements['salesforce_tls'] = salesforce_get_tls_requirements();
+  if ($last < time() - (60 * 60 * 24) || empty($requirements['salesforce_tls'])) {
+    salesforce_fetch_new_tls();
+    $requirements['salesforce_tls'] = salesforce_get_tls_requirements();
+  }
+
+  return $requirements;
+}
+
+/**
+ * Check to see if an auth provider has been set.
+ */
+function salesforce_get_auth_provider_requirements() {
+  $requirements = [
+    'title' => t('Salesforce Authentication Status'),
+    'value' => t('Provider Status'),
+  ];
+  /** @var \Drupal\salesforce\SalesforceAuthProviderPluginManagerInterface $authMan */
+  $authMan = \Drupal::service('plugin.manager.salesforce.auth_providers');
+  if (!$authMan->hasProviders()) {
+    $requirements += [
+      'description' => t('No auth providers have been created. Please <a href="@href">create an auth provider</a> to connect to Salesforce.', ['@href' => Url::fromRoute('entity.salesforce_auth.add_form')->toString()]),
+      'severity' => REQUIREMENT_ERROR,
+    ];
+  }
+  elseif (!$authMan->getConfig()) {
+    $requirements += [
+      'description' => t('Default auth provider has not been set. Please <a href="@href">choose an auth provider</a> to connect to Salesforce.', ['@href' => Url::fromRoute('salesforce.auth_config')->toString()]),
+      'severity' => REQUIREMENT_ERROR,
+    ];
+  }
+  else {
+    $failMessage = t('Salesforce authentication failed. Please <a href="@href">check your auth provider settings</a> to connect to Salesforce.', ['@href' => Url::fromRoute('entity.salesforce_auth.edit_form', ['salesforce_auth' => $authMan->getConfig()->id()])->toString()]);
+    try {
+      if (!$authMan->getToken()) {
+        $requirements += [
+          'description' => $failMessage,
+          'severity' => REQUIREMENT_ERROR,
+        ];
+      }
+    }
+    catch (Exception $e) {
+      $requirements += [
+        'description' => $failMessage,
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+  }
+  if (empty($requirements['severity'])) {
+    $requirements += [
+      'severity' => REQUIREMENT_OK,
+    ];
+  }
+  return $requirements;
+}
+
+/**
+ * Check TLS status.
+ */
+function salesforce_fetch_new_tls() {
+  $response = FALSE;
+  try {
+    // Ping the howsmyssl web service to check TLS version support for this
+    // client.
+    \Drupal::state()->set('salesforce.last_requirements_check', time());
+    $raw_response = \Drupal::service('http_client')->get('https://www.howsmyssl.com/a/check', ['json' => TRUE, 'timeout' => 5]);
+    $body = $raw_response->getBody();
+    if (!empty($body)) {
+      $body = $body->getContents();
+      if (!empty($body)) {
+        $response = Json::decode($body);
+      }
+    }
+  }
+  catch (Exception $e) {
+    // Noop.
+  }
+  \Drupal::state()->set('salesforce.tls_status', $response);
+  return $response;
+}
+
+/**
+ * Return TLS requirements array.
+ */
+function salesforce_get_tls_requirements() {
+  $response = \Drupal::state()->get('salesforce.tls_status', FALSE);
+  $last = \Drupal::state()->get('salesforce.last_requirements_check', 0);
+  $last = \Drupal::service('date.formatter')->format($last);
+  $requirements = [
+    'title' => t('Salesforce TLS'),
+    'value' => t('TLS 1.1+ Support last checked %time', ['%time' => $last]),
+  ];
+  // If we didn't get a good response, throw a warning.
+  if (empty($response) || empty($response['tls_version'])) {
+    $requirements += [
+      'severity' => REQUIREMENT_WARNING,
+      'description' => t('Drupal failed to connect to https://www.howsmyssl.com/a/check service to check TLS 1.1+ support for this client. Please ensure your OpenSSL client supports TLS 1.1+ before using Salesforce module.'),
+    ];
+  }
+  else {
+    // If we got a good response, and this client doesn't support TLS1.1+, throw
+    // an error.
+    switch ($response['tls_version']) {
+      case 'TLS 1.1':
+      case 'TLS 1.2':
+      case 'TLS 1.3':
+        $requirements += [
+          'severity' => REQUIREMENT_OK,
+          'description' => t('OK: %version', ['%version' => $response['tls_version']]),
+        ];
+        break;
+
+      default:
+        $requirements += [
+          'severity' => REQUIREMENT_ERROR,
+          'description' => t('Unsupported: %version -- Salesforce API requires TLS 1.1+. Please upgrade your OpenSSL version before using Salesforce module.', ['%version' => $response['tls_version']]),
+        ];
+        break;
+    }
+  }
+  return $requirements;
+}
+
+/**
+ * Return usage requirements array.
+ */
+function salesforce_get_usage_requirements() {
+  $requirements = [
+    'title' => t('Salesforce usage'),
+    'value' => t('API Limit Info'),
+  ];
+
+  $usage = FALSE;
+  try {
+    $usage = \Drupal::service('salesforce.client')->getApiUsage();
+  }
+  catch (Exception $e) {
+    // Noop.
+  }
+
+  if (empty($usage)) {
+    // Missing usage information is not necessarily a problem.
+    $requirements += [
+      'severity' => REQUIREMENT_OK,
+      'description' => t('Usage information unavailable'),
+    ];
+  }
+  else {
+    $usage = str_replace('api-usage=', '', $usage);
+
+    list($usage, $limit) = explode('/', $usage, 2);
+    $pct = 'N/A';
+    if ($limit > 0) {
+      $pct = ($usage / $limit) * 100.0;
+    }
+    $args = [
+      '%usage' => number_format($usage),
+      '%limit' => number_format($limit),
+      '%pct' => number_format($pct, 2) . '%',
+    ];
+    $requirements += [
+      'description' => t('Usage: %usage requests of %limit limit (%pct) in the past 24 hours.', $args),
+      'severity' => $pct >= 100 ? REQUIREMENT_ERROR : ($pct >= 80 ? REQUIREMENT_WARNING : REQUIREMENT_OK),
+    ];
+  }
+
+  return $requirements;
+}
+
+/**
+ * Install new "Use Latest API version" boolean; defaults to TRUE.
+ */
+function salesforce_update_8001() {
+  $settings = \Drupal::configFactory()->getEditable('salesforce.settings');
+  $settings->set('use_latest', TRUE);
+  $settings->save();
+}
+
+/**
+ * Install new "Limit revisions" setting; defaults to 10.
+ */
+function salesforce_update_8002() {
+  $settings = \Drupal::configFactory()->getEditable('salesforce.settings');
+  $settings->set('limit_mapped_object_revisions', 10);
+  $settings->save();
+}
+
+/**
+ * Move API credentials from state to config.
+ */
+function salesforce_update_8003() {
+  // Populate config from state.
+  $config = \Drupal::configFactory()->getEditable('salesforce.settings');
+  if ($consumer_key = \Drupal::state()->get('salesforce.consumer_key', FALSE)) {
+    $config->set('consumer_key', $consumer_key);
+  }
+  if ($consumer_secret = \Drupal::state()->get('salesforce.consumer_secret', FALSE)) {
+    $config->set('consumer_secret', $consumer_secret);
+  }
+  if ($login_url = \Drupal::state()->get('salesforce.login_url', FALSE)) {
+    $config->set('login_url', $login_url);
+  }
+  $config->save();
+
+  // Delete deprecated state variables.
+  $delete = [
+    'salesforce.consumer_key',
+    'salesforce.consumer_secret',
+    'salesforce.login_url',
+  ];
+  \Drupal::state()->deleteMultiple($delete);
+}
+
+/**
+ * Clear salesforce:objects cache, whose structure has changed.
+ */
+function salesforce_update_8004() {
+  \Drupal::cache()->delete('salesforce:objects');
+}
+
+/**
+ * Convert legacy oauth credentials to new auth plugin config.
+ */
+function salesforce_update_8005() {
+  $change_list = \Drupal::entityDefinitionUpdateManager()->getChangeSummary();
+  if (!empty($change_list['salesforce_auth'])) {
+    if (!empty($change_list['salesforce_auth'])) {
+      $entityType = \Drupal::entityTypeManager()
+        ->getDefinition('salesforce_auth');
+      \Drupal::entityDefinitionUpdateManager()->installEntityType($entityType);
+    }
+  }
+
+  // If auth plugin providers have not been created already, convert existing.
+  if (SalesforceAuthConfig::load('oauth_default')) {
+    // If an auth config with our name already exists, we are done here.
+    $message = 'Existing "oauth_default" provider config detected. Refused to set legacy credentials.';
+  }
+  else {
+    /** @var \Drupal\salesforce\Entity\SalesforceAuthConfig $oauth */
+    $oauth = NULL;
+    $config = \Drupal::configFactory()->getEditable('salesforce.settings');
+    // Config to new plugin config system.
+    $values = [
+      'id' => 'oauth_default',
+      'label' => 'OAuth Default',
+      'provider' => 'oauth',
+    ];
+    $oauth = SalesforceAuthConfig::create($values);
+    $settings = [
+      'consumer_key' => $config->get('consumer_key'),
+      'consumer_secret' => $config->get('consumer_secret'),
+      'login_url' => $config->get('login_url'),
+    ];
+    $oauth
+      ->set('provider_settings', $settings)
+      ->save();
+    $config
+      ->set('salesforce_auth_provider', 'oauth_default')
+      ->save();
+    $message = 'Default OAuth provider created from legacy credentials.';
+  }
+  return $message;
+}
+
+/**
+ * Convert legacy token to new auth plugin config.
+ */
+function salesforce_update_8006() {
+  $oauth = SalesforceAuthConfig::load('oauth_default');
+  if (!$oauth) {
+    return "Auth config missing. Refused to update legacy token.";
+  }
+  try {
+    \Drupal::service('salesforce.auth_token_storage')
+      ->retrieveAccessToken($oauth->id());
+    return "Token exists. Refused to update.";
+  }
+  catch (TokenNotFoundException $e) {
+    \Drupal::service('salesforce.auth_token_storage')
+      ->storeAccessToken('oauth_default',
+        new SalesforceToken(
+          \Drupal::state()->get('salesforce.access_token'),
+          \Drupal::state()->get('salesforce.refresh_token')));
+    return "Updated legacy token to new plugin config.";
+  }
+}
+
+/**
+ * Enable salesforce_oauth module and purge legacy settings.
+ */
+function salesforce_update_8401() {
+  // Enable salesforce_oauth module.
+  \Drupal::service('module_installer')->install(['salesforce_oauth']);
+
+  // Purge old stateful values and config.
+  \Drupal::configFactory()->getEditable('salesforce.settings')
+    ->clear('consumer_key')
+    ->clear('consumer_secret')
+    ->clear('login_url')
+    ->save();
+
+  \Drupal::state()->deleteMultiple([
+    'salesforce.access_token',
+    'salesforce.refresh_token',
+    'salesforce.identity',
+    'salesforce.instance_url',
+  ]);
+
+}
+
+/**
+ * Purge salesforce_encrypt module, in case it was not disabled.
+ *
+ * See change record https://www.drupal.org/node/3034230 for more info.
+ */
+function salesforce_update_8402() {
+  // Manually uninstall salesforce_encrypt, which was removed.
+  \Drupal::database()->delete('key_value')
+    ->condition('collection', 'system.schema')
+    ->condition('name', 'salesforce_encrypt')
+    ->execute();
+
+  // Check to see if our profile exists, and if our creds are encrypted.
+  // If so, try to unencrypt them and delete our profile.
+  $profile = \Drupal::state()->get('salesforce_encrypt.profile');
+  if (!$profile) {
+    return;
+  }
+
+  \Drupal::state()->delete('salesforce_encrypt.profile');
+
+  if (!\Drupal::hasService('encrypt.encryption_profile.manager') || !\Drupal::hasService('encryption')) {
+    return;
+  }
+
+  $profile = \Drupal::service('encrypt.encryption_profile.manager')->getEncryptionProfile($profile);
+  if (!$profile) {
+    return;
+  }
+  /** @var \Drupal\encrypt\EncryptService $encryption */
+  $encryption = \Drupal::service('encryption');
+
+  // Encryption exists. Profile exists. Look for encrypted credentials.
+  /** @var \Drupal\salesforce\Entity\SalesforceAuthConfig $authConfig */
+  $authConfig = SalesforceAuthConfig::load('oauth_default');
+  if (!$authConfig) {
+    // If we can't load the oauth_default config, we're done.
+    return;
+  }
+  $credentials = $authConfig->getPlugin()->getCredentials();
+  if (!$credentials instanceof \Drupal\salesforce_oauth\Consumer\SalesforceOAuthCredentials) { // @codingStandardsIgnoreLine
+    // If we're not using OAuth, we are done.
+    return;
+  }
+
+  try {
+    $key = $encryption->decrypt($credentials->getConsumerKey(), $profile);
+    $secret = $encryption->decrypt($credentials->getConsumerSecret(), $profile);
+    $url = $credentials->getLoginUrl();
+    $settings = [
+      'consumer_key' => $key,
+      'consumer_secret' => $secret,
+      'login_url' => $url,
+    ];
+    $authConfig
+      ->set('provider_settings', $settings)
+      ->save();
+  }
+  catch (\Exception $e) {
+    // If these failed encryption, don't bother with the update which will
+    // probably fail.
+    return;
+  }
+
+  /** @var \Drupal\salesforce\Storage\SalesforceAuthTokenStorage $tokenStorage */
+  $tokenStorage = \Drupal::service('salesforce.auth_token_storage');
+  try {
+    $token = $tokenStorage->retrieveAccessToken('oauth_default');
+    $accessToken = $encryption->decrypt($token->getAccessToken(), $profile);
+    $refreshToken = $encryption->decrypt($token->getRefreshToken(), $profile);
+    $token->setAccessToken($accessToken);
+    $token->setRefreshToken($refreshToken);
+    $tokenStorage->storeAccessToken('oauth_default', $token);
+
+    $identity = $tokenStorage->retrieveIdentity('oauth_default');
+    if (empty($identity)) {
+      return;
+    }
+    if (is_string($identity)) {
+      $identity = $encryption->decrypt($identity, $profile);
+      if (empty($identity) || !is_string($identity)) {
+        // If decryption failed, we're done.
+        return;
+      }
+      $identity = unserialize($identity);
+      if ($identity === FALSE) {
+        // We can't do anything with a non-serialized string.
+        return;
+      }
+    }
+    $tokenStorage->storeIdentity('oauth_default', $identity);
+  }
+  catch (\Exception $e) {
+    // If these failed encryption, don't bother with the update which will
+    // probably fail.
+    return;
+  }
+}

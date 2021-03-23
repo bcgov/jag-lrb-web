@@ -1,0 +1,8 @@
+name: Salesforce Logger
+type: module
+description: Consolidated logging for Salesforce Log events.
+core_version_requirement: ^8.7.7 || ^9
+package: Salesforce
+configure: salesforce_logger.settings
+dependencies:
+  - salesforce:salesforce

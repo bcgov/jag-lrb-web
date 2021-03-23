@@ -4,19 +4,34 @@
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     not paragraph.isPublished() ? 'paragraph--unpublished',
-    'full-width', 'bg-grey-lighter', 'py-5',
-    custom_classes
   ]
 %}
 
+{% if use_container %}
+  {%
+    set full_width_classes = [
+      'full-width', 'bg-grey-lighter', 'py-5',
+    ]
+  %}
+{% endif %}
+  
 {% block paragraph %}
-  <div id="wv-accordion-{{ paragraph.id() }}" {{ attributes.addClass(classes).addClass(custom_classes) }} {% if anchor|length %}id="{{ anchor }}"{% endif %}>
-    <div class="container">
-      <div class="row">
+  
+  <div id="wv-accordion-{{ paragraph.id() }}" {{ attributes.addClass(classes).addClass(custom_classes).addClass(full_width_classes) }}>
+    {% if use_container == true %}
+      <div class="container">
+        <div class="row">
+    {% endif %}
+
         {% block content %}
-          <div class="col-md-10">
+          <div class="col-md-10" {% if anchor|length %}id="{{ anchor }}"{% endif %}>
             <div class="row mb-5">
-              <div class="col-md-10 pl-0 pr-0 px-md-3">
+
+              {% if use_container == true %}
+                <div class="col-md-8 col-lg-10">
+              {% else %}
+                <div class="col-md-12">
+              {% endif %}
                 {% if paragraph.field_wv_accordion_headline.value|length %}
                   <h2 class="h1 font-weight-bolder mb-3">
                     {{ paragraph.field_wv_accordion_headline.value|raw }}
@@ -24,23 +39,34 @@
                 {% endif %}
               </div>
 
-              {% if paragraph.field_wv_accordion_headline.value|length %}
-                <div class="col-md-2 text-right accordion-links pt-2 pt-lg-5 pl-0 pr-0">
+              {% if use_container == true %}
+                {% if paragraph.field_wv_accordion_headline.value|length %}
+                  <div class="col-md-4 col-lg-2 text-right accordion-links pt-2 pt-lg-5">
+                {% else %}
+                  <div class="col-md-4 col-lg-2 text-right accordion-links pt-0">
+                {% endif %}
               {% else %}
-                <div class="col-md-2 text-right accordion-links pt-0 pl-0">
+                <div class="col-md-12 text-right accordion-links pt-0 pr-0">
               {% endif %}
                 <p><a tabindex=-1 class="accordion-toggle-all" aria-controls="{{ accordion_aria_ids }}" data-toggle="collapse" data-closed-text="{{ 'CLOSE ALL'|t }}" data-open-text="{{ 'OPEN ALL'|t }}">{{ 'OPEN ALL'|t }}</a></p>
               </div>
             </div>
 
             <div class="row">
-              <div class="col">
+              {% if use_container == true %}
+                <div class="col px-0 px-md-3">
+              {% else %}
+                <div class="col px-0">
+              {% endif %}
                 {{ content }}
               </div>
             </div>
           </div>
         {% endblock %}
+
+    {% if use_container %}
+        </div>
       </div>
-    </div>
+    {% endif %}
   </div>
 {% endblock paragraph %}

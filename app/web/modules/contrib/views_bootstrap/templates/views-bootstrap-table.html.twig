@@ -114,7 +114,7 @@
             {%- if column.wrapper_element -%}
               <{{ column.wrapper_element }}>
               {% for content in column.content %}
-                {{ content.separator }}{{ content.field_output }}
+                {{ content.separator }}{{ content.field_output|raw }}
               {% endfor %}
               </{{ column.wrapper_element }}>
             {%- else -%}

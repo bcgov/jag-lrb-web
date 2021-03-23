@@ -45,7 +45,9 @@
 
   {% if rows %}
     <div id="results" class="view-content {{ views_content_classes }}">
-      {{ rows }}
+      <div class="col-12">
+        {{ rows }}
+      </div>
     </div>
   {% elseif empty %}
     <div class="view-empty">

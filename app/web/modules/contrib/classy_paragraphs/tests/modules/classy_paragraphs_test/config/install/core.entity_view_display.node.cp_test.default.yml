@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.cp_test.field_cp_test_paragraphs
+    - node.type.cp_test
+  module:
+    - entity_reference_revisions
+    - user
+id: node.cp_test.default
+targetEntityType: node
+bundle: cp_test
+mode: default
+content:
+  field_cp_test_paragraphs:
+    type: entity_reference_revisions_entity_view
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+hidden:
+  links: true

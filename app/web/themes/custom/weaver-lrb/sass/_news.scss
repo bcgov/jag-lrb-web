@@ -46,13 +46,13 @@
 			height: 2rem !important;
 
 			@include media-breakpoint-up(md) {
-				height: 1rem !important;
+				height: 1.25rem !important;
 			}
 		}
 	}
 
 	#back-top {
-		margin-top: 10rem;
+		margin-top: 6rem !important;
 	}
 }
 
@@ -63,6 +63,26 @@
 	border-bottom-width: 18px !important;
 	border-bottom-color: $teal !important;
 
+	&:nth-child(1),
+	&:nth-child(4n+1) {
+		border-bottom-color: $teal !important;	
+	}
+
+	&:nth-child(2),
+	&:nth-child(4n+2) {
+		border-bottom-color: $yellow !important;
+	}
+
+	&:nth-child(3),
+	&:nth-child(4n+3) {
+		border-bottom-color: $red !important;
+	}
+
+	&:nth-child(4),
+	&:nth-child(4n) {
+		border-bottom-color: $blue !important;
+	}
+
 	@include media-breakpoint-up(lg) {
 		padding: 2rem 3rem;
 	}
@@ -72,14 +92,6 @@
 		border-top: 1px solid $teal !important;
 		border-left:  1px solid $teal !important;
 		border-right:  1px solid $teal !important;
-
-		&:nth-child(odd) {
-			border-bottom-color: $teal !important;
-		}
-
-		&:nth-child(even) {
-			border-bottom-color: $red !important;
-		}
 	}
 
 	.home-page-display & {
@@ -131,16 +143,6 @@
 			flex-direction: row;
 			margin-right: 2rem;
 			margin-left: 2rem;
-		}
-
-		&:nth-child(2),
-		&:nth-child(3),
-		&:nth-child(4) {
-			border-bottom-color: $yellow !important;
-		}
-
-		&:nth-child(5) {
-			border-bottom-color: $red !important;
 		}
 
 		.card-title {

@@ -126,7 +126,7 @@ input[type=submit] {
 		border: 0 none;
 		background-color: $grey-medium;
 
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up(xl) {
 			margin-left: 3rem;
 			margin-right: 1rem;
 		}

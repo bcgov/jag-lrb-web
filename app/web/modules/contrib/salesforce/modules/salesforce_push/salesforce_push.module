@@ -1,0 +1,255 @@
+<?php
+
+/**
+ * @file
+ * Push updates to Salesforce when a Drupal entity is updated.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\salesforce\Event\SalesforceErrorEvent;
+use Drupal\salesforce\Event\SalesforceEvents;
+use Drupal\salesforce_mapping\Entity\MappedObject;
+use Drupal\salesforce_mapping\Entity\MappedObjectInterface;
+use Drupal\salesforce_mapping\Entity\SalesforceMappingInterface;
+use Drupal\salesforce_mapping\Event\SalesforcePushOpEvent;
+use Drupal\salesforce_mapping\Event\SalesforcePushAllowedEvent;
+use Drupal\salesforce_mapping\MappingConstants;
+
+/**
+ * Implements hook_entity_insert().
+ */
+function salesforce_push_entity_insert(EntityInterface $entity) {
+  salesforce_push_entity_crud($entity, MappingConstants::SALESFORCE_MAPPING_SYNC_DRUPAL_CREATE);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function salesforce_push_entity_update(EntityInterface $entity) {
+  salesforce_push_entity_crud($entity, MappingConstants::SALESFORCE_MAPPING_SYNC_DRUPAL_UPDATE);
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function salesforce_push_entity_delete(EntityInterface $entity) {
+  salesforce_push_entity_crud($entity, MappingConstants::SALESFORCE_MAPPING_SYNC_DRUPAL_DELETE);
+}
+
+/**
+ * Push entities to Salesforce.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity object.
+ * @param string $op
+ *   The trigger being responded to.
+ *   One of push_create, push_update, push_delete.
+ *
+ * @TODO
+ *   at some point all these hook_entity_* implementations will go away. We'll
+ *   create an event subscriber class to respond to entity events and delegate
+ *   actions to the appropriate Push procedures. Unfortunately this point seems
+ *   to be a very long ways away. https://www.drupal.org/node/2551893
+ */
+function salesforce_push_entity_crud(EntityInterface $entity, $op) {
+  // Don't allow mapped objects or mappings to be pushed!
+  if (!empty($entity->salesforce_pull)
+  || $entity instanceof MappedObjectInterface
+  || $entity instanceof SalesforceMappingInterface) {
+    return;
+  }
+
+  $properties = [];
+
+  if ($entity_type = $entity->getEntityTypeId()) {
+    $properties['drupal_entity_type'] = $entity_type;
+  }
+  if ($bundle = $entity->bundle()) {
+    $properties['drupal_bundle'] = $bundle;
+  }
+
+  /** @var \Drupal\salesforce_mapping\Entity\SalesforceMapping[] $mappings */
+  $mappings = \Drupal::service('entity_type.manager')
+    ->getStorage('salesforce_mapping')
+    ->loadPushMappingsByProperties($properties);
+  if (empty($mappings)) {
+    return;
+  }
+
+  foreach ($mappings as $mapping) {
+    if (!$mapping->checkTriggers([$op])) {
+      continue;
+    }
+    try {
+      salesforce_push_entity_crud_mapping($entity, $op, $mapping);
+    }
+    catch (\Exception $e) {
+      // Do not allow any exception to prevent entity CRUD.
+      \Drupal::service('event_dispatcher')->dispatch(SalesforceEvents::ERROR, new SalesforceErrorEvent($e));
+    }
+  }
+}
+
+/**
+ * Helper method for salesforce_push_entity_crud()
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity.
+ * @param string $op
+ *   The current CRUD operation.
+ * @param \Drupal\salesforce_mapping\Entity\SalesforceMappingInterface $mapping
+ *   The mapping.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function salesforce_push_entity_crud_mapping(EntityInterface $entity, $op, SalesforceMappingInterface $mapping) {
+  $mapped_object = NULL;
+
+  // Look for existing mapped object or create a new one (except for deletes).
+  $props = [
+    'drupal_entity__target_type' => $entity->getEntityTypeId(),
+    'drupal_entity__target_id' => $entity->id(),
+    'salesforce_mapping' => $mapping->id(),
+  ];
+
+  $mapped_objects = \Drupal::service('entity_type.manager')
+    ->getStorage('salesforce_mapped_object')
+    ->loadByProperties($props);
+
+  if (empty($mapped_objects)) {
+    // No mappings found.
+    if ($op == MappingConstants::SALESFORCE_MAPPING_SYNC_DRUPAL_DELETE) {
+      // If no existing mapping, and this is a delete, purge any entries from
+      // push queue and we're done.
+      \Drupal::service('queue.salesforce_push')
+        ->setName($mapping->id())
+        ->deleteItemByEntity($entity);
+      return;
+    }
+    $mapped_object = new MappedObject([]);
+    $mapped_object->salesforce_mapping = $mapping;
+    $mapped_object->setDrupalEntity($entity);
+  }
+  else {
+    // There should really only be one in this case, since we're loading on a
+    // multi-field unique key, but loadByProperties returns an array.
+    $mapped_object = current($mapped_objects);
+  }
+
+  // Event subscribers should call $event->disallowPush() to prevent push.
+  $event = \Drupal::service('event_dispatcher')->dispatch(
+    SalesforceEvents::PUSH_ALLOWED,
+    new SalesforcePushAllowedEvent($mapped_object, $op)
+  );
+  if ($event->isPushAllowed() === FALSE) {
+    return;
+  }
+
+  // Enqueue async push if the mapping is configured to do so, and quit.
+  if ($mapping->async) {
+    try {
+      salesforce_push_enqueue_async($entity, $mapping, $mapped_object, $op);
+    }
+    catch (\Exception $e) {
+      \Drupal::service('event_dispatcher')->dispatch(SalesforceEvents::ERROR, new SalesforceErrorEvent($e));
+    }
+    return;
+  }
+
+  // Attempt real-time push. Enqueue async push on failure.
+  try {
+    \Drupal::service('event_dispatcher')->dispatch(
+      SalesforceEvents::PUSH_MAPPING_OBJECT,
+      new SalesforcePushOpEvent($mapped_object, $op)
+    );
+
+    // If this is a delete, destroy the SF object.
+    if ($op == MappingConstants::SALESFORCE_MAPPING_SYNC_DRUPAL_DELETE) {
+      $mapped_object->pushDelete();
+    }
+    else {
+      // Otherwise, push to SF. This also saves the mapped object.
+      $mapped_object->push();
+    }
+
+    // On success, delete any push queue items for this entity.
+    \Drupal::service('queue.salesforce_push')
+      ->setName($mapping->id())
+      ->deleteItemByEntity($entity);
+  }
+  catch (\Exception $e) {
+
+    \Drupal::service('event_dispatcher')->dispatch(
+      SalesforceEvents::PUSH_FAIL,
+      new SalesforcePushOpEvent($mapped_object, $op)
+    );
+
+    \Drupal::service('event_dispatcher')->dispatch(SalesforceEvents::ERROR, new SalesforceErrorEvent($e));
+    try {
+      salesforce_push_enqueue_async($entity, $mapping, $mapped_object, $op);
+    }
+    catch (\Exception $e) {
+      \Drupal::service('event_dispatcher')->dispatch(SalesforceEvents::ERROR, new SalesforceErrorEvent($e));
+    }
+
+    if (!$mapped_object->isNew()) {
+      // Only update existing mapped objects.
+      $mapped_object
+        ->set('last_sync_action', $op)
+        ->set('last_sync_status', FALSE)
+        ->set('revision_log_message', $e->getMessage())
+        ->save();
+    }
+  }
+}
+
+/**
+ * Insert a new queue item into the async push queue for the given mapping.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity.
+ * @param \Drupal\salesforce_mapping\Entity\SalesforceMappingInterface $mapping
+ *   The mapping.
+ * @param string $op
+ *   The operation.
+ */
+function salesforce_push_enqueue_async(EntityInterface $entity, SalesforceMappingInterface $mapping, MappedObjectInterface $mapped_object = NULL, $op) {
+  // Each mapping has its own queue, so that like entries can be easily grouped
+  // for batching. Each queue item is a unique array of entity ids to be
+  // pushed. The async queue worker loads the queue item and works through as
+  // many entities as possible, up to the async limit for this mapping.
+  $props = [
+    'name' => $mapping->id(),
+    'entity_id' => $entity->id(),
+    'op' => $op,
+  ];
+  if ($mapped_object) {
+    $props['mapped_object_id'] = $mapped_object->id();
+  }
+
+  \Drupal::service('queue.salesforce_push')->createItem($props);
+}
+
+/**
+ * Implements hook_cron().
+ */
+function salesforce_push_cron() {
+  $queue = \Drupal::service('queue.salesforce_push');
+  if (\Drupal::config('salesforce.settings')->get('standalone')) {
+    // If global standalone processing is enabled, stop here.
+    return;
+  }
+  try {
+    // Process mappings only for those which are not marked standalone.
+    $mappings = \Drupal::service('entity_type.manager')
+      ->getStorage('salesforce_mapping')
+      ->loadCronPushMappings();
+    if (empty($mappings)) {
+      return;
+    }
+    $queue->processQueues($mappings);
+  }
+  catch (\Exception $e) {
+    \Drupal::service('event_dispatcher')->dispatch(SalesforceEvents::ERROR, new SalesforceErrorEvent($e));
+  }
+}

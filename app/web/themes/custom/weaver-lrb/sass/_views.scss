@@ -99,21 +99,31 @@
 
 /* Decisions */
 .view-lrb-decisions {
+	
+	@include media-breakpoint-up(xl) {
+	
+		.views-field-field-lrb-decision-date {
+			min-width: 200px;
+		}
 
-	.views-field-field-lrb-decision-id {
-		min-width: 250px;
+		.views-field-field-lrb-decision-id {
+			min-width: 250px;
+		}
 	}
 }
 
 /* Hearings */
 .view-lrb-hearings {
 	
-	.views-field-field-lrb-hearing-date {
-		min-width: 180px;
-	}
-	
-	.views-field.views-field-field-lrb-hearings-number {
-		min-width: 160px;
+	@include media-breakpoint-up(xl) {
+
+		.views-field-field-lrb-hearing-date {
+			min-width: 200px;
+		}
+		
+		.views-field.views-field-field-lrb-hearings-number {
+			min-width: 160px;
+		}
 	}
 }
 

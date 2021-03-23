@@ -1,3 +1,7 @@
+.popover {
+	transition: opacity 1000ms;
+}
+
 .popover,
 .popover-header,
 .popover-body {
@@ -24,6 +28,11 @@ $directions: (
 
 .tooltip {
 	line-height: 1.4rem;
+	transition: opacity 1000ms;
+	
+	&.show {
+		opacity: 0.95;
+	}
 	
 	&.tooltip-yellow {
 

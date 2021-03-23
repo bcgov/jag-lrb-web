@@ -59,37 +59,82 @@ function weaver_preprocess_breadcrumb(&$variables) {
   $params = $route->getParameters()->all();
 
   // get News and updates to show correct breadcrumbs
-  if (isset($params['view_id']) && $params['view_id'] == 'lrb_news') {
+  if (isset($params['view_id'])) {
 
-    $news_view_title = Views::getView('lrb_news')->getTitle();
+    switch ($params['view_id']) {
+      case 'lrb_news':
 
-    $current_term = (isset($params['arg_0'])) ? $params['arg_0'] : null;
+        $news_view_title = Views::getView('lrb_news')->getTitle();
 
-    if ($current_term != null) {
-      $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => str_replace('-', ' ', $params['arg_0'])]);
-      $term = reset($terms);
+        $current_term = (isset($params['arg_0'])) ? $params['arg_0'] : null;
 
-      foreach ($variables['breadcrumb'] as $key => $breadcrumb) {
+        if ($current_term != null) {
+          $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => str_replace('-', ' ', $params['arg_0'])]);
+          $term = reset($terms);
 
-        // cases of category page
-        if ($breadcrumb['url'] == '' && $breadcrumb['text'] == $news_view_title) {
-          $variables['breadcrumb'][$key]['text'] = $term->label();
+          foreach ($variables['breadcrumb'] as $key => $breadcrumb) {
+
+            // cases of category page
+            if ($breadcrumb['url'] == '' && $breadcrumb['text'] == $news_view_title) {
+              $variables['breadcrumb'][$key]['text'] = $term->label();
+            }
+          }
         }
-      }
+        break;
     }
   }
 
-  // cases where news category is a link
-  if (isset($params['node']) && $params['node']->bundle() == 'weaver_news') {
-    foreach ($variables['breadcrumb'] as $key => $breadcrumb) {
 
-      if (strpos($breadcrumb['url'], '/updates/') === 0) {
-        // get taxonomy terms
-        if (isset($params['node']->get('field_lrb_news_category')->target_id)) {
-          $term = Term::load($params['node']->get('field_lrb_news_category')->target_id);
-          $variables['breadcrumb'][$key]['text'] = $term->label();
+  if (isset($params['node'])) {
+
+    switch ($params['node']->bundle()) {
+    // cases where news category is a link
+      case 'weaver_news':
+        foreach ($variables['breadcrumb'] as $key => $breadcrumb) {
+
+          if (strpos($breadcrumb['url'], '/updates/') === 0) {
+            // get taxonomy terms
+            if (isset($params['node']->get('field_lrb_news_category')->target_id)) {
+              $term = Term::load($params['node']->get('field_lrb_news_category')->target_id);
+              $variables['breadcrumb'][$key]['text'] = $term->label();
+            }
+          }
         }
-      }
+        break;
+
+      case 'page':
+      case 'lrb_topic':
+      case 'wv_content_page':
+        // check if Parent Pages field has value
+        $parents = $params['node']->get('field_lrb_parents')->getValue();
+
+        if (count($parents)) {
+          // set breadcrumbs manually
+          $variables['breadcrumb'] = [
+            0 => [
+              'text' => t('Home'),
+              'url' => '/'
+            ]            
+          ];
+
+          // add each parent as breadcrumb
+          $i = 1;
+          foreach ($parents as $parent_result) {
+            $parent = Node::load($parent_result['target_id']);
+            $variables['breadcrumb'][$i] = [
+              'text' => $parent->label(),
+              'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$parent->id()),
+            ];
+            $i++;
+          }
+
+          // add non-link to current page
+          $variables['breadcrumb'][$i] = [
+            'text' => $params['node']-> label(),
+            'url' => '',
+          ];
+        }
+        break;
     }
   }
 }
@@ -233,6 +278,11 @@ function weaver_preprocess_page(&$variables) {
     $variables['weaver_sharing_modal'] = \Drupal::service('renderer')->renderPlain($weaver_sharing_modal_renderable);
   }
 
+  // if node, add updated date to page
+  if (isset($variables['node'])) {
+    $variables['updated'] = $variables['node']->getChangedTime();
+  }
+
   // add text resizer
   $weaver_resizer_renderable = [
     '#theme' => 'weaver_text_resizer',
@@ -259,6 +309,7 @@ function weaver_preprocess_page(&$variables) {
     $all_settings = $config->get('weaver_custom.site_elements.all');
     $variables['update_bar'] = '<div class="col-md-6">' . $all_settings['updates_left']['value'] . '</div><div class="col-md-6 text-right">' . $all_settings['updates_right']['value'] . '</div>';
   }
+
 }
 
 function weaver_preprocess_page_title(&$variables) {

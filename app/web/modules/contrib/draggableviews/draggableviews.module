@@ -237,12 +237,6 @@ function draggableviews_views_query_alter(ViewExecutable $view, QueryPluginBase 
         'value' => $view->id(),
         'numeric' => FALSE,
       ],
-      [
-        'field' => 'view_display',
-        'operator' => '=',
-        'value' => $view->current_display,
-        'numeric' => FALSE,
-      ],
     ];
   }
 }

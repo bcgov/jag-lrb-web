@@ -8,6 +8,18 @@
   border-radius: 50%;
   opacity: 1;
 
+  @include media-breakpoint-down(sm) {
+    left: calc(50% - 53px);
+  }
+  
+  .ajax-progress__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75px;
+    height: 75px;
+  }
+
   svg,
   path {
     animation-duration: 3500ms;

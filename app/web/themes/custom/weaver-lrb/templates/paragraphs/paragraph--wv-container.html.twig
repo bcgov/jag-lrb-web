@@ -9,16 +9,16 @@
 
 {% block paragraph %}
   <div{{ attributes.addClass(classes).addClass(custom_classes) }} {% if anchor|length %}id="{{ anchor }}"{% endif %}>
-    <div class="container">
+    <div class="container px-0">
       <div class="row">
 
         {% block content %}
           
-          <div class="{{ first_col_classes }} mb-4 mb-md-0 pr-0 pr-md-1">
+          <div class="{{ first_col_classes }} mb-4 mb-md-0 pr-md-1">
             {{ content.field_wv_container_content }}
           </div>
 
-          <div class="{{ second_col_classes }} pl-0 pl-md-1">
+          <div class="{{ second_col_classes }} pl-md-1">
             {{ content.field_wv_container_2nd }}
           </div>
 

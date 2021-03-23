@@ -4,7 +4,7 @@
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     not paragraph.isPublished() ? 'paragraph--unpublished',
-    'container',
+    'container', 'px-0',
     custom_classes
   ]
 %}
@@ -12,7 +12,7 @@
 {% block paragraph %}
   <div{{ attributes.addClass(classes).addClass(custom_classes) }} {% if anchor|length %}id="{{ anchor }}"{% endif %}>
 
-    <div class="row">
+    <div class="row mx-0">
       {% block content %}
         <div class="col-md-10 leading-decisions-wrapper border-color-teal border">
           {% if paragraph.field_weaver_heading.value %}

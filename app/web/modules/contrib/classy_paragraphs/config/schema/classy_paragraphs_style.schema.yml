@@ -1,0 +1,15 @@
+classy_paragraphs.classy_paragraphs_style.*:
+  type: config_entity
+  label: 'Classy paragraphs style config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    classes:
+      type: string
+      label: 'Classes'
+    uuid:
+      type: string

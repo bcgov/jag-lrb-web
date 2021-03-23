@@ -1,0 +1,107 @@
+salesforce.structure_index:
+  path: '/admin/structure/salesforce'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Salesforce'
+    _description: 'Manage Salesforce mappings.'
+  requirements:
+    _permission: 'administer salesforce'
+
+entity.salesforce_mapping.list:
+  path: '/admin/structure/salesforce/mappings'
+  defaults:
+    _entity_list: 'salesforce_mapping'
+    _title: 'Salesforce Mappings'
+  requirements:
+    _permission: 'administer salesforce mapping'
+
+entity.salesforce_mapping.add_form:
+  path: '/admin/structure/salesforce/mappings/add'
+  defaults:
+    _entity_form: 'salesforce_mapping.add'
+    _title: 'Add Mapping'
+  requirements:
+    _entity_create_access: 'salesforce_mapping'
+
+entity.salesforce_mapping.edit_form:
+  path: '/admin/structure/salesforce/mappings/manage/{salesforce_mapping}'
+  defaults:
+    _entity_form: 'salesforce_mapping.edit'
+  requirements:
+    _entity_access: 'salesforce_mapping.update'
+
+entity.salesforce_mapping.fields:
+  path: '/admin/structure/salesforce/mappings/manage/{salesforce_mapping}/fields'
+  defaults:
+    _entity_form: 'salesforce_mapping.fields'
+    _title: 'Fields'
+  requirements:
+    _entity_access: 'salesforce_mapping.update'
+
+entity.salesforce_mapping.delete_form:
+  path: '/admin/structure/salesforce/mappings/manage/{salesforce_mapping}/delete'
+  defaults:
+    _entity_form: 'salesforce_mapping.delete'
+  requirements:
+    _entity_access: 'salesforce_mapping.delete'
+
+entity.salesforce_mapping.enable:
+  path: '/admin/structure/salesforce/mappings/manage/{salesforce_mapping}/enable'
+  defaults:
+    _entity_form: 'salesforce_mapping.enable'
+  requirements:
+    _entity_access: 'salesforce_mapping.update'
+
+entity.salesforce_mapping.disable:
+  path: '/admin/structure/salesforce/mappings/manage/{salesforce_mapping}/disable'
+  defaults:
+    _entity_form: 'salesforce_mapping.disable'
+  requirements:
+    _entity_access: 'salesforce_mapping.update'
+
+entity.salesforce_mapped_object.list:
+  path: '/admin/content/salesforce'
+  defaults:
+    _entity_list: 'salesforce_mapped_object'
+    _title: 'Salesforce Mapped Objects'
+  requirements:
+    _permission: 'administer salesforce mapped objects'
+  
+entity.salesforce_mapped_object.canonical:
+  path: '/admin/content/salesforce/{salesforce_mapped_object}'
+  defaults:
+    _title: 'Salesforce Mapped Object'
+    _entity_view: 'salesforce_mapped_object.full'
+  requirements:
+    _permission: 'administer salesforce mapped objects'
+
+entity.salesforce_mapped_object.add_form:
+  path: '/admin/content/salesforce/add'
+  defaults:
+    _entity_form: 'salesforce_mapped_object.add'
+    _title: 'Salesforce Mapped Object'
+  requirements:
+    _permission: 'administer salesforce mapped objects'
+
+entity.salesforce_mapped_object.edit_form:
+  path: '/admin/content/salesforce/{salesforce_mapped_object}/edit'
+  defaults:
+    _entity_form: 'salesforce_mapped_object.edit'
+    _title: 'Salesforce Mapped Object'
+  requirements:
+    _permission: 'administer salesforce mapped objects'
+
+entity.salesforce_mapped_object.delete_form:
+  path: '/admin/content/salesforce/{salesforce_mapped_object}/delete'
+  defaults:
+    _entity_form: 'salesforce_mapped_object.delete'
+  requirements:
+    _permission: 'administer salesforce mapped objects'
+
+salesforce_mapping.autocomplete_controller_autocomplete:
+  path: '/salesforce_mapping/autocomplete/{entity_type_id}/{bundle}'
+  defaults:
+    _controller: '\Drupal\salesforce_mapping_ui\Controller\AutocompleteController::autocomplete'
+    _format: json
+  requirements:
+    _permission: 'administer salesforce mapped objects'

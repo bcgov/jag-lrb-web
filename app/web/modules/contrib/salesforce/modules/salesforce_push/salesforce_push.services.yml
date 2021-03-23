@@ -1,0 +1,8 @@
+services:
+  plugin.manager.salesforce_push_queue_processor:
+    class: Drupal\salesforce_push\PushQueueProcessorPluginManager
+    arguments: ['@container.namespaces', '@cache.discovery', '@module_handler']
+
+  queue.salesforce_push:
+    class: Drupal\salesforce_push\PushQueue
+    arguments: ['@database', '@state', '@plugin.manager.salesforce_push_queue_processor', '@entity_type.manager', '@event_dispatcher', '@datetime.time', '@config.factory']

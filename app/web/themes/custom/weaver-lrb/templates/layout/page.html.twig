@@ -140,7 +140,7 @@
 
     {% include '@weaver/layout/mailchimp-signup.html.twig' with { base_url: base_url } %}
 
-    {% include '@weaver/layout/disclaimer.html.twig' with { disclaimer: disclaimer } %}
+    {% include '@weaver/layout/disclaimer.html.twig' with { disclaimer: disclaimer, updated: updated  } %}
 
     {% include '@weaver/layout/territorial-acknowledgement.html.twig' with { territorial: territorial } %}
 
@@ -156,13 +156,13 @@
                   {{ drupal_menu('lrb-takeover') }}
                 </div>
                 
-                <div class="col-sm-8">
+                <div class="col-sm-4">
                   {{ page.footer_bottom }}
                 </div>
 
-                <div class="footer-attribution col-sm-4">
+                <div class="footer-attribution col-sm-8">
                   <p class="text-center text-md-right font-size-sm">
-                    <a href="https://weaver.coop" target="_blank" title="{{ 'Site created by Weaver Digital Design & Storytelling Cooperative'|t }}">{{ 'Built by Weaver'|t }}</a>
+                    <span class="text-teal">{{ 'Copyright ' ~ "now"|date('Y') ~ ' B.C. Labour Relations Board'|t }} <span class="d-none d-md-inline">|</span></span><br class="d-md-none" /> <a href="https://weaver.coop" target="_blank" title="{{ 'Site created by Weaver Digital Design & Storytelling Cooperative'|t }}">{{ 'Built by Weaver'|t }}</a>
                   </p>
                 </div>
               </div>

@@ -36,7 +36,7 @@ function weaver_custom_form_alter(&$form, FormStateInterface $form_state, $form_
           $year_element = weaver_custom_year_dropdown($year);
           $form['year_select'] = [
             '#type' => 'markup',
-            '#markup' => '<fieldset class="js-form-item form-item form-group"><label>' . $form['year']['#title'] . '</label>' . $year_element . '</fieldset>',
+            '#markup' => '<fieldset class="js-form-item form-item form-group d-none-ie"><label>' . $form['year']['#title'] . '</label>' . $year_element . '</fieldset>',
             '#allowed_tags' => ['fieldset', 'select', 'option', 'label'],
             '#weight' => -100,
             '#default_value' => (isset($_GET['year'])) ? $_GET['year'] : '',
@@ -203,13 +203,6 @@ function weaver_custom_year_dropdown($year) {
   }
   $year_element .= '</select>';
 
-  // $year_element = [
-  //   '#title' => t('Search by year'),
-  //   '#type' => 'select',
-  //   '#options' => $years,
-  //   '#weight' => -100,
-  //   '#default_value' => (isset($year)) ? $year : 'all',
-  // ];
   return $year_element;
 }
 

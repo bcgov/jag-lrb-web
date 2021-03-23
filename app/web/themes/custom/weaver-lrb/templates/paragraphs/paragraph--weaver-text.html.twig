@@ -11,12 +11,15 @@
   <div{{ attributes.addClass(classes).addClass(custom_classes) }} {% if anchor|length %}id="{{ anchor }}"{% endif %}>
 
     {% if in_container == false %}
-      <div class="container">
+      {% if in_container_full == false %}
+        <div class="container px-0">
+      {% else %}
+        <div class="container">
+      {% endif %}
     {% endif %}
         <div class="row">
           {% block content %}
             <div class="{{ column_classes }} ">
-        
               {{ content }}
             </div>
           {% endblock %}

@@ -135,6 +135,11 @@ a {
   }
 }
 
+/* Anchor Links */
+[id] {
+  scroll-margin-top: $header_height;
+}
+
 .file-size {
 	font-size: $font-size-sm;
 }
@@ -151,6 +156,10 @@ h6 {
 
 .text-formatted,
 .cke_editable {
+	
+	h1 {
+		margin-bottom: 2rem;
+	}
 	
 	h2 {
 		font-size: 1.75rem;

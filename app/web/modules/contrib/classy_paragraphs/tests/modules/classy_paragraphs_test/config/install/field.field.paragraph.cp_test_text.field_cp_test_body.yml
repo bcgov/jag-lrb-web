@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_cp_test_body
+    - paragraphs.paragraphs_type.cp_test_text
+  module:
+    - text
+id: paragraph.cp_test_text.field_cp_test_body
+field_name: field_cp_test_body
+entity_type: paragraph
+bundle: cp_test_text
+label: Body
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

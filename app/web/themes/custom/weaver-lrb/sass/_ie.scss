@@ -1,0 +1,37 @@
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	.field--name-field-lrb-topic-pages,
+	.topics-grid-card {
+		width: 100% !important;
+	}
+
+	.d-none-ie,
+	.accordion-links,
+	.weaver-social-link.weaver-social-share {
+		display: none;
+		visibility: hidden;
+	}
+
+	.views-exposed-form#views-exposed-form-lrb-decisions-block-1 .js-form-item-year, 
+	.views-exposed-form#views-exposed-form-lrb-decisions-page-1 .js-form-item-year {
+		display: block;
+		visibility: visible;
+	}
+
+	blockquote {
+		
+		p {
+			display: block !important;
+		}
+	}
+
+	.form-date,
+	.form-email,
+	.form-tel,
+	.form-select,
+	.form-text,
+	.select2,
+	textarea,
+	textarea.form-control {
+		padding: 10px !important;
+	}
+}

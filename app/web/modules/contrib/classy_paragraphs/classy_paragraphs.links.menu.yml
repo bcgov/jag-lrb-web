@@ -1,0 +1,8 @@
+# Classy paragraphs style menu items definition
+entity.classy_paragraphs_style.collection:
+  title: 'Classy paragraphs style'
+  route_name: entity.classy_paragraphs_style.collection
+  description: 'List Classy paragraphs style (bundles)'
+  parent: system.admin_structure
+  weight: 99
+

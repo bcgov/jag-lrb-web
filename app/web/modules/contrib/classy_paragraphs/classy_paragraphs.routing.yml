@@ -1,0 +1,42 @@
+
+# ClassyParagraphsStyle routing definition
+entity.classy_paragraphs_style.collection:
+  path: '/admin/structure/classy_paragraphs_style'
+  defaults:
+    _entity_list: 'classy_paragraphs_style'
+    _title: 'Classy paragraphs style'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+
+entity.classy_paragraphs_style.add_form:
+  path: '/admin/structure/classy_paragraphs_style/add'
+  defaults:
+    _entity_form: 'classy_paragraphs_style.add'
+    _title: 'Add Classy paragraphs style'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+
+entity.classy_paragraphs_style.edit_form:
+  path: '/admin/structure/classy_paragraphs_style/{classy_paragraphs_style}'
+  defaults:
+    _entity_form: 'classy_paragraphs_style.edit'
+    _title: 'Edit Classy paragraphs style'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+
+entity.classy_paragraphs_style.delete_form:
+  path: '/admin/structure/classy_paragraphs_style/{classy_paragraphs_style}/delete'
+  defaults:
+    _entity_form: 'classy_paragraphs_style.delete'
+    _title: 'Delete Classy paragraphs style'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+

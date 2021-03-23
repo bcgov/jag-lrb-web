@@ -28,7 +28,6 @@
           
           <ul class="topic-subpages box-shadow collapse list-unstyled bg-grey-lighter" id="subpages{{ node.id() }}" aria-hidden="true">
             <li class="px-2 py-2">{{ node.field_lrb_topic_description.value|raw }}</li>
-            <li class="px-2 py-2">{{ drupal_link('Go to ' ~ node.label(), path('entity.node.canonical', {'node': node.id()}), { attributes: { class: 'd-block no-underline link-blue' }}) }}</li>
             {% for sub in subpages %}
               <li class="px-2 py-2">{{ drupal_link(sub.title, sub.url, { attributes: { class: 'd-block no-underline link-blue' }}) }}</li>
             {% endfor %}

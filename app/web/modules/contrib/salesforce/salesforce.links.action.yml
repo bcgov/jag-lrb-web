@@ -1,0 +1,7 @@
+salesforce_auth.add_action:
+  route_name: entity.salesforce_auth.add_form
+  title: 'Add Salesforce Auth Provider'
+  appears_on:
+    - entity.salesforce_auth.collection
+    - entity.salesforce_auth.edit_form
+    - salesforce.auth_config

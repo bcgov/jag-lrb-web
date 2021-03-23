@@ -15,6 +15,8 @@ function weaver_preprocess_views_view(&$variables) {
 
     case 'lrb_collective_agreements':
 
+      $variables['views_content_classes'] = 'row';
+
       // loads search params for the grouping links
       if (count($_GET)) {
         $search_params = '?';
@@ -28,6 +30,10 @@ function weaver_preprocess_views_view(&$variables) {
       }
       break;
 
+    case 'lrb_decisions':
+        $variables['views_content_classes'] = 'row';
+        break;
+        
     case 'lrb_hearings':
       // expand search fields if URL shows a search was performed
       if (is_array($_GET) && count($_GET)) {

@@ -1,7 +1,0 @@
-name: 'Salesforce Test Rest Client'
-type: module
-description: 'Provides a dummy Rest Client for functional tests.'
-package: Testing
-core_version_requirement: ^8.7.7 || ^9
-dependencies:
-  - salesforce:salesforce

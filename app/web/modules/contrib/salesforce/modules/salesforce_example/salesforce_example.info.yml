@@ -1,8 +1,0 @@
-name: Salesforce Example
-type: module
-description: Salesforce Examples
-core_version_requirement: ^8.7.7 || ^9
-package: Salesforce
-dependencies:
-  - salesforce:salesforce_push
-  - salesforce:salesforce_mapping

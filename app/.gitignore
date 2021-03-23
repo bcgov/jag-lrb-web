@@ -4,6 +4,9 @@
 # Ignore vendor folder
 /vendor
 
+# Ignore all contrib modules
+**/contrib
+
 # Ignore all site specific data
 /web/sites/default/files
 !/web/sites/default/files/adminimal-custom.css

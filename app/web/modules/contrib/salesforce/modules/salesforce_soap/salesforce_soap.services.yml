@@ -1,4 +1,0 @@
-services:
-  salesforce.soap_client:
-    class: Drupal\salesforce_soap\Soap\SoapClient
-    arguments: ['@plugin.manager.salesforce.auth_providers']

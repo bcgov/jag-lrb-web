@@ -1,8 +1,0 @@
-name: Classy Paragraphs
-type: module
-description: Allows an editor to apply a class to paragraphs.
-core_version_requirement: ^8 || ^9
-package: Paragraphs
-dependencies:
-  - paragraphs:paragraphs
-configure: entity.classy_paragraphs_style.collection

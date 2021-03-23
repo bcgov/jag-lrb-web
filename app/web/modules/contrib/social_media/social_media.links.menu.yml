@@ -1,6 +1,0 @@
-social_media.admin_form:
-  title: 'Social media settings'
-  route_name: social_media.admin_form
-  description: 'Settings page for sharing in social media'
-  parent: system.admin_config_services
-  weight: 98

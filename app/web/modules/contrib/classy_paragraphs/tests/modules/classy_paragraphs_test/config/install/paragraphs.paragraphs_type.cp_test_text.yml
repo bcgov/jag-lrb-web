@@ -1,5 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: cp_test_text
-label: 'Text (CP Test)'

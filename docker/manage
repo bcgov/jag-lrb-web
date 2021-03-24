@@ -115,8 +115,9 @@ configureEnvironment () {
   export MYSQL_PORT=3306
 
   # solr
-  SOLR_HOST="lrb-solr"
-  SOLR_PORT=8983
+  export SOLR_HOST="lrb-solr"
+  export SOLR_PORT=8983
+  export CORE_NAME=lrb
 }
 
 getStartupParams() {

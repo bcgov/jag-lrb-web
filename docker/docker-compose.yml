@@ -20,6 +20,7 @@ services:
       - lrb-web-files:/opt/drupal/web/files
       - lrb-web-private:/opt/drupal/private
       - ./drupal/config/settings.php:/opt/drupal/web/sites/default/settings.php
+      - ./drupal/config/php.ini:/usr/local/etc/php/php.ini
 
   lrb-db:
     image: mariadb:10

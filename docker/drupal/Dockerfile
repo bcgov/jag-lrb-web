@@ -5,7 +5,7 @@ RUN apt-get update \
 
 WORKDIR /opt/drupal
 
-ADD . .
+ADD ./app .
 
 RUN composer install
 

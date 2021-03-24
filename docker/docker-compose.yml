@@ -32,6 +32,8 @@ services:
       - lrb-web
     ports:
       - 3306:3306
+    volumes:
+      - lrb-db-data:/var/lib/mysql/data
 
   lrb-solr:
     image: lrb-solr
@@ -42,6 +44,8 @@ services:
       - lrb-web
     ports:
       - 8983:8983
+    volumes:
+      - lrb-solr-data:/var/solr/data
 
 networks:
   lrb-web:
@@ -49,3 +53,5 @@ networks:
 volumes:
   lrb-web-files:
   lrb-web-private:
+  lrb-db-data:
+  lrb-solr-data:

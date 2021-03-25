@@ -3,6 +3,8 @@ FROM drupal:9.0.11-apache
 RUN apt-get update \
     && apt install git -y
 
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
 WORKDIR /opt/drupal
 
 ADD ./app .

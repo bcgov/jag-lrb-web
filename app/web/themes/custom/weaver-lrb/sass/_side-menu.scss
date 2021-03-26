@@ -1,3 +1,4 @@
+
 @mixin sideBarButtonFocus {
 	background: $blue none;
 
@@ -116,7 +117,7 @@ body {
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			height: 100px;
+			height: 85px;
 			font-size: 0.7rem;
 			line-height: 1.2rem;
 			transition: all 500ms;

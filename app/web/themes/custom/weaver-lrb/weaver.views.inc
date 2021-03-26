@@ -31,8 +31,8 @@ function weaver_preprocess_views_view(&$variables) {
       break;
 
     case 'lrb_decisions':
-        $variables['views_content_classes'] = 'row';
-        break;
+      $variables['views_content_classes'] = 'row justify-content-start align-items-center';
+      break;
         
     case 'lrb_hearings':
       // expand search fields if URL shows a search was performed
@@ -60,6 +60,10 @@ function weaver_preprocess_views_view(&$variables) {
           break;
 
       }
+      break;
+
+    case 'lrb_reports':
+      // $variables['views_content_classes'] = 'row';
       break;
 
     case 'lrb_site_search':
@@ -130,6 +134,35 @@ function weaver_preprocess_views_view_field(&$variables) {
                 ]
               );
             }
+          }
+
+          if ($url != null && $url != '') {
+            $link = Link::fromTextAndUrl(Markup::create($original_output), $url)->toRenderable();
+            $link['#attributes'] = ['target' => '_blank', 'data-extension' => 'pdf'];
+            $variables['output'] = $link; 
+          }
+          break;
+      }
+      break;
+
+    case 'lrb_reports':
+
+      switch ($field->field) {
+
+        case 'field_media_file_1':
+          $original_output = '<i class="fal fa-file-pdf"></i>' . $variables['row']->_entity->label();
+
+          $file = $variables['row']->_entity->get('field_media_file_1')->entity;
+          if (isset($file)) {
+            $filesize = weaverformatBytes($file->getSize(), 0);
+            $original_output .= ' (' . $filesize . ')';
+            $url = Url::fromRoute(
+              'media_entity_download.download',
+              [
+                'media' => $variables['row']->_entity->id(),
+                'inline' => null,
+              ]
+            );
           }
 
           if ($url != null && $url != '') {

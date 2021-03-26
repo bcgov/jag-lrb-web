@@ -57,30 +57,6 @@
       }
     },
     attach: function attach(context, settings) {
-      /////////////////////////////////////////
-      // ANCHORS
-      // if (window.location.hash != null) {
-      //   let scrollToElement = document.getElementById(window.location.hash.replace('#', ''));
-      //   scrollToHash(scrollToElement);
-      //   return false;
-      // }
-      // let anchorLinks = document.querySelectorAll("a[href^='#']");
-      // if (anchorLinks) {  
-      //   anchorLinks.forEach((anchorLink) => {
-      //     anchorLink.addEventListener('click', (e) => {
-      //       let scrollToElement = document.getElementById(anchorLink.getAttribute('href').replace('#', ''));
-      //       console.log(scrollToElement);
-      //       scrollToHash(scrollToElement);
-      //       e.preventDefault();
-      //     });
-      //   });
-      // }
-      // function scrollToHash(scrollToElement) {
-      //   if (scrollToElement) {
-      //     let scrollPosition = scrollToElement.getBoundingClientRect().top + window.pageYOffset - 150;
-      //     window.scrollTo({ top: scrollPosition });
-      //   }
-      // }
       // ensures javascript runs only once per page load and not with every ajax call
       $('body', context).once('weaver').each(function () {
         var weaver = Drupal.behaviors.weaver; /////////////////////////////////////////
@@ -177,7 +153,9 @@
 
             if (leftColumnParagraph.classList.contains('paragraph--type--weaver-text')) {
               // move Page Title into this text block
-              leftColumnParagraph.querySelector('.field__item').prepend(pageTitle);
+              leftColumnParagraph.querySelector('.field__item').prepend(pageTitle); // add class to body
+
+              document.body.classList.add('title-moved');
             }
           } // if first element on a page is two-column text and image and image is on the right, move the page title down into the left column
 

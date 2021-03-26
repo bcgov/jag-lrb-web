@@ -29,18 +29,18 @@ class LRBSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Site Elements'),
     ];
 
-    $form['site_elements']['home'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Home Page'),
-      '#tree' => true,
-    ];
+    // $form['site_elements']['home'] = [
+    //   '#type' => 'fieldset',
+    //   '#title' => $this->t('Home Page'),
+    //   '#tree' => true,
+    // ];
 
-    $form['site_elements']['home']['updates'] = [
-      '#type' => 'text_format',
-      '#title' => $this->t('Updates Bar'),
-      '#format' => $config->get('weaver_custom.site_elements.home.updates.format'),
-      '#default_value' => $config->get('weaver_custom.site_elements.home.updates.value'),
-    ];
+    // $form['site_elements']['home']['updates'] = [
+    //   '#type' => 'text_format',
+    //   '#title' => $this->t('Updates Bar'),
+    //   '#format' => $config->get('weaver_custom.site_elements.home.updates.format'),
+    //   '#default_value' => $config->get('weaver_custom.site_elements.home.updates.value'),
+    // ];
 
     $form['site_elements']['all'] = [
       '#type' => 'fieldset',

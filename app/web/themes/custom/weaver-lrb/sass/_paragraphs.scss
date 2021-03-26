@@ -8,6 +8,11 @@
 .field--name-field-wv-content, {
 	padding-top: 2rem;
 
+	/* if title moved into left column text block */
+	.title-moved & {
+		padding-top: 0;
+	}
+
 	&> .field__item:not(:last-child) {
 		margin-bottom: 2rem;
 

@@ -3,7 +3,7 @@
 
     <header id="header" class="header" role="banner" aria-label="{{ 'Site header'|t}}">
 
-      {% include '@weaver/navigation/side.html.twig' with { takeover : takeover } %}
+      {% include '@weaver/navigation/side.html.twig' with { takeover : takeover, search_form : search_form } %}
 
       {% block head %}
         <nav{{ navbar_attributes }}>

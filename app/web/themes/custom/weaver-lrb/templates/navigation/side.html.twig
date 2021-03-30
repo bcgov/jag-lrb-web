@@ -25,7 +25,7 @@
 			</a>
 		</div>
 
-    {% include '@weaver/navigation/search.html.twig' %}
+    {% include '@weaver/navigation/search.html.twig' with { search_form : search_form} %}
 
 		{% for button in side_nav %}
 			<div class="side-menu-button">

@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
+use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\paragraphs\Entity\Paragraph;
@@ -337,6 +338,25 @@ function weaver_preprocess_region(&$variables) {
         }
       }
       break;
+  }
+}
+
+function weaver_preprocess_search_api_autocomplete_suggestion(&$variables) {
+  if ($variables['label']) {
+    $params = $variables['url']->getRouteParameters();
+    if (is_array($params)) {
+      if (isset($params['node'])) {
+        $node = Node::load($params['node']);
+        $suggestion_type = $node->type->entity->label();
+      }
+
+      if (isset($params['media'])) {
+        $media = Media::load($params['media']);
+        $suggestion_type = $media->bundle->entity->label();
+      }
+      
+      $variables['suggestion_type'] = $suggestion_type;
+    }
   }
 }
 

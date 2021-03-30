@@ -3,11 +3,11 @@
     <span class="autocomplete-suggestion-note">{{ note }}</span>
   {% endif %}
   {% if label %}
-    <span class="autocomplete-suggestion-label">{{ label }}</span>
+    <span class="autocomplete-suggestion-label">{{ 'Go to'|t }} "{{ label }}" {% if suggestion_type is defined %}({{ suggestion_type }}){% endif %}</span>
   {% endif %}
   {% spaceless %}
     {% if suggestion_prefix %}
-      <span class="autocomplete-suggestion-suggestion-prefix">{{ suggestion_prefix }}</span>
+      <span class="autocomplete-suggestion-suggestion-prefix">Suggestion: {{ suggestion_prefix }}</span>
     {% endif %}
     {% if user_input %}
       <span class="autocomplete-suggestion-user-input">Search "{{ user_input }}</span>

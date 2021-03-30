@@ -332,17 +332,21 @@
 
 			.topics-top {
 				flex: 1 1 auto;
+
+				@include media-breakpoint-between(sm,md) {
+					margin-top: 1rem;
+				}
 				
 				h3 {
-					font-size: 1.25rem;
+					font-size: 1rem;
 					transition: all 500ms;
 
-					@include media-breakpoint-up(xs) {
-						font-size: 1.5rem;
+					@media screen and (min-width: 360px) {
+						font-size: 1.25rem;
 					}
 
-					@include media-breakpoint-between(sm,md) {
-						font-size: 1.75rem;
+					@include media-breakpoint-up(sm) {
+						font-size: 1.5rem;
 					}
 
 					@include media-breakpoint-up(md) {
@@ -350,13 +354,12 @@
 					}
 
 					@include media-breakpoint-up(xl) {
-						font-size: 1.75rem;
+						font-size: 1.5rem;
 					}
 
 					a {
 						line-height: 1.4rem !important;
-/*						text-underline-offset: 0.1rem;
-*/
+
 						&.hover-friend {
 							text-decoration: underline !important;
 						}
@@ -371,7 +374,7 @@
 			.subpage-container {
 				margin-bottom: 1rem;
 
-				@include media-breakpoint-up(sm) {
+				@include media-breakpoint-up(md) {
 					margin-bottom: 0;
 				}
 			}

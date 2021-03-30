@@ -54,7 +54,8 @@
       // runs every ajax call
 
       $(document).ajaxComplete(function (event, xhr, settings) {
-        // get current parameters
+        console.log(event); // get current parameters
+
         var query = window.location.search; // get parameters from Ajax
 
         var ajaxParams = parseQueryString(query); // COLLECTIVE AGREEMENTS

@@ -55,6 +55,7 @@
 
       // runs every ajax call
       $(document).ajaxComplete(function (event, xhr, settings) {
+      	console.log(event);
 
         // get current parameters
         let query = window.location.search;

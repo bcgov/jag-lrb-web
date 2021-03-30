@@ -334,7 +334,24 @@
 				flex: 1 1 auto;
 				
 				h3 {
+					font-size: 1.25rem;
 					transition: all 500ms;
+
+					@include media-breakpoint-up(xs) {
+						font-size: 1.5rem;
+					}
+
+					@include media-breakpoint-between(sm,md) {
+						font-size: 1.75rem;
+					}
+
+					@include media-breakpoint-up(md) {
+						font-size: 1.25rem;
+					}
+
+					@include media-breakpoint-up(xl) {
+						font-size: 1.75rem;
+					}
 
 					a {
 						line-height: 1.4rem !important;
@@ -352,7 +369,11 @@
 			}
 
 			.subpage-container {
-				margin-bottom: 3px;
+				margin-bottom: 1rem;
+
+				@include media-breakpoint-up(sm) {
+					margin-bottom: 0;
+				}
 			}
 
 			.topics-subpages-button {
@@ -391,8 +412,7 @@
 
 						@include hoverStates() {
 							text-decoration: underline !important;
-/*							text-underline-offset: 0.1rem;
-*/						}
+						}
 					}
 				}
 			}

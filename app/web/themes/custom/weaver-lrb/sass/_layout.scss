@@ -19,10 +19,6 @@ html {
 	.main-content {
 		padding-top: 2rem;
 
-		@include media-breakpoint-up(md) {
-			padding-top: 4rem;
-		}
-
 		.path-frontpage & {
 			padding-top: 0;
 		}

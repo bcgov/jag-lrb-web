@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
+use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\paragraphs\Entity\Paragraph;
@@ -86,6 +87,9 @@ function weaver_preprocess_breadcrumb(&$variables) {
 
 
   if (isset($params['node'])) {
+    if (!is_object($params['node']) && is_numeric($params['node'])) {
+      $params['node'] = Node::load($params['node']);
+    }
 
     switch ($params['node']->bundle()) {
     // cases where news category is a link
@@ -270,6 +274,11 @@ function weaver_preprocess_page(&$variables) {
   $takeover_render = \Drupal::service('renderer')->renderPlain($takeover_build);
   $variables['takeover'] = $takeover_render;
 
+  // $variabbles['node'] is just NID for revisions
+  if (isset($variables['node']) && is_numeric($variables['node'])) {
+    $variables['node'] = Node::load($variables['node']);
+  }
+
   // add social sharing modal
   if (!isset($variables['node']) || (isset($variables['node']) && $variables['node']->getType() != 'weaver_news')) {
     $weaver_sharing_modal_renderable = [
@@ -302,13 +311,13 @@ function weaver_preprocess_page(&$variables) {
   // page-specific features
 
   // add Update Bar to home page
-  if (\Drupal::service('path.matcher')->isFrontPage() == TRUE) {
-    $home_settings = $config->get('weaver_custom.site_elements.home');
-    $variables['update_bar'] = '<div class="col">' . $home_settings['updates']['value'] . '</div>';
-  } else {
+  // if (\Drupal::service('path.matcher')->isFrontPage() == TRUE) {
+  //   $home_settings = $config->get('weaver_custom.site_elements.home');
+  //   $variables['update_bar'] = '<div class="col">' . $home_settings['updates']['value'] . '</div>';
+  // } else {
     $all_settings = $config->get('weaver_custom.site_elements.all');
     $variables['update_bar'] = '<div class="col-md-6">' . $all_settings['updates_left']['value'] . '</div><div class="col-md-6 text-right">' . $all_settings['updates_right']['value'] . '</div>';
-  }
+  // }
 
 }
 
@@ -332,8 +341,30 @@ function weaver_preprocess_region(&$variables) {
   }
 }
 
+function weaver_preprocess_search_api_autocomplete_suggestion(&$variables) {
+  if ($variables['label']) {
+    $params = $variables['url']->getRouteParameters();
+    if (is_array($params)) {
+      if (isset($params['node'])) {
+        $node = Node::load($params['node']);
+        $suggestion_type = $node->type->entity->label();
+      }
+
+      if (isset($params['media'])) {
+        $media = Media::load($params['media']);
+        $suggestion_type = $media->bundle->entity->label();
+      }
+      
+      $variables['suggestion_type'] = $suggestion_type;
+    }
+  }
+}
+
 function weaver_preprocess_social_media_links(&$variables) {
   $node = \Drupal::routeMatch()->getParameter('node');
+  if (is_numeric($node)) {
+    $node = Node::load($node);
+  }
   if ($node && $node->getType() == 'weaver_news') {
     $variables['node_type'] = 'news';
   }

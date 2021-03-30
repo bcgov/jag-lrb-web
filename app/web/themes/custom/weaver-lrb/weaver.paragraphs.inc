@@ -105,9 +105,11 @@ function weaver_preprocess_paragraph(&$variables) {
       $variables['column_classes'] = 'col-md-10';
       $variables['in_container'] = FALSE;
       $variables['in_container_full'] = FALSE;
-      if ($paragraph->getParentEntity()->bundle() == 'wv_container') {
-        $variables['in_container'] = TRUE;
-        $variables['column_classes'] = 'col-md-12';
+      if ($paragraph->getParentEntity()) {
+        if ($paragraph->getParentEntity()->bundle() == 'wv_container') {
+          $variables['in_container'] = TRUE;
+          $variables['column_classes'] = 'col-md-12';
+        }
       }        
       if ($paragraph->getParentEntity()->bundle() == 'wv_container_full') {
         $variables['in_container_full'] = TRUE;

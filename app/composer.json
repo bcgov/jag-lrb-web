@@ -80,7 +80,6 @@
         "drupal/jquery_ui_tooltip": "^1.1",
         "drupal/key": "^1.14",
         "drupal/link_attributes": "^1.10",
-        "drupal/linkchecker": "^1.0@alpha",
         "drupal/linkit": "6.0.0-beta2",
         "drupal/masquerade": "^2.0@beta",
         "drupal/maxlength": "^1.0@RC",

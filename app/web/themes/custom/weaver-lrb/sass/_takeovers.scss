@@ -283,4 +283,30 @@ body.takeover-search-open {
 	.form-text {
 		width: 100%;
 	}
+
+	&.views-exposed-form .form-row > fieldset, .views-exposed-form .form-row > div.fieldgroup {
+		flex: 0 0 100%;
+	}
+
+	.btn {
+		background-color: transparent !important;
+		border: 1px solid $white !important;
+		color: $white !important;
+
+		@include hoverStates() {
+			background-color: $white !important;
+			color: $blue !important;
+		}
+	}
+
+	.js-form-type-search-api-autocomplete label,
+	.checkboxes-wrapper,
+	.form-group .btn:nth-child(2) {
+		display: none;
+		visibility: hidden;
+	}
+}
+
+.search-api-autocomplete-search {
+	z-index: 9999;
 }

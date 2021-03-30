@@ -9,13 +9,7 @@
 				<a class="d-block d-lg-none link-white text-right" tabindex="0" data-target="takeover-search" role="button" aria-expanded="false" aria-controls="takeover-search"><i class="fal fa-times fa-2x"></i></a>
 
 				<h3>{{ 'Site Search'|t }}</h3>
-				<form class="takeover-search-form" action="/search">
-					<fieldset class="js-form-item js-form-item-search form-item-search form-group">
-						<label class="sr-only" for="search">{{ 'Keyword search'|t }}</label>
-						<input tabindex=-1 name="search" type="text" width="100%" class="form-text form-control" placeholder="{{ 'Enter keywords...'|t }}" />
-					</fieldset>
-					<button tabindex=-1 class="btn btn-wide btn-outline-white form-submit" value="{{ 'Search'|t }}">{{ 'Search'|t }}</button>
-				</form>
+				{{ search_form }}
 			</div>
   	
   	</div>

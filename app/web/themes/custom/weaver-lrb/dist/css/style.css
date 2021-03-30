@@ -10729,6 +10729,23 @@ body.takeover-search-open {
 
 .takeover-search-form .form-text {
   width: 100%; }
+.takeover-search-form.views-exposed-form .form-row > fieldset, .takeover-search-form .views-exposed-form .form-row > div.fieldgroup {
+  flex: 0 0 100%; }
+.takeover-search-form .btn {
+  background-color: transparent !important;
+  border: 1px solid #FFFFFF !important;
+  color: #FFFFFF !important; }
+  .takeover-search-form .btn:hover, .takeover-search-form .btn:focus, .takeover-search-form .btn:active {
+    background-color: #FFFFFF !important;
+    color: #05334A !important; }
+.takeover-search-form .js-form-type-search-api-autocomplete label,
+.takeover-search-form .checkboxes-wrapper,
+.takeover-search-form .form-group .btn:nth-child(2) {
+  display: none;
+  visibility: hidden; }
+
+.search-api-autocomplete-search {
+  z-index: 9999; }
 
 body {
   letter-spacing: 0.01rem; }
@@ -11089,9 +11106,6 @@ blockquote {
     position: absolute;
     top: 1rem;
     right: 1rem; }
-
-.js input.form-autocomplete {
-  background-position: 99% center; }
 
 .views-exposed-form h2 {
   display: none;

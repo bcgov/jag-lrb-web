@@ -5,6 +5,7 @@
  * Functions to support theming in the SASS Starterkit subtheme.
  */
 use Drupal\block_content\Entity\BlockContent;
+use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
@@ -273,6 +274,24 @@ function weaver_preprocess_page(&$variables) {
   }
   $takeover_render = \Drupal::service('renderer')->renderPlain($takeover_build);
   $variables['takeover'] = $takeover_render;
+
+  // get search form
+  $view = Views::getView('lrb_site_search_solr');
+  $view->setDisplay('page_1');
+  $view->initHandlers();
+  $form_state = new FormState();
+  $form_state->setFormState([
+    'view' => $view,
+    'display' => $view->display_handler->display,
+    'exposed_form_plugin' => $view->display_handler->getPlugin('exposed_form'),
+    'method' => 'get',
+    'rerender' => TRUE,
+    'no_redirect' => TRUE,
+    'always_process' => TRUE,
+  ])->setMethod('get');
+  $search_form = \Drupal::formBuilder()->buildForm('Drupal\views\Form\ViewsExposedForm', $form_state);
+  $search_form['#attributes']['class'][] = 'takeover-search-form';
+  $variables['search_form'] = $search_form;
 
   // $variabbles['node'] is just NID for revisions
   if (isset($variables['node']) && is_numeric($variables['node'])) {

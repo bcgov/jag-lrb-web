@@ -44,6 +44,7 @@ function weaver_custom_form_alter(&$form, FormStateInterface $form_state, $form_
           break;
 
         case 'views-exposed-form-lrb-site-search-page-1':
+        case 'views-exposed-form-lrb-site-search-solr-page-1':
           // move search and actions together on left side
           $form['left'] = [
             '#type' => 'fieldset',

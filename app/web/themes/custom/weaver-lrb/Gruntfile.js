@@ -10,7 +10,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-modernizr');
     grunt.loadNpmTasks('grunt-newer');
-    grunt.loadNpmTasks('grunt-sftp-deploy');
 
     grunt.registerTask('default', ['sass', 'jshint', 'babel']);
 
@@ -85,27 +84,14 @@ module.exports = function(grunt) {
             },
         },
 
-        "sftp-deploy": {
-            build: {
-                auth: {
-                  host: 'weavercoop.online',
-                  // port: 21,
-                  authKey: 'key1',
-                  forceVerbose: true,
-                },
-                src: 'D:/sites/weaver/weaver-lrb/web/themes/custom/weaver-lrb/dist',
-                dest: '/home/weaverdev/lrb/web/themes/custom/weaver-lrb/dist'
-            }
-        },
-
         watch: {
             sass:{
                 files: ['sass/*.scss'],
-                tasks: ['sass:dist', 'sftp-deploy']
+                tasks: ['sass:dist']
             },
             js:{
                 files: ['js/*.js'],
-                tasks: ['jshint', 'babel', 'sftp-deploy']
+                tasks: ['jshint', 'babel']
             },
         }
 

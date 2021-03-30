@@ -11090,6 +11090,9 @@ blockquote {
     top: 1rem;
     right: 1rem; }
 
+.js input.form-autocomplete {
+  background-position: 99% center; }
+
 .views-exposed-form h2 {
   display: none;
   visibility: hidden; }

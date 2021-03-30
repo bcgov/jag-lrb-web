@@ -22,7 +22,8 @@
 	.view {
 		position: relative;
 
-		#lrb_troubleshooter {
+		#lrb_troubleshooter,
+		#mobile-lrb_troubleshooter {
 			height: 100px;
 			overflow: visible;
 
@@ -60,7 +61,7 @@
 
 	.troubleshooter-full-close {
 		position: absolute;
-		top: 1rem;
-		right: 1rem;
+		top: -2rem;
+		right: -2rem;
 	}
 }

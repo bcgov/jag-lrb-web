@@ -32,7 +32,8 @@
 		margin-top: 2rem;
 	}
 
-	.view-lrb-site-search & {
+	.view-lrb-site-search &,
+	.view-lrb-site-search-solr & {
 		
 		.custom-control-label {
 
@@ -63,7 +64,8 @@
 	font-weight: $font-weight-bold;
 	color: $teal;
 
-	.view-lrb-site-search & {
+	.view-lrb-site-search &,
+	.view-lrb-site-search-solr & {
 		text-align: left;
 		font-size: $font-size-lg;
 		font-weight: $font-weight-normal;
@@ -198,7 +200,8 @@
 }
 
 /* Search */
-.view-lrb-site-search {
+.view-lrb-site-search,
+.view-lrb-site-search-solr {
 
 	.list-group-item {
 		margin-bottom: 3rem;

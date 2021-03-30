@@ -11,6 +11,22 @@ function weaver_import_ca_dupes($data, &$context) {
 	// }
 }
 
+function weaver_import_find_real_cas($data, &$context) {
+
+	$media = \Drupal\media\Entity\Media::load($data);
+	$file = $media->get('field_media_file')->entity;
+
+	if ($file != null) {
+		$uri = $file->getFileUri();
+		$destination = str_replace('public://collective-agreements/', 'public://collective-agreements-real/', $uri);
+		file_copy($file, $destination);
+	} else {
+		dpm($data);
+		//280, 641, 1601, 1715, 2040, 2191, 2639, 2720, 5241, 17875, 17903, 17905, 17929, 17940, 18097, 18361, 18477, 18478, 18512, 18649, 18671, 18751, 18795, 18822,
+		//18861,18868,18891
+	}
+}
+
 function weaver_import_ca($data, &$context) {
 	$master = null;
 	$employer_name = trim($data->employer);

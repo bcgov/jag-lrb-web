@@ -1,0 +1,5 @@
+name: 'BCLRB Snowplow Integration'
+type: module
+description: 'Adds Snowplow tracking to the website'
+package: 'Weaver'
+core_version_requirement: '^8.8.0 || ^9.0'

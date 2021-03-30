@@ -10064,7 +10064,18 @@ svg.lrb-arrow .b {
 .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topics-top {
   flex: 1 1 auto; }
   .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topics-top h3 {
-    transition: all 500ms; }
+    font-size: 1.25rem;
+    transition: all 500ms;
+    font-size: 1.5rem; }
+    @media (min-width: 576px) and (max-width: 991.98px) {
+      .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topics-top h3 {
+        font-size: 1.75rem; } }
+    @media (min-width: 768px) {
+      .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topics-top h3 {
+        font-size: 1.25rem; } }
+    @media (min-width: 1200px) {
+      .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topics-top h3 {
+        font-size: 1.75rem; } }
     .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topics-top h3 a {
       line-height: 1.4rem !important;
       /*						text-underline-offset: 0.1rem;
@@ -10074,7 +10085,10 @@ svg.lrb-arrow .b {
       .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topics-top h3 a:hover, .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topics-top h3 a:focus, .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topics-top h3 a:active {
         text-decoration: underline !important; }
 .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .subpage-container {
-  margin-bottom: 3px; }
+  margin-bottom: 1rem; }
+  @media (min-width: 576px) {
+    .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .subpage-container {
+      margin-bottom: 0; } }
 .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topics-subpages-button {
   font-size: 12px;
   border: 1px solid #05334A !important;
@@ -10098,9 +10112,7 @@ svg.lrb-arrow .b {
     .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topic-subpages li p {
       margin: 0; }
     .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topic-subpages li a:hover, .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topic-subpages li a:focus, .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topic-subpages li a:active {
-      text-decoration: underline !important;
-      /*							text-underline-offset: 0.1rem;
-      */ }
+      text-decoration: underline !important; }
 .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-body {
   flex: 1 1 auto;
   opacity: 0;
@@ -10461,7 +10473,8 @@ svg.lrb-arrow .b {
   width: 100% !important; }
   .text-formatted table tr th,
   .text-formatted table tr td {
-    padding: 1rem 2rem; }
+    padding: 1rem 2rem;
+    vertical-align: top; }
   .text-formatted table tr th {
     color: #FFFFFF !important;
     background-color: #186075 !important;
@@ -11092,13 +11105,13 @@ blockquote {
 .views-exposed-form .form-actions {
   flex: 0 0 100%;
   margin-top: 2rem; }
-.view-lrb-site-search .views-exposed-form .custom-control-label:before {
+.view-lrb-site-search .views-exposed-form .custom-control-label:before, .view-lrb-site-search-solr .views-exposed-form .custom-control-label:before {
   background-color: #707070; }
-.view-lrb-site-search .views-exposed-form .custom-control-label:after {
+.view-lrb-site-search .views-exposed-form .custom-control-label:after, .view-lrb-site-search-solr .views-exposed-form .custom-control-label:after {
   background-color: #FFFFFF; }
-.view-lrb-site-search .views-exposed-form .custom-control-input:checked ~ .custom-control-label {
+.view-lrb-site-search .views-exposed-form .custom-control-input:checked ~ .custom-control-label, .view-lrb-site-search-solr .views-exposed-form .custom-control-input:checked ~ .custom-control-label {
   color: #186075; }
-  .view-lrb-site-search .views-exposed-form .custom-control-input:checked ~ .custom-control-label:before {
+  .view-lrb-site-search .views-exposed-form .custom-control-input:checked ~ .custom-control-label:before, .view-lrb-site-search-solr .views-exposed-form .custom-control-input:checked ~ .custom-control-label:before {
     background-color: #186075; }
 
 .view-results-summary {
@@ -11108,7 +11121,7 @@ blockquote {
   font-size: 0.875rem;
   font-weight: 500;
   color: #186075; }
-  .view-lrb-site-search .view-results-summary {
+  .view-lrb-site-search .view-results-summary, .view-lrb-site-search-solr .view-results-summary {
     text-align: left;
     font-size: 1.313rem;
     font-weight: 400;
@@ -11177,13 +11190,16 @@ blockquote {
     margin-bottom: 1rem; }
 
 /* Search */
-.view-lrb-site-search .list-group-item {
+.view-lrb-site-search .list-group-item,
+.view-lrb-site-search-solr .list-group-item {
   margin-bottom: 3rem;
   padding-bottom: 3rem;
   border-bottom: 1px solid #707070; }
-  .view-lrb-site-search .list-group-item p {
+  .view-lrb-site-search .list-group-item p,
+  .view-lrb-site-search-solr .list-group-item p {
     line-height: 1rem; }
-  .view-lrb-site-search .list-group-item .search-url a {
+  .view-lrb-site-search .list-group-item .search-url a,
+  .view-lrb-site-search-solr .list-group-item .search-url a {
     word-break: break-word; }
 
 .form-required:after {

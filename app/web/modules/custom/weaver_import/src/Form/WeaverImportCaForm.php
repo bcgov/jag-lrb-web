@@ -37,6 +37,11 @@ class WeaverImportCaForm extends FormBase {
       '#value' => $this->t('Add Industries'),
     ];
 
+    $form['real'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Find Real'),
+    ];
+
     $form['terms'] = [
       '#type' => 'submit',
       '#value' => $this->t('Add Terms'),
@@ -84,6 +89,14 @@ class WeaverImportCaForm extends FormBase {
         $function = 'weaver_import_ca_industries';
         break;
 
+      case 'edit-real':
+        $batch['title'] = t('Finding Real CAs');
+
+        $data = \Drupal::entityTypeManager()->getStorage('media')->getQuery()->condition('bundle', 'lrb_collective_agreement')->range(7000,1000)->execute();
+
+        $function = 'weaver_import_find_real_cas';
+        break;
+
       case 'edit-terms':
         include_once(drupal_get_path('module', 'weaver_import') . '/data/ca2.php');
         $batch['title'] = t('Adding terms');
@@ -97,12 +110,12 @@ class WeaverImportCaForm extends FormBase {
     }
 
     foreach ($data as $key => $info) {
-      if (strpos($info->id, 'WYC') === 0) {
+      // if (strpos($info->id, 'WYC') === 0) {
         $batch['operations'][] = [
           $function,
           [$info]
         ];
-      }
+      // }
     }
 
     batch_set($batch);

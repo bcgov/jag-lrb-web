@@ -4,8 +4,15 @@
 # Ignore vendor folder
 /vendor
 
+# ignore core files
+/core
+
 # Ignore all contrib modules
 **/contrib
+
+# Ignore libraries from composer
+/libraries/ckeditor
+/libraries/select2
 
 # Ignore all site specific data
 /web/sites/default/files
@@ -48,5 +55,3 @@ sites/all/themes/README.txt
 
 # Ignore dev theme folders
 .sass-cache/
-sftp-config.json
-.ftppass

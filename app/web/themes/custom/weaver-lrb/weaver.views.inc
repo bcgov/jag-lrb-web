@@ -67,6 +67,7 @@ function weaver_preprocess_views_view(&$variables) {
       break;
 
     case 'lrb_site_search':
+    case 'lrb_site_search_solr':
       $variables['views_content_classes'] = 'col-md-8';
       break;
 
@@ -175,6 +176,7 @@ function weaver_preprocess_views_view_field(&$variables) {
       break;
 
     case 'lrb_site_search':
+    case 'lrb_site_search_solr':
       switch ($field->field) {
 
         case 'search_api_excerpt':
@@ -192,8 +194,10 @@ function weaver_preprocess_views_view_field(&$variables) {
               'media_entity_download.download',
               [
                 'media' => $entity->id(),
+                'inline' => null,
               ],
             );
+            $variables['target'] = '_blank';
 
             $variables['result_path'] = $url->toString();
             $variables['listing_type'] = $entity->bundle->entity->label();

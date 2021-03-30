@@ -45,6 +45,11 @@ function weaver_custom_form_alter(&$form, FormStateInterface $form_state, $form_
 
         case 'views-exposed-form-lrb-site-search-page-1':
         case 'views-exposed-form-lrb-site-search-solr-page-1':
+          // fix for getting autocomplete to work with Better Exposed Filters module
+          if ( !empty($form['search']) ) {
+             array_unshift($form['search']['#process'], ['Drupal\search_api_autocomplete\Element\SearchApiAutocomplete', 'processSearchApiAutocomplete']);
+          }
+
           // move search and actions together on left side
           $form['left'] = [
             '#type' => 'fieldset',

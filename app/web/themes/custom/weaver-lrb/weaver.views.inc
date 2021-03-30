@@ -200,6 +200,7 @@ function weaver_preprocess_views_view_field(&$variables) {
             $variables['target'] = '_blank';
 
             $variables['result_path'] = $url->toString();
+            $variables['result_link'] = t('View document');
             $variables['listing_type'] = $entity->bundle->entity->label();
           
             // change $output to document details
@@ -271,6 +272,7 @@ function weaver_preprocess_views_view_field(&$variables) {
             );
             
             $variables['result_path'] = $url->toString();
+            $variables['result_link'] = $url->toString();
             $variables['listing_type'] = $entity->type->entity->label();
 
             // special format for Hearings

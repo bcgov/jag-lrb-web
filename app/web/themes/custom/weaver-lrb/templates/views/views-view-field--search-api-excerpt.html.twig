@@ -1,4 +1,4 @@
-<h5 class="mb-0 font-weight-bold link-teal"><a href="{{ result_path }}">{{ entity.label }}</a></h5>
+<h5 class="mb-0 font-weight-bold link-teal"><a href="{{ result_path }}" {% if target == '_blank' %} target="_blank" {% endif %}>{{ entity.label }}</a></h5>
 
 <p class="font-size-sm">
 	{% if listing_type != 'Content Page' %}
@@ -13,5 +13,5 @@
 <p class="font-size-sm mb-2">{{ output -}}</p>
 
 <p class="mb-0 text-teal font-size-sm search-url">
-	<a href="{{ result_path }}" class="no-underline d-flex align-items-center"><span class="fa-layers fa-fw fa-2x mr-1"><i class="fas fa-circle"></i><i class="fal fa-link fa-inverse" data-fa-transform="shrink-8"></i></span> <span>{{ result_path }}</span></a>
+	<a href="{{ result_path }}" {% if target == '_blank' %} target="_blank" {% endif %} class="no-underline d-flex align-items-center"><span class="fa-layers fa-fw fa-2x mr-1"><i class="fas fa-circle"></i><i class="fal fa-link fa-inverse" data-fa-transform="shrink-8"></i></span> <span>{{ result_link }}</span></a>
 </p>

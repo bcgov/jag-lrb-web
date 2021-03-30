@@ -111,7 +111,7 @@ function weaver_custom_output_term($start, $end) {
       $output .= $start;
     }
     if ($start && $end) {
-      $output .= ' - ';
+      $output .= ' ' . t('to') . ' ';
     }
     if ($end) {
       $output .= $end;

@@ -8,3 +8,32 @@
 .cke_combopanel {
 	width: 250px !important;
 }
+
+.views-field-field-lrb-decisions-sfurl {
+	width: 180px;
+	min-width: 180px;
+	word-break: break-all;
+}
+
+/* Menus */
+#block-takeovermenu,
+#block-useraccountmenu {
+	margin-top: 2rem;
+	padding-top: 2rem;
+	border-top: 1px solid #CCC;
+}
+
+#block-takeovermenu > ul.menu,
+#block-useraccountmenu > ul.menu {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+#block-takeovermenu > ul.menu > li.menu-item,
+#block-useraccountmenu > ul.menu > li.menu-item {
+	flex: 0 0 16%;
+	margin-right: 4rem;
+	margin-bottom: 4rem;
+}

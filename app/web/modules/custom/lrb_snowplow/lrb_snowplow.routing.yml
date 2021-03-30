@@ -1,0 +1,7 @@
+lrb_snowplow.settings_page:
+  path: '/admin/config/lrb/snowplow'
+  defaults:
+    _form: '\Drupal\lrb_snowplow\Form\LRBSnowplowSettingsForm'
+    _title: 'LRB Snowplow Settings'
+  requirements:
+    _role: wv_editor+administrator

@@ -353,6 +353,10 @@
 						font-size: 1.25rem;
 					}
 
+					@include media-breakpoint-up(lg) {
+						font-size: 1.15rem;
+					}
+
 					@include media-breakpoint-up(xl) {
 						font-size: 1.5rem;
 					}

@@ -1,0 +1,184 @@
+#!/bin/bash
+export MSYS_NO_PATHCONV=1
+SCRIPT_HOME="$( cd "$( dirname "$0" )" && pwd )"
+
+# =================================================================================================================
+# Usage:
+# -----------------------------------------------------------------------------------------------------------------
+usage () {
+  cat <<-EOF
+
+  A script to automate and manage the build and deployment of drupal instance(s) within a given environment.
+  Steps:
+    - Publish the deployment configuration(s) using the 'deploy' command.
+
+  Usage:
+    $0 [options] [commands]
+
+  Examples:
+
+    $0 -e prod deploy
+
+  Commands:
+    deploy
+      - deployment configuration(s) and tag the images.
+
+    scaleUp
+      - Scale up one or more pods.
+        For example;
+          $0 -e prod scaleUp drupal
+
+    scaleDown
+      - Scale down one or more pods.
+        For example;
+          $0 -e prod scaleDown drupal
+
+    recycle
+      - Recycle one or more pods.
+        For example;
+          $0 -e prod recycle drupal
+EOF
+}
+
+# =================================================================================================================
+# Process the local command line arguments and pass everything else along.
+# - The 'getopts' options string must start with ':' for this to work.
+# -----------------------------------------------------------------------------------------------------------------
+while [ ${OPTIND} -le $# ]; do
+  if getopts :n:r:b: FLAG; then
+    case ${FLAG} in
+      # Pass unrecognized options ...
+      \?) pass+=" -${OPTARG}" ;;
+    esac
+  else
+    argument=$(echo "${!OPTIND}" | tr '[:upper:]' '[:lower:]')
+    case "${argument}" in
+      build|deploy|scaleup|scaledown|recycle)
+        _cmd=${argument}
+        ;;
+      *)
+        # Pass unrecognized arguments ...
+        pass+=" ${!OPTIND}"
+        ;;
+    esac
+    let OPTIND++
+  fi
+done
+
+# Pass the unrecognized arguments along for further processing ...
+shift $((OPTIND-1))
+set -- "$@" $(echo -e "${pass}" | sed -e 's/^[[:space:]]*//')
+
+# -----------------------------------------------------------------------------------------------------------------
+# Define hook scripts:
+# - These must be defined before the main settings script 'settings.sh' is loaded.
+# -----------------------------------------------------------------------------------------------------------------
+deploymentEnvNameSet() {
+  if [ ! -z "${DEPLOYMENT_ENV_NAME}" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+requireDeploymentEnvName(){
+  _red='\033[0;31m'
+  _nc='\033[0m' # No Color
+
+  # Deployment Environment Name
+  if ! deploymentEnvNameSet; then
+    echo
+    echo -e "${_red}You MUST specify an environment name using the '-e' flag.${_nc}"
+    echo -e "${_red}Assuming a default would have unwanted consequences.${_nc}"    
+    exit 1
+  fi
+}
+
+onRequiredOptionsExist() {
+  (
+    case "${_cmd}" in
+      build)
+        ;;
+
+      *)
+        requireDeploymentEnvName
+        ;;
+    esac
+  )
+}
+
+onUsesCommandLineArguments() {
+  (
+    # This script is not expecting command line arguments to be passed ...
+    return 1
+  )
+}
+
+# -----------------------------------------------------------------------------------------------------------------
+# Initialization:
+# -----------------------------------------------------------------------------------------------------------------
+
+# Load the project settings and functions ...
+_includeFile="ocFunctions.inc"
+_settingsFile="settings.sh"
+if [ ! -z $(type -p ${_includeFile}) ]; then
+  _includeFilePath=$(type -p ${_includeFile})
+  export OCTOOLSBIN=$(dirname ${_includeFilePath})
+
+  if [ -f ${OCTOOLSBIN}/${_settingsFile} ]; then
+    . ${OCTOOLSBIN}/${_settingsFile}
+  fi
+
+  if [ -f ${OCTOOLSBIN}/${_includeFile} ]; then
+    . ${OCTOOLSBIN}/${_includeFile}
+  fi
+else
+  _red='\033[0;31m'
+  _yellow='\033[1;33m'
+  _nc='\033[0m' # No Color
+  echo -e \\n"${_red}${_includeFile} could not be found on the path.${_nc}"
+  echo -e "${_yellow}Please ensure the openshift-developer-tools are installed on and registered on your path.${_nc}"
+  echo -e "${_yellow}https://github.com/BCDevOps/openshift-developer-tools${_nc}"
+fi
+# -----------------------------------------------------------------------------------------------------------------
+# Functions:
+# -----------------------------------------------------------------------------------------------------------------
+
+deployApp(){
+    _appName=jag-lrb-web
+
+    # Deploy or update the configuration ...
+    if dcExists "drupal"; then
+      OPERATION=update COMP=drupal genDepls.sh -u
+    else
+      COMP=drupal genDepls.sh
+    fi
+}
+# =================================================================================================================
+pushd ${SCRIPT_HOME} >/dev/null
+shift
+
+case "${_cmd}" in
+  deploy)
+    deployApp
+    ;;
+
+  scaleup)
+    scaleUp -w ${@}
+    ;;
+
+  scaledown)
+    scaleDown -w ${@}
+    ;;
+
+  recycle)
+    recyclePods -w ${@}
+    ;;
+
+  *)
+    echoWarning "Unrecognized command; ${_cmd}"
+    globalUsage
+    ;;
+esac
+
+popd >/dev/null

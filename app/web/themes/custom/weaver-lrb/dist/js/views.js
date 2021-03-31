@@ -54,7 +54,7 @@
       // runs every ajax call
 
       $(document).ajaxComplete(function (event, xhr, settings) {
-        console.log(event); // get current parameters
+        console.log(event.target.activeElement); // get current parameters
 
         var query = window.location.search; // get parameters from Ajax
 
@@ -99,7 +99,9 @@
         } // ALL SEARCH-STYLE RESULTS
 
 
-        scrollToSearchResults('.lrb-search-view');
+        if (event.target.activeElement.classList.contains('form-autocomplete') == false) {
+          scrollToSearchResults('.lrb-search-view');
+        }
       });
 
       var parseQueryString = function parseQueryString(query) {

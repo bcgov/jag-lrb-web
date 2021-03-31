@@ -309,6 +309,11 @@ function weaver_preprocess_page(&$variables) {
   // if node, add updated date to page
   if (isset($variables['node'])) {
     $variables['updated'] = $variables['node']->getChangedTime();
+
+    // ensure the date is at least launch date of April 6, 2021
+    if ($variables['updated'] < 1617696000) {
+      $variables['updated'] = 1617696000;
+    }
   }
 
   // add text resizer

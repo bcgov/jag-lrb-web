@@ -14,9 +14,9 @@
             "url": "https://packages.drupal.org/8"
         },
         {
-        "type": "composer",
-        "url": "https://asset-packagist.org"
-        },    
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        },
         {
             "type": "package",
             "package": {
@@ -31,8 +31,8 @@
                     "type": "zip"
                 }
             }
-        } 
-   ],
+        }
+    ],
     "require": {
         "ckeditor/liststyle": "4.8.0",
         "composer/installers": "^1.9",
@@ -141,11 +141,12 @@
         "drupal-scaffold": {
             "file-mapping": {
                 "[web-root]/sites/development.services.yml": false,
-                "[web-root]/.htaccess": false
+                "[web-root]/.htaccess": false,
+                "[web-root]/robots.txt": false
             },
             "locations": {
                 "web-root": "web/"
-            }     
+            }
         },
         "installer-paths": {
             "web/core": [
@@ -175,7 +176,10 @@
                 "type:drupal-custom-theme"
             ]
         },
-        "installer-types": ["bower-asset", "npm-asset"],
+        "installer-types": [
+            "bower-asset",
+            "npm-asset"
+        ],
         "drupal-core-project-message": {
             "include-keys": [
                 "homepage",
@@ -231,7 +235,7 @@
                 "Radios Other and Select Other default value not working properly": "https://www.drupal.org/files/issues/2020-07-21/3160583-2.patch"
             }
         },
-        "enable-patching": true    
+        "enable-patching": true
     },
     "require-dev": {
         "components/font-awesome": "^5.15"

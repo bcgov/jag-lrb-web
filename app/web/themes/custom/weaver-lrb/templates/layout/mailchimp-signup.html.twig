@@ -22,7 +22,7 @@
           <i class="fal fa-times"></i>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body">     
 
 				<form action="https://app.cyberimpact.com/optin" method="post" accept-charset="utf-8">
 			    <fieldset>
@@ -41,8 +41,19 @@
 	            <label for="ci_email">{{ 'Email:'|t }}</label>
 	            <input type="text" id="ci_email" name="ci_email" maxlength="255" class="form-email form-control" />
 		        </div>
+		        <div class="form-group">
+		        	<label for="ci_groups">{{ 'Role:'|t }}</label>
+		        	<select id="ci_groups" name="ci_groups" class="form-control">
+		        		<option value="3">{{ 'Arbitrators'|t }}</option>
+		        		<option value="4">{{ 'Employee'|t }}</option>
+		        		<option value="5">{{ 'Employer'|t }}</option>
+		        		<option value="6">{{ 'Employer counsel'|t }}</option>
+		        		<option value="7">{{ 'Union'|t }}</option>
+		        		<option value="8">{{ 'Union counsel'|t }}</option>
+		        		<option value="9">{{ 'Other organization / member of the public'|t }}</option>
+		        	</select>
+		        </div>
 		        <div style="display:block; visibility:hidden; height:1px;">
-	            <input type="hidden" id="ci_groups" name="ci_groups" value="2"/>
 	            <input type="hidden" id="ci_account" name="ci_account" value="a9e874f1-eee8-485c-25d5-86cfa1532bad"/>
 	            <input type="hidden" id="ci_language" name="ci_language" value="en_ca"/>
 	            <input type="hidden" id="ci_sent_url" name="ci_sent_url" value=""/>

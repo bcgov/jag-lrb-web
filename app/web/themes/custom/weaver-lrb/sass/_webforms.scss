@@ -34,6 +34,7 @@ label {
 .form-tel,
 .form-select,
 .form-text,
+input.form-control,
 .select2,
 textarea,
 textarea.form-control {
@@ -64,6 +65,7 @@ textarea.form-control {
 }
 
 .form-select,
+select.form-control,
 .select2 {
 	min-height: 65px;
 	padding: 0 1rem;
@@ -84,6 +86,10 @@ textarea.form-control {
 	align-items: center;
 	min-height: 65px;
 	vertical-align: middle;
+}
+
+.js-form-type-radio {
+	margin-bottom: 1rem;
 }
 
 .webform-flex + .webform-flex {

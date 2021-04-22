@@ -11249,7 +11249,7 @@ label:not(.custom-control-label) {
 .form-submit {
   font-weight: 500; }
 
-.form-date, .form-email, .form-tel, .form-select, .form-text, .select2, textarea, textarea.form-control {
+.form-date, .form-email, .form-tel, .form-select, .form-text, input.form-control, .select2, textarea, textarea.form-control {
   width: 100%;
   margin-top: 0;
   padding: 2rem 1rem;
@@ -11263,6 +11263,7 @@ label:not(.custom-control-label) {
   .form-tel::placeholder,
   .form-select::placeholder,
   .form-text::placeholder,
+  input.form-control::placeholder,
   .select2::placeholder,
   textarea::placeholder,
   textarea.form-control::placeholder {
@@ -11272,6 +11273,7 @@ label:not(.custom-control-label) {
   .paragraph--type--wv-container-full.bg-grey-lighter .form-tel,
   .paragraph--type--wv-container-full.bg-grey-lighter .form-select,
   .paragraph--type--wv-container-full.bg-grey-lighter .form-text,
+  .paragraph--type--wv-container-full.bg-grey-lighter input.form-control,
   .paragraph--type--wv-container-full.bg-grey-lighter .select2,
   .paragraph--type--wv-container-full.bg-grey-lighter textarea,
   .paragraph--type--wv-container-full.bg-grey-lighter textarea.form-control {
@@ -11283,6 +11285,7 @@ label:not(.custom-control-label) {
     padding: 0.5rem 0 0 1rem; }
 
 .form-select,
+select.form-control,
 .select2 {
   min-height: 65px;
   padding: 0 1rem; }
@@ -11300,6 +11303,9 @@ label:not(.custom-control-label) {
   align-items: center;
   min-height: 65px;
   vertical-align: middle; }
+
+.js-form-type-radio {
+  margin-bottom: 1rem; }
 
 @media (min-width: 768px) {
   .webform-flex + .webform-flex {

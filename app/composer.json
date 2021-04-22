@@ -47,7 +47,7 @@
         "drupal/better_exposed_filters": "^5.0@beta",
         "drupal/block_class": "^1.2",
         "drupal/block_field": "^1.0@RC",
-        "drupal/bootstrap_barrio": "5.0.1",
+        "drupal/bootstrap_barrio": "^5.1",
         "drupal/captcha": "^1.1",
         "drupal/ckeditor_liststyle": "^1.4",
         "drupal/ckeditor_specialchars": "^1.2",

@@ -54,8 +54,8 @@ function weaver_custom_form_alter(&$form, FormStateInterface $form_state, $form_
           $form['left'] = [
             '#type' => 'fieldset',
             '#weight' => -1,
-            'search' => $form['search'],
-            'actions' => $form['actions'],
+            'search' => isset($form['search']) ? $form['search'] : '',
+            'actions' => isset($form['actions']) ? $form['actions'] : '',
           ];
           $form['left']['actions']['submit']['#attributes']['class'] = ['btn', 'btn-wide'];
           $form['left']['actions']['reset']['#attributes']['class'] = ['btn', 'btn-outline-teal', 'btn-wide'];

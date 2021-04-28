@@ -203,9 +203,8 @@
         },
         "patches": {
             "drupal/backup_migrate": {
-                "Unable to add schedules and profiles": "https://www.drupal.org/files/issues/2020-08-11/3158790-schedule-save.patch",
-                "Error when saving destination": "https://www.drupal.org/files/issues/2020-09-01/backup_migrate-n3159638-15.patch",
-                "Dropbox as destination": "https://www.drupal.org/files/issues/2020-12-10/backup_migrate-dropbox_destination-3106935-7.patch"
+                "Dropbox as destination": "https://www.drupal.org/files/issues/2020-12-10/backup_migrate-dropbox_destination-3106935-7.patch",
+                "New backup destination: Dropbox": "https://www.drupal.org/files/issues/2021-01-08/backup_migrate-dropbox-saved-backups-fix-3106935-15.patch"
             },
             "drupal/bef_select": {
                 "Adding order by sorting field": "https://www.drupal.org/files/issues/2021-01-23/3194363-adding-order-by-field.patch"
@@ -230,9 +229,6 @@
             },
             "drupal/text_resize": {
                 "Drupal 9 Deprecated Code Report": "https://www.drupal.org/files/issues/2020-05-25/text_resize-D9_compatibility-3073768-5.patch"
-            },
-            "drupal/webform": {
-                "Radios Other and Select Other default value not working properly": "https://www.drupal.org/files/issues/2020-07-21/3160583-2.patch"
             }
         },
         "enable-patching": true

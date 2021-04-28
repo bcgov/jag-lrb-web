@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfa3f7ec53068dd06b3b484d6d84f6f7",
+    "content-hash": "dcc978d7780f73bb9755e46f607fc614",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2442,7 +2442,8 @@
                     }
                 },
                 "patches_applied": {
-                    "Dropbox as destination": "https://www.drupal.org/files/issues/2020-12-10/backup_migrate-dropbox_destination-3106935-7.patch"
+                    "Dropbox as destination": "https://www.drupal.org/files/issues/2020-12-10/backup_migrate-dropbox_destination-3106935-7.patch",
+                    "New backup destination: Dropbox": "https://www.drupal.org/files/issues/2021-01-08/backup_migrate-dropbox-saved-backups-fix-3106935-15.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",

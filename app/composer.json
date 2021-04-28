@@ -94,7 +94,7 @@
         "drupal/redirect": "^1.6",
         "drupal/rename_admin_paths": "^2.0",
         "drupal/salesforce": "^4.1",
-        "drupal/search_api": "^1.17",
+        "drupal/search_api": "^1.19",
         "drupal/search_api_attachments": "^1.0@beta",
         "drupal/search_api_autocomplete": "^1.4",
         "drupal/search_api_solr": "^4.1",

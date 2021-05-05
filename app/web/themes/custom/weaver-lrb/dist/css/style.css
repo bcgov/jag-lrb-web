@@ -9914,6 +9914,8 @@ svg.lrb-arrow .b {
 .paragraph--type--wv-accordion {
   margin-top: 3rem;
   margin-bottom: 3rem; }
+  .paragraph--type--wv-accordion h2 {
+    font-size: 1.75rem !important; }
   .paragraph--type--wv-accordion.py-0 {
     padding-top: 0 !important; }
 
@@ -10166,6 +10168,11 @@ svg.lrb-arrow .b {
 /* Webform */
 .paragraph--type--lrb-webform {
   padding-bottom: 8rem; }
+
+/* Special Classy Classes */
+@media (min-width: 768px) {
+  .paragraph.lrb-paragraph-no-padding-bottom {
+    margin-bottom: -5rem; } }
 
 .popover {
   transition: opacity 1000ms; }

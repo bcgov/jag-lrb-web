@@ -57,6 +57,10 @@
 	margin-top: 3rem;
 	margin-bottom: 3rem;
 
+	h2 {
+		font-size: 1.75rem !important;
+	}
+
 	&.py-0 {
 		padding-top: 0 !important;
 	}
@@ -516,4 +520,15 @@
 /* Webform */
 .paragraph--type--lrb-webform {
 	padding-bottom: 8rem;
+}
+
+/* Special Classy Classes */
+.paragraph {
+
+	&.lrb-paragraph-no-padding-bottom {
+		
+		@include media-breakpoint-up(md) {
+			margin-bottom: -5rem;
+		}
+	}
 }

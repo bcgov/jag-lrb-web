@@ -21,6 +21,17 @@ function weaver_custom_cron() {
   weaver_custom_remove_old_hearings();
 }
 
+
+// remove views default scroll behaviour
+function weaver_custom_ajax_render_alter(array &$data) {
+  foreach ($data as $key => $command) {
+    if ($command['command'] === 'viewsScrollTop') {
+      unset($data[$key]);
+      break;
+    }
+  }
+}
+
 function weaver_custom_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
 	switch ($form_id) {

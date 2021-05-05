@@ -10260,6 +10260,7 @@ svg.lrb-arrow .b {
   #side-menu .side-menu-button {
     background-color: #EAEEEF; }
     #side-menu .side-menu-button a {
+      padding: 0 0.5rem;
       color: #186075; }
   #side-menu #takeover-button,
   #side-menu #search-button,

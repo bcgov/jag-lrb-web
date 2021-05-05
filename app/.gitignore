@@ -19,6 +19,7 @@
 !/web/sites/default/files/adminimal-custom.css
 
 /web/sites/default/*.php
+/web/sites/development.services.yml
 /web/sites/
 /private/
 
@@ -28,6 +29,7 @@
 
 # Ignore DDEV files
 .ddev
+.ddev/
 .tmp_ddev_composer_create_MXXxlv
 *.ftppass
 

@@ -76,14 +76,26 @@ function weaver_preprocess_node(&$variables) {
           
     			$variables['custom_classes'] = 'col-sm-6 col-md-4';
 
-          if (isset($is_views_page) && $is_views_page == TRUE) {
-            $variables['card_date'] =  \Drupal::service('date.formatter')->format($node->get('created')->value, 'short');
-          }
+    			$variables['card_title'] = Link::fromTextAndUrl($node->label(), $url)->toRenderable();
+          $variables['card_title']['#attributes']['class'][] = 'no-underline';
 
-          // don't show surtitles on home page
+    			// don't know why summary isn't being automatically found if summary is empty
+    			$variables['card_text'] = $variables['content']['body'];
+    			
+          $variables['card_footer'] = Link::fromTextAndUrl(t('Read article'), $url)->toRenderable();
+            $variables['card_footer']['#attributes']['class'] = 'underline';
+
           $variables['card_surtitle'] = '';
-          if (!isset($node_type) || (isset($node_type) && $node_type == 'weaver_news')) {
 
+          // set home page footer links to "Keep Reading" and to blue
+          if (\Drupal::service('path.matcher')->isFrontPage()) {
+            $variables['card_title']['#attributes']['class'][] = 'link-blue';
+      			$variables['card_footer'] = Link::fromTextAndUrl(t('Keep reading'), $url)->toRenderable();
+            $variables['card_footer']['#attributes']['class'] = 'link-teal underline';
+          
+          } else {
+            
+            // don't show surtitles on home page      
             foreach ($node_categories as $key => $node_category) {
               $variables['card_surtitle'] .= Term::load($node_category['target_id'])->label();
               if ($key != array_key_last($node_categories)) {
@@ -92,28 +104,10 @@ function weaver_preprocess_node(&$variables) {
             }
           }
 
-    			$variables['card_title'] = Link::fromTextAndUrl($node->label(), $url)->toRenderable();
-          $variables['card_title']['#attributes']['class'][] = 'no-underline';
-
-          // set home page title links to blue
-          if (isset($node_type) && $node_type != 'weaver_news') {
-            $variables['card_title']['#attributes']['class'][] = 'link-blue';
-          }          
-
-    			// don't know why summary isn't being automatically found if summary is empty
-    			$variables['card_text'] = $variables['content']['body'];
-    			
-          $variables['card_footer'] = Link::fromTextAndUrl(t('Read article'), $url)->toRenderable();
-            $variables['card_footer']['#attributes']['class'] = 'underline';
-
-          // set home page footer links to "Keep Reading"
-          if (!isset($node_type) || (isset($node_type) && $node_type != 'weaver_news')) {
-      			$variables['card_footer'] = Link::fromTextAndUrl(t('Keep reading'), $url)->toRenderable();
-            $variables['card_footer']['#attributes']['class'] = 'link-teal underline';
-          }
-
           if (isset($is_views_page) && $is_views_page == TRUE) {
-            $variables['card_footer'] = Link::fromTextAndUrl(Markup::create('<i class="fal fa-arrow-right fa-2x"></i>'), $url)->toRenderable();
+            $variables['card_date'] =  \Drupal::service('date.formatter')->format($node->get('created')->value, 'short');
+            $icon = t('<i class="fal fa-arrow-right fa-2x" title="Keep reading"></i>');
+            $variables['card_footer'] = Link::fromTextAndUrl(Markup::create($icon), $url)->toRenderable();
           }
   		    break;
 

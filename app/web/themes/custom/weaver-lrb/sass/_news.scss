@@ -86,13 +86,6 @@
 	@include media-breakpoint-up(lg) {
 		padding: 2rem 3rem;
 	}
-	
-	&.card-no-text {
-		margin-bottom: 2rem;
-		border-top: 1px solid $teal !important;
-		border-left:  1px solid $teal !important;
-		border-right:  1px solid $teal !important;
-	}
 
 	.home-page-display & {
 
@@ -128,36 +121,44 @@
 		}
 	}
 
-	.view-display-id-page_1 & {
-		display: flex;
-		flex-wrap: nowrap;
-		flex: 0 0 94%;
-		justify-content: flex-start;
-		padding: 2rem 2rem 1rem;
+	.view-display-id-block_1 & {
 
-		@include media-breakpoint-up(md) {
-			flex: 0 0 43%;
-		}
-
-		@include media-breakpoint-up(xl) {
-			flex-direction: row;
-			margin-right: 2rem;
-			margin-left: 2rem;
-		}
-
-		.card-title {
-			margin-bottom: 0;
-			padding-bottom: 2rem;
-		}
-
-		.card-date {
-			padding-right: 1rem;
+		.card-date,
+		.card-surtitle {
+			display: none;
+			visibility: hidden;
 		}
 
 		.card-footer {
-			margin-top: auto;
-			padding-left: 1rem;
-			text-align: right;
+
+			.side-footer,
+			.news-footer {
+				display: none;
+				visibility: hidden;
+			}
+		}
+	}
+
+	.view-display-id-block_2 & {
+		margin-bottom: 2rem;
+		padding: 2rem 2rem 1rem;
+		border-top: 1px solid $teal !important;
+		border-left:  1px solid $teal !important;
+		border-right:  1px solid $teal !important;
+
+		.card-date,
+		.card-text {
+			display: none;
+			visibility: hidden;
+		}
+		
+		.card-footer {
+
+			.home-footer,
+			.news-footer {
+				display: none;
+				visibility: hidden;
+			}
 		}
 	}
 }

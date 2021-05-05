@@ -50,30 +50,30 @@ function weaver_preprocess_node(&$variables) {
       switch ($variables['view_mode']) {
 
         case 'lrb_card':
-        
+
           $url = Url::fromRoute('entity.node.canonical', ['node' => $node->id()]);
 
           $params = \Drupal::routeMatch()->getParameters();
 
           // if page is news page
-          if ($params->get('node')) {
-            $node_type = $params->get('node')->getType();
+          // if ($params->get('node')) {
+          //   $node_type = $params->get('node')->getType();
 
-            if ($node_type == 'weaver_news') {
-              $is_news_node = TRUE;
-              $variables['show_text'] = FALSE;
-            }
-          }
+          //   if ($node_type == 'weaver_news') {
+          //     $is_news_node = TRUE;
+          //     $variables['show_text'] = FALSE;
+          //   }
+          // }
 
-          // if page is main news view page
-          if ($params->get('view_id') && $params->get('view_id') == 'lrb_news') {
-            if ($params->get('display_id') == 'page_1') {
-              $is_views_page = TRUE;
-              $variables['show_text'] = FALSE;
-              $variables['show_date'] = TRUE;
-            }
-          }
-          
+          // // if page is main news view page
+          // if ($params->get('view_id') && $params->get('view_id') == 'lrb_news') {
+          //   if ($params->get('display_id') == 'page_1') {
+          //     $is_views_page = TRUE;
+          //     $variables['show_text'] = FALSE;
+          //     $variables['show_date'] = TRUE;
+          //   }
+          // }
+
     			$variables['custom_classes'] = 'col-sm-6 col-md-4';
 
     			$variables['card_title'] = Link::fromTextAndUrl($node->label(), $url)->toRenderable();
@@ -81,33 +81,34 @@ function weaver_preprocess_node(&$variables) {
 
     			// don't know why summary isn't being automatically found if summary is empty
     			$variables['card_text'] = $variables['content']['body'];
-    			
-          $variables['card_footer'] = Link::fromTextAndUrl(t('Read article'), $url)->toRenderable();
-            $variables['card_footer']['#attributes']['class'] = 'underline';
 
           $variables['card_surtitle'] = '';
+          $variables['card_date'] = '';
+          $variables['card_footers'] = [];
 
-          // set home page footer links to "Keep Reading" and to blue
-          if (\Drupal::service('path.matcher')->isFrontPage()) {
-            $variables['card_title']['#attributes']['class'][] = 'link-blue';
-      			$variables['card_footer'] = Link::fromTextAndUrl(t('Keep reading'), $url)->toRenderable();
-            $variables['card_footer']['#attributes']['class'] = 'link-teal underline';
-          
-          } else {
-            
-            // don't show surtitles on home page      
-            foreach ($node_categories as $key => $node_category) {
-              $variables['card_surtitle'] .= Term::load($node_category['target_id'])->label();
-              if ($key != array_key_last($node_categories)) {
-                $variables['card_surtitle'] .= ', ';
-              }
+          // side style
+          $side_footer = Link::fromTextAndUrl(t('Read article'), $url)->toRenderable();
+          $side_footer['#attributes']['class'] = 'underline side-footer';
+          $variables['card_footers'][] = $side_footer;
+
+          // home page style
+          $variables['card_title']['#attributes']['class'][] = 'link-blue';
+          $home_footer = Link::fromTextAndUrl(t('Keep reading'), $url)->toRenderable();
+          $home_footer['#attributes']['class'] = 'link-teal underline home-footer';
+    			$variables['card_footers'][] = $home_footer;
+
+          // news page style
+          $variables['card_date'] =  \Drupal::service('date.formatter')->format($node->get('created')->value, 'short');
+          $icon = t('<i class="fal fa-arrow-right fa-2x" title="Keep reading"></i>');
+          $news_footer = Link::fromTextAndUrl(Markup::create($icon), $url)->toRenderable();
+          $news_footer['#attributes']['class'] = 'underline news-footer';
+          $variables['card_footers'][] = $news_footer;
+
+          foreach ($node_categories as $key => $node_category) {
+            $variables['card_surtitle'] .= Term::load($node_category['target_id'])->label();
+            if ($key != array_key_last($node_categories)) {
+              $variables['card_surtitle'] .= ', ';
             }
-          }
-
-          if (isset($is_views_page) && $is_views_page == TRUE) {
-            $variables['card_date'] =  \Drupal::service('date.formatter')->format($node->get('created')->value, 'short');
-            $icon = t('<i class="fal fa-arrow-right fa-2x" title="Keep reading"></i>');
-            $variables['card_footer'] = Link::fromTextAndUrl(Markup::create($icon), $url)->toRenderable();
           }
   		    break;
 

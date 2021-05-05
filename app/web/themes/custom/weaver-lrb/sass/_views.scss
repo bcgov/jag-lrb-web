@@ -154,6 +154,54 @@
 
 	&.view-display-id-page_1 {
 
+		.card {
+			display: flex;
+			flex-wrap: nowrap;
+			flex: 0 0 94%;
+			justify-content: flex-start;
+			margin-bottom: 2rem;
+			padding: 2rem 2rem 1rem;
+			border-top: 1px solid $teal !important;
+			border-left:  1px solid $teal !important;
+			border-right:  1px solid $teal !important;
+
+			@include media-breakpoint-up(md) {
+				flex: 0 0 43%;
+			}
+
+			@include media-breakpoint-up(xl) {
+				flex-direction: row;
+				margin-right: 2rem;
+				margin-left: 2rem;
+			}
+
+			.card-title {
+				margin-bottom: 0;
+				padding-bottom: 2rem;
+			}
+
+			.card-date {
+				padding-right: 1rem;
+			}
+
+			.card-text {
+				display: none;
+				visibility: hidden;
+			}
+
+			.card-footer {
+				margin-top: auto;
+				padding-left: 1rem;
+				text-align: right;
+
+				.home-footer,
+				.side-footer {
+					display: none;
+					visibility: hidden;
+				}
+			}
+		}
+
 		.news-categories-tabs {
 		
 			.list-group-item.active {

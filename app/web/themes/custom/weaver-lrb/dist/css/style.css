@@ -10167,6 +10167,11 @@ svg.lrb-arrow .b {
 .paragraph--type--lrb-webform {
   padding-bottom: 8rem; }
 
+/* Special Classy Classes */
+@media (min-width: 768px) {
+  .paragraph.lrb-paragraph-no-padding-bottom {
+    margin-bottom: -5rem; } }
+
 .popover {
   transition: opacity 1000ms; }
 

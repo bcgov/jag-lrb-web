@@ -12,37 +12,32 @@
     'card', 'bg-grey-lighter',
   ]
 %}
-{% if show_text is defined and show_text == false %}
-  {% set classes = classes|merge(['card-no-text']) %}
-{% endif %}
 
 <article{{ attributes.addClass(classes) }}>
-    {% if card_date is defined and show_date == true %}
-      <p class="card-date m-0 font-weight-bolder text-teal">{{ card_date }}</p>
+  <p class="card-date m-0 font-weight-bolder text-teal">{{ card_date }}</p>
+
+  <div class="card-body">
+
+    {% if card_surtitle %}
+      <p class="card-surtitle mb-0 text-teal">{{ card_surtitle }}</p>
     {% endif %}
 
-    <div class="card-body">
+    {% if card_title %}
+      <h4 class="card-title">{{ card_title }}</h4>
+    {% endif %}
 
-      {% if card_surtitle %}
-        <p class="mb-0 text-teal">{{ card_surtitle }}</p>
-      {% endif %}
-
-      {% if card_title %}
-        <h4 class="card-title">{{ card_title }}</h4>
-      {% endif %}
-
-      {% if show_text is not defined or (show_text is defined and show_text != false) %}
-        {% if card_text %}
-          <div class="card-text">
-            {{ card_text }}
-          </div>
-        {% endif %}
-      {% endif %}
-    </div>
-
-    {% if card_footer %}
-      <div class="card-footer">
-        {{ card_footer|raw }}
+    {% if card_text %}
+      <div class="card-text">
+        {{ card_text }}
       </div>
     {% endif %}
+  </div>
+
+  {% if card_footers %}
+    <div class="card-footer">
+      {% for card_footer in card_footers %}
+        {{ card_footer|raw }}
+      {% endfor %}
+    </div>
+  {% endif %}
 </article>

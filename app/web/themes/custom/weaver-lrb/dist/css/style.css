@@ -10298,7 +10298,7 @@ svg.lrb-arrow .b {
       align-items: center;
       height: 85px;
       font-size: 0.7rem;
-      line-height: 1.2rem;
+      line-height: 1rem;
       transition: all 500ms; }
       @media (min-width: 992px) {
         #side-menu #takeover-button a,
@@ -10314,11 +10314,17 @@ svg.lrb-arrow .b {
         #side-menu #search-button a,
         #side-menu .side-menu-button a {
           height: 125px;
-          font-size: 0.875rem; } }
+          font-size: 0.875rem;
+          line-height: 1.2rem; } }
       #side-menu #takeover-button a svg,
       #side-menu #search-button a svg,
       #side-menu .side-menu-button a svg {
-        margin-bottom: 0.5rem; }
+        margin-bottom: 0.25rem; }
+        @media screen and (min-width: 992px) and (min-height: 900px) {
+          #side-menu #takeover-button a svg,
+          #side-menu #search-button a svg,
+          #side-menu .side-menu-button a svg {
+            margin-bottom: 0.5rem; } }
     #side-menu #takeover-button:last-child a,
     #side-menu #search-button:last-child a,
     #side-menu .side-menu-button:last-child a {

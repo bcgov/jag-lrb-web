@@ -120,7 +120,7 @@ body {
 			align-items: center;
 			height: 85px;
 			font-size: 0.7rem;
-			line-height: 1.2rem;
+			line-height: 1rem;
 			transition: all 500ms;
 
 			@include media-breakpoint-up(lg) {
@@ -134,10 +134,15 @@ body {
 			@media screen and (min-width: 992px) and (min-height: 900px) {
 				height: 125px;
 				font-size: $font-size-sm;
+				line-height: 1.2rem;
 			}
 
 			svg {
-				margin-bottom: 0.5rem;
+				margin-bottom: 0.25rem;
+	
+				@media screen and (min-width: 992px) and (min-height: 900px) {
+					margin-bottom: 0.5rem;
+				}
 			}
 		}
 

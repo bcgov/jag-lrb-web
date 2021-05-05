@@ -36,10 +36,12 @@
             var searchScrollTarget = searchResults.querySelector('.view-content') ? searchResults.querySelector('.view-content') : searchResults.querySelector('.view-empty');
 
             if (searchResults.querySelector('.view-results-summary')) {
-              searchScrollTarget = searchResults.querySelector('.view-results-summary');
-            }
+              searchScrollTarget = searchResults.querySelector('.view-results-summary'); // stops overlap with Drupal's scroll event
 
-            window.scrollTo(0, getOffsetTop(searchScrollTarget));
+              setTimeout(function () {
+                window.scrollTo(0, getOffsetTop(searchScrollTarget));
+              }, 500);
+            }
           }
         }
       }; ///////////////////////////////////////
@@ -54,8 +56,7 @@
       // runs every ajax call
 
       $(document).ajaxComplete(function (event, xhr, settings) {
-        console.log(event.target.activeElement); // get current parameters
-
+        // get current parameters
         var query = window.location.search; // get parameters from Ajax
 
         var ajaxParams = parseQueryString(query); // COLLECTIVE AGREEMENTS
@@ -93,7 +94,7 @@
         if (decisionsView) {
           var decisionsYearField = document.querySelector('.year-replace');
 
-          if (ajaxParams.length && ajaxParams.year.length) {
+          if (ajaxParams.year && ajaxParams.year != '') {
             decisionsYearField.value = ajaxParams.year;
           }
         } // ALL SEARCH-STYLE RESULTS

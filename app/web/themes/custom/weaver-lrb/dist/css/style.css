@@ -9914,6 +9914,8 @@ svg.lrb-arrow .b {
 .paragraph--type--wv-accordion {
   margin-top: 3rem;
   margin-bottom: 3rem; }
+  .paragraph--type--wv-accordion h2 {
+    font-size: 1.75rem !important; }
   .paragraph--type--wv-accordion.py-0 {
     padding-top: 0 !important; }
 

@@ -28,12 +28,12 @@
             <div class="row mb-5">
 
               {% if use_container == true %}
-                <div class="col-md-8 col-lg-10">
+                <div class="col-md-8 col-lg-10 px-0 px-md-3">
               {% else %}
                 <div class="col-md-12">
               {% endif %}
                 {% if paragraph.field_wv_accordion_headline.value|length %}
-                  <h2 class="h1 font-weight-bolder mb-3">
+                  <h2 class="font-weight-bolder mb-3">
                     {{ paragraph.field_wv_accordion_headline.value|raw }}
                   </h2>
                 {% endif %}

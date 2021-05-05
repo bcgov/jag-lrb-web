@@ -178,16 +178,9 @@
         } ///////////////////////////////////////
         // TABLES
         // // turn tables added via CKEditor into responsive ones
-        // let ckeditorTables = document.querySelectorAll('.text-formatted table');
-        // if (ckeditorTables) {
-        //   ckeditorTables.forEach((ckeditorTable) => {
-        //   });
-        // }
 
 
-        var responsiveTables = document.querySelectorAll('.table-responsive');
-
-        if (responsiveTables) {
+        var responsiveTablesText = function responsiveTablesText(responsiveTables) {
           responsiveTables.forEach(function (rTable) {
             // count number of table rows
             var rTableRows = rTable.querySelectorAll('tr');
@@ -204,10 +197,23 @@
               $(rTableContainer).once().append('<p class="text-center font-size-sm d-block d-lg-none">Scroll left and right to view more columns</p>');
             }
           });
-        } ///////////////////////////////////////
+        };
+
+        var responsiveTables = document.querySelectorAll('.table-responsive');
+
+        if (responsiveTables) {
+          responsiveTablesText(responsiveTables);
+        }
+
+        $(document).ajaxComplete(function (event, xhr, settings) {
+          var responsiveTables = document.querySelectorAll('.table-responsive');
+
+          if (responsiveTables) {
+            responsiveTablesText(responsiveTables);
+          }
+        }); ///////////////////////////////////////
         // TERRITORIAL ACKNOWLEDGEMENT
         // highlight when scrolled to
-
 
         var territorialLinks = document.querySelectorAll('a[href="#territorial"]');
         var territorialArea = document.getElementById('territorial');

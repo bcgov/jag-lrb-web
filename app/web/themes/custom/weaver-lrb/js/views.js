@@ -37,8 +37,11 @@
             let searchScrollTarget = searchResults.querySelector('.view-content') ? searchResults.querySelector('.view-content') : searchResults.querySelector('.view-empty');
             if (searchResults.querySelector('.view-results-summary')) {
               searchScrollTarget = searchResults.querySelector('.view-results-summary');
+              // stops overlap with Drupal's scroll event
+	            setTimeout(() => {
+	            	window.scrollTo(0, getOffsetTop(searchScrollTarget));
+	            }, 500);
             }
-            window.scrollTo(0, getOffsetTop(searchScrollTarget));
 	        }
 	      }
 	    };
@@ -55,7 +58,6 @@
 
       // runs every ajax call
       $(document).ajaxComplete(function (event, xhr, settings) {
-      	console.log(event.target.activeElement);
 
         // get current parameters
         let query = window.location.search;
@@ -99,7 +101,7 @@
 
         if (decisionsView) {
         	let decisionsYearField = document.querySelector('.year-replace');
-        	if (ajaxParams.length && ajaxParams.year.length) {
+        	if (ajaxParams.year && ajaxParams.year != '') {
         		decisionsYearField.value = ajaxParams.year;
         	}
         }

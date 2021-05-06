@@ -4,20 +4,20 @@
 
   Drupal.behaviors.weaver_views = {
 
+		getOffsetTop: function(element) {
+		  let offsetTop = 0;
+		  while(element) {
+		    offsetTop += element.offsetTop;
+		    element = element.offsetParent;
+		  }
+		  return offsetTop - 120;
+		},
+
     attach: function (context, settings) {
 
       const weaver = Drupal.behaviors.weaver_views;
 
-			const getOffsetTop = element => {
-			  let offsetTop = 0;
-			  while(element) {
-			    offsetTop += element.offsetTop;
-			    element = element.offsetParent;
-			  }
-			  return offsetTop - 120;
-			};
-
-		  const queryArrayToString = function(args) {
+	  const queryArrayToString = function(args) {
 		  	let queryString = '';
 		    $.each(args, function (name, value) {
 		    	queryString = queryString + name + '=' + encodeURIComponent(value) + '&';
@@ -39,7 +39,7 @@
               searchScrollTarget = searchResults.querySelector('.view-results-summary');
               // stops overlap with Drupal's scroll event
 	            setTimeout(() => {
-	            	window.scrollTo(0, getOffsetTop(searchScrollTarget));
+	            	window.scrollTo(0, Drupal.behaviors.weaver_views.getOffsetTop(searchScrollTarget));
 	            }, 500);
             }
 	        }

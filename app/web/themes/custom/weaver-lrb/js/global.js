@@ -180,6 +180,21 @@
             }
           }
 
+          ///////////////////////////////////////
+          // Resources Jump
+          // make "Keep reading" link under Resource blocks jump to next paragraph
+          const resourcesJump = document.getElementById('resources-jump');
+          if (resourcesJump) {
+            resourcesJump.addEventListener('click', () => {
+              // get next paragraph
+              let resourcesFieldItem = resourcesJump.closest('.paragraph--type--wv-container').parentNode;
+              let afterResources = resourcesFieldItem.nextElementSibling;
+              if (afterResources) {
+                window.scrollTo(0, Drupal.behaviors.weaver_views.getOffsetTop(afterResources));
+              }
+            });
+          }
+
 
           ///////////////////////////////////////
           // SOCIAL LINKS (News Pages)

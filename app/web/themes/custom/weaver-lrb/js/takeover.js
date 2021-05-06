@@ -246,11 +246,6 @@
           if (window.innerWidth < 992) {
             weaverTakeover.mobileTakeoverChanges(takeover);
           }
-          window.addEventListener('resize', function() {
-            if (window.innerWidth < 992) {
-              weaverTakeover.mobileTakeoverChanges(takeover);
-            }
-          });
         }
       });
     }

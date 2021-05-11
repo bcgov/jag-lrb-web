@@ -105,7 +105,11 @@
 	padding: 0 !important;
 
 	.path-frontpage & {
-		padding: 4rem 0 !important;
+		padding: 2rem 0 !important;
+
+		@include media-breakpoint-up(lg) {
+			padding: 4rem 0 !important;
+		}
 	}
 	
 	.row {

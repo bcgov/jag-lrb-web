@@ -9353,8 +9353,10 @@ a.callout {
   border: 0 none !important; }
   .paragraph--type--lrb-boxes .card {
     margin-top: 3rem; }
+    .paragraph--type--lrb-boxes .card:nth-child(1) {
+      margin-top: 0; }
     @media (min-width: 992px) {
-      .paragraph--type--lrb-boxes .card:nth-child(1), .paragraph--type--lrb-boxes .card:nth-child(2) {
+      .paragraph--type--lrb-boxes .card:nth-child(2) {
         margin-top: 0; } }
     @media (min-width: 992px) {
       .paragraph--type--lrb-boxes .card.col-lg-3:nth-child(3), .paragraph--type--lrb-boxes .card.col-lg-3:nth-child(4) {
@@ -9937,7 +9939,10 @@ svg.lrb-arrow .b {
 .paragraph--type--lrb-boxes {
   padding: 0 !important; }
   .path-frontpage .paragraph--type--lrb-boxes {
-    padding: 4rem 0 !important; }
+    padding: 2rem 0 !important; }
+    @media (min-width: 992px) {
+      .path-frontpage .paragraph--type--lrb-boxes {
+        padding: 4rem 0 !important; } }
   .paragraph--type--lrb-boxes .row {
     justify-content: flex-start; }
   @media (min-width: 768px) {

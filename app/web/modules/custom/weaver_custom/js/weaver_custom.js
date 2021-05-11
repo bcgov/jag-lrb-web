@@ -22,6 +22,17 @@
       });
   	},
 
+    adminToolbarStopOpening: function() {
+      const toolbar = document.getElementById('toolbar-item-administration-tray');
+      if (toolbar) {
+        window.addEventListener('resize', () => {
+          if (window.innerWidth < 992) {
+            toolbar.classList.remove('is-active');
+          }
+        });
+      }
+    },
+
     checkOpen: function() {
       if (document.body.classList.contains('social-share-open')) {
           return true;
@@ -80,6 +91,7 @@
 
     attach: function (context, settings) {
 
+
         // override Year filter on Decisions search
         const decisionsYearFilter = document.querySelector('#views-exposed-form-lrb-decisions-block-1 input[name=year]');
         if (decisionsYearFilter) {
@@ -94,6 +106,7 @@
         $('body', context).once('weaver_custom').each(function () {
           const weaver = Drupal.behaviors.weaver_custom;
 
+          weaver.adminToolbarStopOpening();
 
           document.body.classList.add('social-share-closed');
 

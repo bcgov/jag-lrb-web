@@ -74,6 +74,7 @@
         "drupal/filefield_paths": "^1.0@beta",
         "drupal/fontawesome": "2.x-dev@dev",
         "drupal/honeypot": "^2.0",
+        "drupal/htmlmail": "^3.0@alpha",
         "drupal/image_effects": "^3.1",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/jquery_ui_tabs": "^1.1",

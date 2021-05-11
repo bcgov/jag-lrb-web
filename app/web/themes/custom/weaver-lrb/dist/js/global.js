@@ -198,20 +198,23 @@
 
 
         var responsiveTablesText = function responsiveTablesText(responsiveTables) {
+          var horizontalTableScrollText = '<p class="horizontal-scroll-notice text-center font-size-sm font-weight-bold d-block d-lg-none">Scroll left and right to view more columns</p>';
           responsiveTables.forEach(function (rTable) {
             // count number of table rows
             var rTableRows = rTable.querySelectorAll('tr');
 
-            if (rTable.parentNode.parentNode.classList.contains('view-lrb-collective-agreements') == false) {
-              $(rTable).prepend('<p class="text-center font-size-sm d-block d-lg-none">Scroll left and right to view more columns</p>');
+            if (!rTable.querySelector('.horizontal-scroll-notice')) {
+              if (rTable.parentNode.parentNode.classList.contains('view-lrb-collective-agreements') == false) {
+                $(rTable).prepend(horizontalTableScrollText);
 
-              if (rTableRows.length > 10) {
-                $(rTable).append('<p class="text-center font-size-sm d-block d-lg-none">Scroll left and right to view more columns</p>');
+                if (rTableRows.length > 10) {
+                  $(rTable).append(horizontalTableScrollText);
+                }
+              } else {
+                var rTableContainer = rTable.parentNode;
+                $(rTableContainer).once().prepend(horizontalTableScrollText);
+                $(rTableContainer).once().append(horizontalTableScrollText);
               }
-            } else {
-              var rTableContainer = rTable.parentNode;
-              $(rTableContainer).once().prepend('<p class="text-center font-size-sm d-block d-lg-none">Scroll left and right to view more columns</p>');
-              $(rTableContainer).once().append('<p class="text-center font-size-sm d-block d-lg-none">Scroll left and right to view more columns</p>');
             }
           });
         };

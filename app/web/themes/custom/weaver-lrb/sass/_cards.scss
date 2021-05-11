@@ -4,8 +4,12 @@
 	.paragraph--type--lrb-boxes & {
 		margin-top: 3rem;
 
+		&:nth-child(1) {
+			margin-top: 0;
+		}
+
 		@include media-breakpoint-up(lg) {
-			&:nth-child(1),
+			
 			&:nth-child(2) {
 				margin-top: 0;
 			}		

@@ -15,6 +15,6 @@ $settings['file_public_path'] = 'files';
 $settings['file_private_path'] = 'files/private';
 $settings['config_sync_directory'] = 'files';
 $settings['trusted_host_patterns'] = [
-   '^(www\.(dev|test)|(dev|test))\.?lrb\.bc\.ca$',
+   '^jag-lrb-web(-dev|-test)?\.apps\.silver\.devops\.gov\.bc\.ca$',
    '^(www\.)?lrb\.bc\.ca$'
  ];

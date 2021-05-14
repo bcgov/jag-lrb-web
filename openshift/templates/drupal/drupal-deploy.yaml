@@ -153,8 +153,16 @@ objects:
                   mountPath: /opt/drupal/web/sites/default/${SITE_SETTINGS_FILE_NAME}
                   subPath: ${SITE_SETTINGS_FILE_NAME}
                 - name: ${NAME}-htaccess
-                  mountPath: ${HTACCESS_MOUNT_PATH}/.htaccess
-                  subPath: .htaccess
+                  mountPath: ${HTACCESS_MOUNT_PATH}/htaccess
+                  subPath: htaccess
+              lifecycle:
+                postStart:
+                  exec:
+                    command:
+                      - "/bin/sh"
+                      - "-c"
+                      - >
+                        cat /opt/drupal/web/htaccess > /opt/drupal/web/.htaccess;
 
   - kind: PersistentVolumeClaim
     apiVersion: v1

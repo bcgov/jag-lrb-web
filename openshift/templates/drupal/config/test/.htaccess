@@ -1,3 +1,3 @@
 RewriteEngine On
 RewriteBase /
-RewriteRule ^(.*)$ http://www.lrb.bc.ca/$1 [R=301,L]
+RewriteRule ^(.*)$ http://www.lrb.bc.ca/ [R=301,L]

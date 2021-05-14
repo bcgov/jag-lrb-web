@@ -124,6 +124,16 @@ objects:
                   value: "3306"
                 - name: SITE_SETTINGS_FILE_NAME
                   value: ${SITE_SETTINGS_FILE_NAME}
+                - name: HTTP_AUTH_USER
+                  valueFrom:
+                    secretKeyRef:
+                      key: user
+                      name: ${NAME}-http-auth
+                - name: HTTP_AUTH_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: ${NAME}-http-auth
               ports:
                 - containerPort: 8080
                   protocol: TCP
@@ -155,6 +165,16 @@ objects:
                 - name: ${NAME}-htaccess
                   mountPath: ${HTACCESS_MOUNT_PATH}/.htaccess
                   subPath: .htaccess
+              lifecycle:
+                postStart:
+                  exec:
+                    command:
+                      - "/bin/sh"
+                      - "-c"
+                      - >
+                        if [ ! -z "${HTTP_AUTH_USER}" ] && [ ! -z "${HTTP_AUTH_PASSWORD}" ]; then
+                        htpasswd -b /opt/drupal/web/.htpasswd "${HTTP_AUTH_USER}" "${HTTP_AUTH_PASSWORD}";
+                        fi
 
   - kind: PersistentVolumeClaim
     apiVersion: v1
@@ -211,6 +231,21 @@ objects:
     stringData:
       username: ${DRUPAL_ADMIN_USER}
       password: ${DRUPAL_ADMIN_PASSWORD}
+    type: Opaque
+  
+  - kind: Secret
+    apiVersion: v1
+    metadata:
+      name: ${NAME}-http-auth
+      labels:
+        name: ${NAME}
+        app: ${APP_NAME}
+        app-group: ${APP_GROUP}
+        role: ${ROLE}
+        env: ${TAG_NAME}
+    stringData:
+      user: ${HTTP_AUTH_USER}
+      password: ${HTTP_AUTH_PASSWORD}
     type: Opaque
 
   - kind: Service
@@ -290,6 +325,17 @@ parameters:
     displayName: Drupal Admin Password
     description: Password for the Drupal Admin user.
     required: true
+    generate: expression
+    from: "[a-zA-Z0-9]{16}"
+  - name: HTTP_AUTH_USER
+    displayName: Basic Auth Username
+    description: Username to be used for basic auth. If no user is specified, basic auth will not be enabled. 
+    required: false
+    value: 
+  - name: HTTP_AUTH_PASSWORD
+    displayName: Basic Auth Password
+    description: Password to be used for basic auth. If no user is specified, basic auth will not be enabled.
+    required: false
     generate: expression
     from: "[a-zA-Z0-9]{16}"
   - name: APPLICATION_DOMAIN

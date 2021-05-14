@@ -29,6 +29,18 @@ generateConfigMap "${DRUPAL_CONFIG_MAP_NAME}" "${DRUPAL_CONFIG_SOURCE_PATH}" "${
 
 # Remove temporary configuration directory and files ....
 rm -rf ${profileTmp}
-
 unset SPECIALDEPLOYPARMS
+
+if createOperation; then
+  # Get the settings for delivering user feedback to the business
+  readParameter "HTTP_AUTH_USER - Please provide the username for setting up http authentication.  The default is a blank string (authentication disabled)." HTTP_AUTH_USER "false"
+  readParameter "HTTP_AUTH_PASSWORD - Please provide the password for setting up http authentication.  The default is a blank string (authentication disabled)." HTTP_AUTH_PASSWORD "false"
+else
+  # Secrets are removed from the configurations during update operations ...
+  printStatusMsg "Update operation detected ...Skipping the prompts for HTTP_AUTH_USER and HTTP_AUTH_PASSWORD environment variables ...\n"
+  writeParameter "HTTP_AUTH_USER" $(getSecret "${NAME}-http-auth" "user") "false"
+  writeParameter "HTTP_AUTH_PASSWORD" $(getSecret "${NAME}-http-auth" "password") "false"
+fi
+
+SPECIALDEPLOYPARMS="--param-file=${_overrideParamFile}"
 echo ${SPECIALDEPLOYPARMS}

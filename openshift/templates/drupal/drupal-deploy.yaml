@@ -169,7 +169,7 @@ objects:
                 postStart:
                   exec:
                     command:
-                      - "/bin/sh"
+                      - "/bin/bash"
                       - "-c"
                       - >
                         if [ ! -z "${HTTP_AUTH_USER}" ] && [ ! -z "${HTTP_AUTH_PASSWORD}" ]; then

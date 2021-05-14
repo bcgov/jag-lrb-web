@@ -1,6 +1,9 @@
 #!/bin/bash
 _includeFile=$(type -p overrides.inc)
+# Import ocFunctions.inc for getSecret
+_ocFunctions=$(type -p ocFunctions.inc)
 if [ ! -z ${_includeFile} ]; then
+  . ${_ocFunctions}
   . ${_includeFile}
 else
   _red='\033[0;31m'; _yellow='\033[1;33m'; _nc='\033[0m'; echo -e \\n"${_red}overrides.inc could not be found on the path.${_nc}\n${_yellow}Please ensure the openshift-developer-tools are installed on and registered on your path.${_nc}\n${_yellow}https://github.com/BCDevOps/openshift-developer-tools${_nc}"; exit 1;
@@ -37,7 +40,7 @@ if createOperation; then
   readParameter "HTTP_AUTH_PASSWORD - Please provide the password for setting up http authentication.  The default is a blank string (authentication disabled)." HTTP_AUTH_PASSWORD "false"
 else
   # Secrets are removed from the configurations during update operations ...
-  printStatusMsg "Update operation detected ...Skipping the prompts for HTTP_AUTH_USER and HTTP_AUTH_PASSWORD environment variables ...\n"
+  printStatusMsg "Getting HTTP_AUTH_USER and HTTP_AUTH_PASSWORD from secret ...\n"
   writeParameter "HTTP_AUTH_USER" $(getSecret "${NAME}-http-auth" "user") "false"
   writeParameter "HTTP_AUTH_PASSWORD" $(getSecret "${NAME}-http-auth" "password") "false"
 fi

@@ -14,12 +14,12 @@ OUTPUT_FORMAT=json
 # - DRUPAL_CONFIG_MAP_NAME
 
 # Combine the profile's default config files with its environment specific config files before generating the config map ...
-profileRoot=$( dirname "$0" )/config/
-profileEnv=${profileRoot}/${DEPLOYMENT_ENV_NAME}
-profileTmp=$( dirname "$0" )/config/${PROFILE}/tmp
+configRoot=$( dirname "$0" )/config/
+profileEnv=${configRoot}/${DEPLOYMENT_ENV_NAME}
+profileTmp=$( dirname "$0" )/config/tmp
 mkdir -p ${profileTmp}
-cp -f ${profileRoot}/* ${profileTmp} 2>/dev/null
-cp -f ${profileEnv}/* ${profileTmp} 2>/dev/null
+cp -f ${configRoot}/.* ${configRoot}/* ${profileTmp} 2>/dev/null
+cp -f ${profileEnv}/.* ${profileEnv}/* ${profileTmp} 2>/dev/null
 
 # Generate the config map ...
 DRUPAL_CONFIG_SOURCE_PATH=${profileTmp}

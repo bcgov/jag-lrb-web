@@ -88,8 +88,8 @@ objects:
               configMap:
                 name: ${DRUPAL_CONFIG_MAP_NAME}
                 items:
-                  - key: htaccess
-                    path: htaccess
+                  - key: .htaccess
+                    path: .htaccess
           containers:
             - image: ${SOURCE_IMAGE_NAME}
               imagePullPolicy: Always
@@ -153,16 +153,8 @@ objects:
                   mountPath: /opt/drupal/web/sites/default/${SITE_SETTINGS_FILE_NAME}
                   subPath: ${SITE_SETTINGS_FILE_NAME}
                 - name: ${NAME}-htaccess
-                  mountPath: ${HTACCESS_MOUNT_PATH}/htaccess
-                  subPath: htaccess
-              lifecycle:
-                postStart:
-                  exec:
-                    command:
-                      - "/bin/sh"
-                      - "-c"
-                      - >
-                        cat /opt/drupal/web/htaccess > /opt/drupal/web/.htaccess;
+                  mountPath: ${HTACCESS_MOUNT_PATH}/.htaccess
+                  subPath: .htaccess
 
   - kind: PersistentVolumeClaim
     apiVersion: v1

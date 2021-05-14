@@ -329,12 +329,12 @@ parameters:
     from: "[a-zA-Z0-9]{16}"
   - name: HTTP_AUTH_USER
     displayName: Basic Auth Username
-    description: Username to be used for basic auth. If no user is specified, basic auth will not be enabled. 
+    description: Username to be used for basic auth - if enabled. 
     required: false
     value: 
   - name: HTTP_AUTH_PASSWORD
     displayName: Basic Auth Password
-    description: Password to be used for basic auth. If no user is specified, basic auth will not be enabled.
+    description: Password to be used for basic auth - if enabled.
     required: false
     generate: expression
     from: "[a-zA-Z0-9]{16}"

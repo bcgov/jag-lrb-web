@@ -43,6 +43,8 @@ The Drupal app has a couple of settings files that are customizable on a per-dep
 
 - `settings.php` is customizable on a per-environment basis.
 
+- `.htaccess` is customizable on a per-environment basis.
+
 To apply changes to these files in OpenShift:
 
 1. Update the file that needs to be updated.
@@ -50,3 +52,11 @@ To apply changes to these files in OpenShift:
 2. From within the [openshift](./openshift) folder, use the `manage` script to updathe the deployed files, e.g.: `./manage -e dev deploy` to update the `dev` environment.
 
 **Please Note:** the `manage` script extends functionality provided by the [openshift-developer-tools](https://github.com/BCDevOps/openshift-developer-tools) and therefore requires them to be installed and on the path in order to work properly.
+
+### HTTP Basic Auth
+
+HTTP Basic Authentication is configured by adding the relevant section to the `.htaccess` file.
+
+The user credentials are stored in a secret named `drupal-http-auth` in each namespace (dev/test/prod).
+
+Please note that to enable a user for basic http authentication, the secret must be populated, otherwise the `.htpasswd` file will remain empty and it will not be possible to access the website.

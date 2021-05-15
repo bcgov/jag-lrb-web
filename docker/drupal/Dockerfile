@@ -17,6 +17,12 @@ RUN mkdir -p /opt/drupal/web/files \
     && chmod -R g+rwX /opt/drupal/web/files \
     && chown -LR www-data:root /opt/drupal/web/files
 
+# Create empty, writeable .htpasswd
+RUN touch /opt/drupal/web/.htpasswd \
+    && chgrp 0 /opt/drupal/web/.htpasswd \
+    && chmod g+rwX /opt/drupal/web/.htpasswd \
+    && chown -L www-data:root /opt/drupal/web/.htpasswd
+
 # Replace default port with a higher one to run in OpenShift as non-root user
 RUN sed -i 's/80/8080/g' /etc/apache2/ports.conf \
     && sed -i 's/80/8080/g' /etc/apache2/sites-enabled/000-default.conf

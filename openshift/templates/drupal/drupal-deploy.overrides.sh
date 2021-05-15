@@ -1,6 +1,9 @@
 #!/bin/bash
 _includeFile=$(type -p overrides.inc)
+# Import ocFunctions.inc for getSecret
+_ocFunctions=$(type -p ocFunctions.inc)
 if [ ! -z ${_includeFile} ]; then
+  . ${_ocFunctions}
   . ${_includeFile}
 else
   _red='\033[0;31m'; _yellow='\033[1;33m'; _nc='\033[0m'; echo -e \\n"${_red}overrides.inc could not be found on the path.${_nc}\n${_yellow}Please ensure the openshift-developer-tools are installed on and registered on your path.${_nc}\n${_yellow}https://github.com/BCDevOps/openshift-developer-tools${_nc}"; exit 1;
@@ -14,12 +17,12 @@ OUTPUT_FORMAT=json
 # - DRUPAL_CONFIG_MAP_NAME
 
 # Combine the profile's default config files with its environment specific config files before generating the config map ...
-profileRoot=$( dirname "$0" )/config/
-profileEnv=${profileRoot}/${DEPLOYMENT_ENV_NAME}
-profileTmp=$( dirname "$0" )/config/${PROFILE}/tmp
+configRoot=$( dirname "$0" )/config/
+profileEnv=${configRoot}/${DEPLOYMENT_ENV_NAME}
+profileTmp=$( dirname "$0" )/config/tmp
 mkdir -p ${profileTmp}
-cp -f ${profileRoot}/* ${profileTmp} 2>/dev/null
-cp -f ${profileEnv}/* ${profileTmp} 2>/dev/null
+cp -f ${configRoot}/.* ${configRoot}/* ${profileTmp} 2>/dev/null
+cp -f ${profileEnv}/.* ${profileEnv}/* ${profileTmp} 2>/dev/null
 
 # Generate the config map ...
 DRUPAL_CONFIG_SOURCE_PATH=${profileTmp}
@@ -29,6 +32,18 @@ generateConfigMap "${DRUPAL_CONFIG_MAP_NAME}" "${DRUPAL_CONFIG_SOURCE_PATH}" "${
 
 # Remove temporary configuration directory and files ....
 rm -rf ${profileTmp}
-
 unset SPECIALDEPLOYPARMS
+
+if createOperation; then
+  # Get the settings for delivering user feedback to the business
+  readParameter "HTTP_AUTH_USER - Please provide the username for setting up http authentication.  The default is a blank string (authentication disabled)." HTTP_AUTH_USER "false"
+  readParameter "HTTP_AUTH_PASSWORD - Please provide the password for setting up http authentication.  The default is a blank string (authentication disabled)." HTTP_AUTH_PASSWORD "false"
+else
+  # Secrets are removed from the configurations during update operations ...
+  printStatusMsg "Getting HTTP_AUTH_USER and HTTP_AUTH_PASSWORD from secret ...\n"
+  writeParameter "HTTP_AUTH_USER" $(getSecret "${NAME}-http-auth" "user") "false"
+  writeParameter "HTTP_AUTH_PASSWORD" $(getSecret "${NAME}-http-auth" "password") "false"
+fi
+
+SPECIALDEPLOYPARMS="--param-file=${_overrideParamFile}"
 echo ${SPECIALDEPLOYPARMS}

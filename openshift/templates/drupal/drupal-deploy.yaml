@@ -84,6 +84,12 @@ objects:
                 items:
                   - key: ${SITE_SETTINGS_FILE_NAME}
                     path: ${SITE_SETTINGS_FILE_NAME}
+            - name: ${NAME}-htaccess
+              configMap:
+                name: ${DRUPAL_CONFIG_MAP_NAME}
+                items:
+                  - key: .htaccess
+                    path: .htaccess
           containers:
             - image: ${SOURCE_IMAGE_NAME}
               imagePullPolicy: Always
@@ -118,6 +124,16 @@ objects:
                   value: "3306"
                 - name: SITE_SETTINGS_FILE_NAME
                   value: ${SITE_SETTINGS_FILE_NAME}
+                - name: HTTP_AUTH_USER
+                  valueFrom:
+                    secretKeyRef:
+                      key: user
+                      name: ${NAME}-http-auth
+                - name: HTTP_AUTH_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: ${NAME}-http-auth
               ports:
                 - containerPort: 8080
                   protocol: TCP
@@ -146,6 +162,19 @@ objects:
                 - name: ${NAME}-settings-php
                   mountPath: /opt/drupal/web/sites/default/${SITE_SETTINGS_FILE_NAME}
                   subPath: ${SITE_SETTINGS_FILE_NAME}
+                - name: ${NAME}-htaccess
+                  mountPath: ${HTACCESS_MOUNT_PATH}/.htaccess
+                  subPath: .htaccess
+              lifecycle:
+                postStart:
+                  exec:
+                    command:
+                      - "/bin/bash"
+                      - "-c"
+                      - >
+                        if [ ! -z "${HTTP_AUTH_USER}" ] && [ ! -z "${HTTP_AUTH_PASSWORD}" ]; then
+                        htpasswd -b /opt/drupal/web/.htpasswd "${HTTP_AUTH_USER}" "${HTTP_AUTH_PASSWORD}";
+                        fi
 
   - kind: PersistentVolumeClaim
     apiVersion: v1
@@ -202,6 +231,21 @@ objects:
     stringData:
       username: ${DRUPAL_ADMIN_USER}
       password: ${DRUPAL_ADMIN_PASSWORD}
+    type: Opaque
+  
+  - kind: Secret
+    apiVersion: v1
+    metadata:
+      name: ${NAME}-http-auth
+      labels:
+        name: ${NAME}
+        app: ${APP_NAME}
+        app-group: ${APP_GROUP}
+        role: ${ROLE}
+        env: ${TAG_NAME}
+    stringData:
+      user: ${HTTP_AUTH_USER}
+      password: ${HTTP_AUTH_PASSWORD}
     type: Opaque
 
   - kind: Service
@@ -283,6 +327,17 @@ parameters:
     required: true
     generate: expression
     from: "[a-zA-Z0-9]{16}"
+  - name: HTTP_AUTH_USER
+    displayName: Basic Auth Username
+    description: Username to be used for basic auth - if enabled. 
+    required: false
+    value: 
+  - name: HTTP_AUTH_PASSWORD
+    displayName: Basic Auth Password
+    description: Password to be used for basic auth - if enabled.
+    required: false
+    generate: expression
+    from: "[a-zA-Z0-9]{16}"
   - name: APPLICATION_DOMAIN
     displayName: APPLICATION_DOMAIN
     description:
@@ -310,6 +365,11 @@ parameters:
     description: The name of the configuration file to be used for the default site.
     required: true
     value: settings.php
+  - name: HTACCESS_MOUNT_PATH
+    displayName: HTAccess Mount Path
+    description: The path to use to mount the .htaccess config file.
+    required: true
+    value: /opt/drupal/web
   - name: DRUPAL_CONFIG_MAP_NAME
     displayName: Drupal Config Map Name
     description: The name of the configuration map.

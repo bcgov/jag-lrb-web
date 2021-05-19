@@ -133,10 +133,16 @@ class WeaverCustomSalesforcePullEvent implements EventSubscriberInterface {
 
   			// time incorrectly uses Zulu time zone
         // see weaver_custom_remove_old_hearings() in weaver_custom.module as well
+
+        // change the time value to be PST as that is what it reflects
   			$time = str_replace('Z', 'PST', $time);
-  			$new_timezone = new \DateTimeZone('Z');
 				$datetime = new \DateTime($date . 'T' . $time);
+
+        // change timezone back to Zulu and subtract an hour before saving as UTC to the database so that it will show correctly as PST on the site
+        $new_timezone = new \DateTimeZone('Z');
 				$datetime->setTimezone($new_timezone);
+        $datetime->sub(new \DateInterval("PT1H"));
+
 				$formatted_datetime = $datetime->format('Y-m-d\TH:i:s');
   			$drupalEntity->set('field_lrb_hearing_date', $formatted_datetime);
 

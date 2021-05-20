@@ -148,8 +148,9 @@ function weaver_custom_remove_old_hearings() {
   // set cutoff time to 12:01am
   $today = $now->setTime(0, 0, 1); 
 
+  // set cutoff
   $cutoff = $today->format('Y-m-d\TH:i:s');
-  
+
   $hearings = \Drupal::entityQuery('node')
     ->condition('type', 'lrb_hearings')
     ->condition('field_lrb_hearing_date', $cutoff, '<=')

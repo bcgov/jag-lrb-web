@@ -140,14 +140,17 @@ function weaver_custom_output_term($start, $end) {
 
 function weaver_custom_remove_old_hearings() {
   // Remove old Hearings from day before yesterday
-  $now = new \DateTime();
-  $interval = new DateInterval('P1D');
+  $now = new \DateTime(); // will be in PDT
+  // convert PDT time to UTC
+  $new_timezone = new \DateTimeZone('UTC');
+  $now->setTimezone($new_timezone);
   
-  //advance 8 hours to account for wrong values in db
-  // see case 'lrb_sf_hearings' in pullPresave() in WeaverCustomSalesforcePullEvent.php as well
-  $yesterday = $now->sub($interval)->setTime(0, 0, 1)->add(new DateInterval('PT8H')); 
-  $cutoff = $yesterday->format('Y-m-d\TH:i:s');
-  
+  // set cutoff time to 12:01am
+  $today = $now->setTime(0, 0, 1); 
+
+  // set cutoff
+  $cutoff = $today->format('Y-m-d\TH:i:s');
+
   $hearings = \Drupal::entityQuery('node')
     ->condition('type', 'lrb_hearings')
     ->condition('field_lrb_hearing_date', $cutoff, '<=')

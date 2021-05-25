@@ -40,7 +40,7 @@ class WeaverCustomSalesforcePullEvent implements EventSubscriberInterface {
   	
   	switch ($mapping->id()) {
       case 'lrb_sf_decisions':
-        // only need to get decisions  >2020
+        // only need to get decisions  >2019
         $query->addCondition('CALENDAR_YEAR(Issued_Date__c)', '2019', '>');
         // dpm($query);
         break;
@@ -48,7 +48,7 @@ class WeaverCustomSalesforcePullEvent implements EventSubscriberInterface {
   		case 'lrb_sf_hearings':
 
 		    // ensure only current 
-		    $query->addCondition('LRB_Hearing_Date__c', 'LAST_N_DAYS:20', '>');
+		    $query->addCondition('LRB_Hearing_Date__c', 'YESTERDAY', '>');
 		    // dpm($query);
 		  	// limit to 10 for testing
 		    // $query->limit = 5;

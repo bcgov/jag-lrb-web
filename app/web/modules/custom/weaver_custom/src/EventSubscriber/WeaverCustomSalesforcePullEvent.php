@@ -48,7 +48,7 @@ class WeaverCustomSalesforcePullEvent implements EventSubscriberInterface {
   		case 'lrb_sf_hearings':
 
 		    // ensure only current 
-		    $query->addCondition('LRB_Hearing_Date__c', 'YESTERDAY', '>');
+		    $query->addCondition('LRB_Hearing_Date__c', 'LAST_N_DAYS:20', '>');
 		    // dpm($query);
 		  	// limit to 10 for testing
 		    // $query->limit = 5;

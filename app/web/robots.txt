@@ -63,11 +63,17 @@ Disallow: /index.php/user/logout
 # DO NOT ALLOW DECISION PDFs, HEARING pages or any other PDFs to be crawled by search engines
 Disallow: /media/
 Disallow: /files/decisions/
+Disallow: /decisions
+Disallow: /decisions/
 Disallow: /hearings/
 Disallow: /print/pdf/
+Disallow: /*?*
 
 User-agent: Googlebot
 Disallow: /media/
 Disallow: /files/decisions/
+Disallow: /decisions
+Disallow: /decisions/
 Disallow: /hearings/
 Disallow: /print/pdf/
+Disallow: /*?*

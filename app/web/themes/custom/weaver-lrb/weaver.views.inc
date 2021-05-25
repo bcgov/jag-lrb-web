@@ -139,7 +139,7 @@ function weaver_preprocess_views_view_field(&$variables) {
 
           if ($url != null && $url != '') {
             $link = Link::fromTextAndUrl(Markup::create($original_output), $url)->toRenderable();
-            $link['#attributes'] = ['target' => '_blank', 'data-extension' => 'pdf'];
+            $link['#attributes'] = ['target' => '_blank', 'data-extension' => 'pdf', 'rel' => 'nofollow'];
             $variables['output'] = $link; 
           }
           break;
@@ -168,7 +168,7 @@ function weaver_preprocess_views_view_field(&$variables) {
 
           if ($url != null && $url != '') {
             $link = Link::fromTextAndUrl(Markup::create($original_output), $url)->toRenderable();
-            $link['#attributes'] = ['target' => '_blank', 'data-extension' => 'pdf'];
+            $link['#attributes'] = ['target' => '_blank', 'data-extension' => 'pdf', 'rel' => 'nofollow'];
             $variables['output'] = $link; 
           }
           break;

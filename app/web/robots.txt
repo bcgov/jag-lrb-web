@@ -69,7 +69,7 @@ Disallow: /files/decisions/
 #Disallow: /decisions/
 Disallow: /hearings/
 Disallow: /print/pdf/
-Disallow: /*?*
+#Disallow: /*?*
 
 User-agent: Googlebot
 Disallow: /media/
@@ -78,4 +78,4 @@ Disallow: /files/decisions/
 #Disallow: /decisions/
 Disallow: /hearings/
 Disallow: /print/pdf/
-Disallow: /*?*
+#Disallow: /*?*

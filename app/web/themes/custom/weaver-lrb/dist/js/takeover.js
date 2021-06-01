@@ -147,12 +147,6 @@
         var takeoverCover = document.getElementById('takeover-menu-cover');
 
         if (takeover) {
-          // hide when page loads or else get FOUC
-          takeover.classList.add('launch');
-          setTimeout(function () {
-            takeover.classList.remove('launch');
-          }, 1000);
-
           if (takeoverButton) {
             weaverTakeover.activateTakeover('menu', takeoverButton, takeoverCover);
           }

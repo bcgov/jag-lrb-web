@@ -10532,8 +10532,6 @@ body.takeover-search-open {
   overflow-y: auto; }
   .loaded #takeover-menu {
     opacity: 0.95; }
-  #takeover-menu.launch {
-    display: none; }
   #takeover-menu .inner {
     overflow-y: auto; }
   .navbar-reduced #takeover-menu {
@@ -10592,8 +10590,6 @@ body.takeover-search-open {
   overflow-y: auto; }
   .loaded #takeover-search {
     opacity: 0.95; }
-  #takeover-search.launch {
-    display: none; }
   #takeover-search .inner {
     overflow-y: auto; }
   .navbar-reduced #takeover-search {

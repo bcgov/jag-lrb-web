@@ -176,15 +176,9 @@
        
       	if (takeover) {
 
-          // hide when page loads or else get FOUC
-          takeover.classList.add('launch');
-          setTimeout(() => {
-            takeover.classList.remove('launch');
-          }, 1000);
-
       		if (takeoverButton) {
             weaverTakeover.activateTakeover('menu', takeoverButton, takeoverCover);
-         }
+          }
 
           var tabHandle;
           takeoverButton.addEventListener('click', function(e) {

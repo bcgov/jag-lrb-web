@@ -10073,7 +10073,7 @@ svg.lrb-arrow .b {
       margin-top: 1rem; } }
   .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topics-top h3 {
     font-size: 1rem;
-    transition: all 500ms; }
+    transition: color 500ms, text-decoration 500ms; }
     @media screen and (min-width: 360px) {
       .paragraph--type--lrb-topic-grid .topics-grid-card .topics-grid-text .topics-top h3 {
         font-size: 1.25rem; } }
@@ -10526,12 +10526,12 @@ body.takeover-search-open {
   z-index: 1;
   width: 100%;
   height: 100%;
-  transition: all 500ms;
   transition-timing-function: ease-in;
   opacity: 0;
   overflow-y: auto; }
   .loaded #takeover-menu {
-    opacity: 0.95; }
+    opacity: 0.95;
+    transition: all 500ms; }
   #takeover-menu .inner {
     overflow-y: auto; }
   .navbar-reduced #takeover-menu {
@@ -10584,12 +10584,12 @@ body.takeover-search-open {
   z-index: 1;
   width: 100%;
   height: 100%;
-  transition: all 500ms;
   transition-timing-function: ease-in;
   opacity: 0;
   overflow-y: auto; }
   .loaded #takeover-search {
-    opacity: 0.95; }
+    opacity: 0.95;
+    transition: all 500ms; }
   #takeover-search .inner {
     overflow-y: auto; }
   .navbar-reduced #takeover-search {

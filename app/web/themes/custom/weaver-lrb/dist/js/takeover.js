@@ -50,9 +50,12 @@
       if (parentLinks) {
         parentLinks.forEach(function (parentLink) {
           parentLink.addEventListener('click', function (e) {
-            e.preventDefault();
             childNav = parentLink.parentNode.querySelector('ul.menu');
-            childNav.classList.toggle('active');
+
+            if (childNav != null) {
+              e.preventDefault();
+              childNav.classList.toggle('active');
+            }
           });
         });
       }

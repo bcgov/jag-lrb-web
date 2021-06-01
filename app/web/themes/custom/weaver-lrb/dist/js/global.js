@@ -82,9 +82,14 @@
               firstParagraph.innerHTML = newOutput;
             }
           });
-        } /////////////////////////////////////////
-        // CALLOUTS
+        } //////////////////////////////////////////
+        // BODY add loaded class
 
+
+        setTimeout(function () {
+          document.body.classList.add('loaded');
+        }, 500); /////////////////////////////////////////
+        // CALLOUTS
 
         var callouts = document.querySelectorAll('.callout');
         var calloutIcon = '<i class="fal fa-comment-exclamation"></i>';

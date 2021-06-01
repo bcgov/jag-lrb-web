@@ -92,6 +92,12 @@
             });
           }
 
+          //////////////////////////////////////////
+          // BODY add loaded class
+          setTimeout(() => {
+            document.body.classList.add('loaded');
+          }, 500);
+
           /////////////////////////////////////////
           // CALLOUTS
           let callouts = document.querySelectorAll('.callout');

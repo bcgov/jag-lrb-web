@@ -8871,9 +8871,11 @@ a.text-dark:hover, a.text-dark:focus {
   width: fit-content;
   margin: 2.5rem 0;
   padding: 0 !important;
+  opacity: 0;
   background-color: #FFFFFF;
   text-align: left !important;
   font-weight: 500;
+  transition: opacity 500ms;
   /* the text */
   /* the icon */
   /* special case for yellow */
@@ -8881,6 +8883,8 @@ a.text-dark:hover, a.text-dark:focus {
       content: "\e074";
     }
   */ }
+  .loaded .callout {
+    opacity: 1; }
   .calloutp:first-child {
     margin-top: 0; }
   .cke_editable .callout {
@@ -10507,11 +10511,6 @@ svg.lrb-arrow .b {
 body.takeover-menu-open,
 body.takeover-search-open {
   overflow: hidden; }
-  @media (min-width: 992px) {
-    body.takeover-menu-open,
-    body.takeover-search-open {
-      margin-right: 2rem;
-      /* compensates for missing scrollbar */ } }
 
 .takeover-menu-open #takeover-menu {
   transform: translateX(0px);
@@ -10529,8 +10528,10 @@ body.takeover-search-open {
   height: 100%;
   transition: all 500ms;
   transition-timing-function: ease-in;
-  opacity: 0.95;
+  opacity: 0;
   overflow-y: auto; }
+  .loaded #takeover-menu {
+    opacity: 0.95; }
   #takeover-menu.launch {
     display: none; }
   #takeover-menu .inner {
@@ -10587,8 +10588,10 @@ body.takeover-search-open {
   height: 100%;
   transition: all 500ms;
   transition-timing-function: ease-in;
-  opacity: 0.95;
+  opacity: 0;
   overflow-y: auto; }
+  .loaded #takeover-search {
+    opacity: 0.95; }
   #takeover-search.launch {
     display: none; }
   #takeover-search .inner {

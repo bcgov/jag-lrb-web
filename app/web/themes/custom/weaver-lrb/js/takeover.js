@@ -54,9 +54,11 @@
       if (parentLinks) {
         parentLinks.forEach((parentLink) => {
           parentLink.addEventListener('click', (e) => {
-            e.preventDefault();
             childNav = parentLink.parentNode.querySelector('ul.menu');
-            childNav.classList.toggle('active');
+            if (childNav != null) {
+              e.preventDefault();
+              childNav.classList.toggle('active');
+            }
           });
         });
       }

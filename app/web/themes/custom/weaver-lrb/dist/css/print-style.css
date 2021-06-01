@@ -426,9 +426,6 @@ body {
       visibility: hidden; }
   .entity-print .header-logo {
     margin-bottom: 2rem; }
-  .entity-print img {
-    max-width: 100%;
-    height: auto !important; }
   .entity-print .leading-decisions-wrapper {
     padding: 2rem;
     border: 1px solid #186075; }
@@ -481,6 +478,7 @@ body {
   .entity-print .form-actions,
   .entity-print i.fal,
   .entity-print img,
+  .entity-print .image-col,
   .entity-print .news-icons,
   .entity-print .news-sidebar,
   .entity-print #pagination-heading,
@@ -497,6 +495,10 @@ body {
   .entity-print .weaver-next {
     display: none;
     visibility: hidden; }
+  .entity-print img.logo {
+    display: block !important;
+    visibility: visible !important;
+    width: 350px; }
   .entity-print .bg-blue,
   .entity-print .bg-grey-lighter,
   .entity-print .bg-teal {

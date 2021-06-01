@@ -1,16 +1,13 @@
 body.takeover-menu-open,
 body.takeover-search-open {
 	overflow: hidden;
-
-	@include media-breakpoint-up(lg) {
-		margin-right: 2rem; /* compensates for missing scrollbar */
-	}
 }
 
 
 @mixin takeoverStyle($type) {
 	
 	.takeover-#{$type}-open {
+
 		#takeover-#{$type} {
 			transform: translateX(0px);
 	  	transition-timing-function: ease-out;
@@ -30,9 +27,13 @@ body.takeover-search-open {
 		height: 100%;
 		transition: all 500ms;
 		transition-timing-function: ease-in;
-		opacity: 0.95;
+		opacity: 0;
 		overflow-y: auto;
 
+		.loaded & {
+			opacity: 0.95;
+		}
+		
 		&.launch {
 			display: none;
 		}

@@ -5,9 +5,15 @@
 	width: fit-content;
   margin: 2.5rem 0;
 	padding: 0 !important;
+  opacity: 0;
   background-color: $white;
   text-align: left !important;
   font-weight: $font-weight-bold;
+  transition: opacity 500ms;
+
+  .loaded & {
+    opacity: 1;
+  }
 
   &p {
     &:first-child {

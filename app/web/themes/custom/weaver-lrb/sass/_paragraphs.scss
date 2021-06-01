@@ -347,7 +347,7 @@
 				
 				h3 {
 					font-size: 1rem;
-					transition: all 500ms;
+					transition: color 500ms, text-decoration 500ms;
 
 					@media screen and (min-width: 360px) {
 						font-size: 1.25rem;

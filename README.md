@@ -49,7 +49,9 @@ To apply changes to these files in OpenShift:
 
 1. Update the file that needs to be updated.
 
-2. From within the [openshift](./openshift) folder, use the `manage` script to updathe the deployed files, e.g.: `./manage -e dev deploy` to update the `dev` environment.
+2. Log into the OCP and switch to the environment you wish to update.
+
+3. From within the [openshift](./openshift) folder, use the `manage` script to update the deployed files, e.g.: `./manage -e dev deploy` to update the `dev` environment.
 
 **Please Note:** the `manage` script extends functionality provided by the [openshift-developer-tools](https://github.com/BCDevOps/openshift-developer-tools) and therefore requires them to be installed and on the path in order to work properly.
 

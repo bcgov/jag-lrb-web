@@ -1,6 +1,6 @@
 AuthType Basic
 AuthUserFile /opt/drupal/web/.htpasswd
-AuthName "BCLRB Dev Site"
+AuthName "BCLRB Test Site"
 require valid-user
 ################################################
 

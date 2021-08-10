@@ -27,8 +27,15 @@ class LRBSnowplowSettingsForm extends ConfigFormBase {
     $form['code']['snowplow_active'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable Snowplow'),
-      '#description' => $this->t('This will active Snowplow analytics tracking for non-logged-in visitors.'),
+      '#description' => $this->t('This will activate Snowplow analytics tracking for non-logged-in visitors.'),
       '#default_value' => $config->get('lrb_snowplow.code.snowplow_active'),
+    ];
+
+    $form['code']['snowplow_script'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Snowplow Embed Code'),
+      '#description' => $this->t('Custom script that will appear for non-logged-in visitors.'),
+      '#default_value' => $config->get('lrb_snowplow.code.snowplow_script'),
     ];
 
     return $form;
@@ -51,9 +58,7 @@ class LRBSnowplowSettingsForm extends ConfigFormBase {
 
     $config->set('lrb_snowplow.code.snowplow_active', $form_state->getValue('snowplow_active'));
 
-    $config->set('lrb_snowplow.code.header', $form_state->getValue('header'));
-
-    $config->set('lrb_snowplow.code.footer', $form_state->getValue('footer'));
+    $config->set('lrb_snowplow.code.snowplow_script', $form_state->getValue('snowplow_script'));
 
     $config->save();
 

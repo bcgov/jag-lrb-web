@@ -14,7 +14,7 @@ function lrb_snowplow_page_attachments_alter(array &$attachments) {
 			  [
 			  	'#type'  => 'html_tag',
 			    '#tag'   => 'script',
-			    '#value' => '<script type="text/javascript">' . file_get_contents(drupal_get_path('module', 'lrb_snowplow') . '/js/lrb_snowplow.js') . '</script>',
+			    '#value' => $config->get('lrb_snowplow.code.snowplow_script'),
 			  ], 
 			  'lrb_snowplow'
 			];

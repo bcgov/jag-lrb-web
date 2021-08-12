@@ -191,6 +191,20 @@ function weaver_preprocess_entity_print(&$variables) {
   $variables['site_name'] = $config->getOriginal('name', false);  
 }
 
+function weaver_preprocess_html(&$variables) {
+
+  $variables['snowplow'] = '';
+
+  $config = \Drupal::config('lrb_snowplow.settings');
+  
+  $enabled = $config->get('lrb_snowplow.code.snowplow_active');
+  
+  // check if enabled
+  if ($enabled == TRUE) {
+    $variables['snowplow'] = '<script>' . $config->get('lrb_snowplow.code.snowplow_script') . '</script>';
+  }
+}
+
 function weaver_preprocess_media(&$variables) {
   $media_entity = $variables['media'];
 

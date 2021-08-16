@@ -26,7 +26,7 @@ body {
   background-image: url("../../images/background.svg");
   background-position: top left; /* LTR */
 
-  &.js-fixed {
+  &.is-fixed {
     position: fixed;
     overflow: hidden;
     width: 100%;
@@ -42,6 +42,11 @@ a {
 
   &:hover {
     color: var(--color--blue-50);
+  }
+
+  &:focus {
+    outline: solid 2px currentColor;
+    outline-offset: 2px;
   }
 }
 
@@ -117,6 +122,6 @@ ul {
   background: var(--color--blue-20);
 }
 
-.js-overlay-active .overlay {
+.is-overlay-active .overlay {
   display: block;
 }

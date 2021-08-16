@@ -32,7 +32,7 @@ body {
   background-position: top left /* LTR */
 }
 
-body.js-fixed {
+body.is-fixed {
     position: fixed;
     overflow: hidden;
     width: 100%;
@@ -48,6 +48,11 @@ a {
 
 a:hover {
     color: #2494db;
+  }
+
+a:focus {
+    outline: solid 2px currentColor;
+    outline-offset: 2px;
   }
 
 img,
@@ -160,6 +165,6 @@ ul {
   background: #0d77b5;
 }
 
-.js-overlay-active .overlay {
+.is-overlay-active .overlay {
   display: block;
 }

@@ -63,7 +63,7 @@ class FieldInstance extends DrupalSqlBase {
       ->condition('fc.storage_active', 1)
       ->condition('fc.deleted', 0)
       ->condition('fci.deleted', 0);
-    $query->join('field_config', 'fc', 'fci.field_id = fc.id');
+    $query->join('field_config', 'fc', '[fci].[field_id] = [fc].[id]');
 
     // Optionally filter by entity type and bundle.
     if (isset($this->configuration['entity_type'])) {
@@ -148,10 +148,10 @@ class FieldInstance extends DrupalSqlBase {
     if ($row->getSourceProperty('entity_type') == 'node') {
       $language_content_type_bundle = (int) $this->variableGet('language_content_type_' . $row->getSourceProperty('bundle'), 0);
       // language_content_type_[bundle] may be
-      //   - 0: no language support
-      //   - 1: language assignment support
-      //   - 2: node translation support
-      //   - 4: entity translation support
+      // - 0: no language support
+      // - 1: language assignment support
+      // - 2: node translation support
+      // - 4: entity translation support
       if ($language_content_type_bundle === 2 || ($language_content_type_bundle === 4 && $row->getSourceProperty('translatable'))) {
         $translatable = TRUE;
       }
@@ -215,6 +215,17 @@ class FieldInstance extends DrupalSqlBase {
       }
     }
 
+    // Get the user roles for user reference fields.
+    if ($row->getSourceProperty('type') == 'user_reference') {
+      $data = unserialize($field_definition['data']);
+      if (!empty($data['settings']['referenceable_roles'])) {
+        $rid = $data['settings']['referenceable_roles'];
+        $query = $this->select('role', 'r')->fields('r')
+          ->condition('rid', $rid, 'IN');
+        $results = $query->execute()->fetchAll();
+        $row->setSourceProperty('roles', $results);
+      }
+    }
     return parent::prepareRow($row);
   }
 

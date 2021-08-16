@@ -4,6 +4,9 @@ namespace Drupal\Tests\migrate_drupal_ui\Functional\d7;
 
 use Drupal\node\Entity\Node;
 use Drupal\Tests\migrate_drupal_ui\Functional\MigrateUpgradeExecuteTestBase;
+use Drupal\user\Entity\User;
+
+// cspell:ignore Multiupload Imagefield
 
 /**
  * Tests Drupal 7 upgrade using the migrate UI.
@@ -15,22 +18,18 @@ use Drupal\Tests\migrate_drupal_ui\Functional\MigrateUpgradeExecuteTestBase;
 class Upgrade7Test extends MigrateUpgradeExecuteTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
-    'file',
-    'language',
-    'config_translation',
-    'content_translation',
-    'migrate_drupal_ui',
-    'telephone',
     'aggregator',
     'book',
+    'config_translation',
+    'content_translation',
     'forum',
-    'rdf',
+    'language',
+    'migrate_drupal_ui',
     'statistics',
+    'telephone',
   ];
 
   /**
@@ -85,8 +84,8 @@ class Upgrade7Test extends MigrateUpgradeExecuteTestBase {
       'contact_form' => 3,
       'contact_message' => 0,
       'editor' => 2,
-      'field_config' => 84,
-      'field_storage_config' => 63,
+      'field_config' => 90,
+      'field_storage_config' => 69,
       'file' => 3,
       'filter_format' => 7,
       'image_style' => 7,
@@ -110,7 +109,7 @@ class Upgrade7Test extends MigrateUpgradeExecuteTestBase {
       'date_format' => 11,
       'entity_form_display' => 24,
       'entity_form_mode' => 1,
-      'entity_view_display' => 36,
+      'entity_view_display' => 37,
       'entity_view_mode' => 14,
       'base_field_override' => 4,
     ];
@@ -163,7 +162,10 @@ class Upgrade7Test extends MigrateUpgradeExecuteTestBase {
       'List',
       'Menu',
       'Menu translation',
+      'Multiupload Filefield Widget',
+      'Multiupload Imagefield Widget',
       'Node',
+      'Node Reference',
       'Number',
       'Options',
       'Path',
@@ -177,9 +179,11 @@ class Upgrade7Test extends MigrateUpgradeExecuteTestBase {
       'System',
       'Taxonomy translation',
       'Taxonomy',
+      'Telephone',
       'Text',
       'Title',
       'User',
+      'User Reference',
       'Variable translation',
       // Include modules that do not have an upgrade path and are enabled in the
       // source database.
@@ -201,6 +205,7 @@ class Upgrade7Test extends MigrateUpgradeExecuteTestBase {
    */
   protected function getMissingPaths() {
     return [
+      'References',
       'Translation sets',
       'Variable realm',
       'Variable store',
@@ -216,8 +221,9 @@ class Upgrade7Test extends MigrateUpgradeExecuteTestBase {
   /**
    * Executes all steps of migrations upgrade.
    */
-  public function testMigrateUpgradeExecute() {
-    parent::testMigrateUpgradeExecute();
+  public function testUpgradeAndIncremental() {
+    // Perform upgrade followed by an incremental upgrade.
+    $this->doUpgradeAndIncremental();
 
     // Ensure a migrated user can log in.
     $this->assertUserLogIn(2, 'a password');
@@ -243,6 +249,8 @@ class Upgrade7Test extends MigrateUpgradeExecuteTestBase {
     $this->assertSame('2', $translation->get('field_reference')->target_id);
     $this->assertSame('2', $translation->get('field_reference_2')->target_id);
 
+    $user = User::load(2);
+    $this->assertSame('2', $user->get('field_reference')->target_id);
   }
 
 }

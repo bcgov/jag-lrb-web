@@ -253,8 +253,8 @@ class JsonApiDocumentTopLevelNormalizerTest extends JsonapiKernelTestBase {
     $normalized = $jsonapi_doc_object->getNormalization();
 
     // @see http://jsonapi.org/format/#document-jsonapi-object
-    $this->assertEquals($normalized['jsonapi']['version'], '1.0');
-    $this->assertEquals($normalized['jsonapi']['meta']['links']['self']['href'], 'http://jsonapi.org/format/1.0/');
+    $this->assertEquals('1.0', $normalized['jsonapi']['version']);
+    $this->assertEquals('http://jsonapi.org/format/1.0/', $normalized['jsonapi']['meta']['links']['self']['href']);
 
     $this->assertSame($normalized['data']['attributes']['title'], 'dummy_title');
     $this->assertEquals($normalized['data']['id'], $this->node->uuid());
@@ -338,7 +338,7 @@ class JsonApiDocumentTopLevelNormalizerTest extends JsonapiKernelTestBase {
     $normalized = $jsonapi_doc_object->getNormalization();
     $this->assertSame($normalized['data']['attributes']['name'], 'user1');
     $this->assertEquals($normalized['data']['id'], User::load(1)->uuid());
-    $this->assertEquals($normalized['data']['type'], 'user--user');
+    $this->assertEquals('user--user', $normalized['data']['type']);
     // Make sure that the cache tags for the includes and the requested entities
     // are bubbling as expected.
     $this->assertSame(['user:1'], $jsonapi_doc_object->getCacheTags());
@@ -603,7 +603,7 @@ class JsonApiDocumentTopLevelNormalizerTest extends JsonapiKernelTestBase {
         continue;
       }
 
-      /* @var \Drupal\node\Entity\Node $node */
+      /** @var \Drupal\node\Entity\Node $node */
       $this->assertInstanceOf(Node::class, $node);
       $this->assertSame('Testing article', $node->getTitle());
       if (!empty($expected['user_id'])) {

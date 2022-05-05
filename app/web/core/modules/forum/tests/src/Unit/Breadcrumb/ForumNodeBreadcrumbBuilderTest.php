@@ -66,7 +66,7 @@ class ForumNodeBreadcrumbBuilderTest extends UnitTestCase {
           $translation_manager,
         ]
       )
-      ->setMethods(NULL)
+      ->onlyMethods([])
       ->getMock();
 
     $route_match = $this->createMock('Drupal\Core\Routing\RouteMatchInterface');
@@ -221,8 +221,8 @@ class ForumNodeBreadcrumbBuilderTest extends UnitTestCase {
     ];
     $breadcrumb = $breadcrumb_builder->build($route_match);
     $this->assertEquals($expected1, $breadcrumb->getLinks());
-    $this->assertEquals(['route'], $breadcrumb->getCacheContexts());
-    $this->assertEquals(['taxonomy_term:1', 'taxonomy_vocabulary:5'], $breadcrumb->getCacheTags());
+    $this->assertEqualsCanonicalizing(['route'], $breadcrumb->getCacheContexts());
+    $this->assertEqualsCanonicalizing(['taxonomy_term:1', 'taxonomy_vocabulary:5'], $breadcrumb->getCacheTags());
     $this->assertEquals(Cache::PERMANENT, $breadcrumb->getCacheMaxAge());
 
     // Second test.
@@ -234,8 +234,8 @@ class ForumNodeBreadcrumbBuilderTest extends UnitTestCase {
     ];
     $breadcrumb = $breadcrumb_builder->build($route_match);
     $this->assertEquals($expected2, $breadcrumb->getLinks());
-    $this->assertEquals(['route'], $breadcrumb->getCacheContexts());
-    $this->assertEquals(['taxonomy_term:1', 'taxonomy_term:2', 'taxonomy_vocabulary:5'], $breadcrumb->getCacheTags());
+    $this->assertEqualsCanonicalizing(['route'], $breadcrumb->getCacheContexts());
+    $this->assertEqualsCanonicalizing(['taxonomy_term:1', 'taxonomy_term:2', 'taxonomy_vocabulary:5'], $breadcrumb->getCacheTags());
     $this->assertEquals(Cache::PERMANENT, $breadcrumb->getCacheMaxAge());
   }
 

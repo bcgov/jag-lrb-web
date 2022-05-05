@@ -11,7 +11,7 @@
 # - File modes.
 # - No changes to core/node_modules directory.
 # - PHPCS checks PHP and YAML files.
-# - Eslint checks JavaScript files.
+# - ESLint checks JavaScript and YAML files.
 # - Checks .es6.js and .js files are equivalent.
 # - Stylelint checks CSS files.
 # - Checks .pcss.css and .css files are equivalent.
@@ -110,6 +110,13 @@ TOP_LEVEL=$(git rev-parse --show-toplevel)
 # This variable will be set to one when the file core/phpcs.xml.dist is changed.
 PHPCS_XML_DIST_FILE_CHANGED=0
 
+# This variable will be set to one when one of the eslint config file is
+# changed:
+#  - core/.eslintrc.passing.json
+#  - core/.eslintrc.json
+#  - core/.eslintrc.jquery.json
+ESLINT_CONFIG_PASSING_FILE_CHANGED=0
+
 # Build up a list of absolute file names.
 ABS_FILES=
 for FILE in $FILES; do
@@ -117,6 +124,10 @@ for FILE in $FILES; do
 
   if [[ $FILE == "core/phpcs.xml.dist" ]]; then
     PHPCS_XML_DIST_FILE_CHANGED=1;
+  fi;
+
+  if [[ $FILE == "core/.eslintrc.json" || $FILE == "core/.eslintrc.passing.json" || $FILE == "core/.eslintrc.jquery.json" ]]; then
+    ESLINT_CONFIG_PASSING_FILE_CHANGED=1;
   fi;
 done
 
@@ -146,7 +157,7 @@ cd "$TOP_LEVEL/core"
 # Ensure JavaScript development dependencies are installed.
 yarn check -s 2>/dev/null
 if [ "$?" -ne "0" ]; then
-  printf "Drupal's JavaScript development dependencies are not installed. Run 'yarn install' inside the core directory.\n"
+  printf "Drupal's JavaScript development dependencies are not installed or cannot be resolved. Run 'yarn install' inside the core directory, or 'yarn check -s' to list other errors.\n"
   DEPENDENCIES_NEED_INSTALLING=1;
 fi
 
@@ -155,7 +166,7 @@ if [ $DEPENDENCIES_NEED_INSTALLING -ne 0 ]; then
 fi
 
 # Check all files for spelling in one go for better performance.
-yarn run -s spellcheck -c $TOP_LEVEL/core/.cspell.json $ABS_FILES
+yarn run -s spellcheck --no-must-find-files -c $TOP_LEVEL/core/.cspell.json $ABS_FILES
 if [ "$?" -ne "0" ]; then
   # If there are failures set the status to a number other than 0.
   FINAL_STATUS=1
@@ -182,6 +193,29 @@ if [[ $PHPCS_XML_DIST_FILE_CHANGED == "1" ]]; then
   else
     printf "\nPHPCS: ${green}passed${reset}\n"
   fi
+  # Add a separator line to make the output easier to read.
+  printf "\n"
+  printf -- '-%.0s' {1..100}
+  printf "\n"
+fi
+
+# When the eslint config has been changed, then eslint must check all files.
+if [[ $ESLINT_CONFIG_PASSING_FILE_CHANGED == "1" ]]; then
+  cd "$TOP_LEVEL/core"
+  yarn run -s lint:core-js-passing "$TOP_LEVEL/core"
+  CORRECTJS=$?
+  if [ "$CORRECTJS" -ne "0" ]; then
+    # If there are failures set the status to a number other than 0.
+    FINAL_STATUS=1
+    printf "\neslint: ${red}failed${reset}\n"
+  else
+    printf "\neslint: ${green}passed${reset}\n"
+  fi
+  cd $TOP_LEVEL
+  # Add a separator line to make the output easier to read.
+  printf "\n"
+  printf -- '-%.0s' {1..100}
+  printf "\n"
 fi
 
 for FILE in $FILES; do
@@ -233,9 +267,26 @@ for FILE in $FILES; do
   fi
 
   ############################################################################
+  ### YAML FILES
+  ############################################################################
+  if [[ -f "$TOP_LEVEL/$FILE" ]] && [[ $FILE =~ \.yml$ ]]; then
+    # Test files with ESLint.
+    cd "$TOP_LEVEL/core"
+    node ./node_modules/eslint/bin/eslint.js --quiet --resolve-plugins-relative-to . "$TOP_LEVEL/$FILE"
+    YAMLLINT=$?
+    if [ "$YAMLLINT" -ne "0" ]; then
+      # If there are failures set the status to a number other than 0.
+      STATUS=1
+    else
+      printf "ESLint: $FILE ${green}passed${reset}\n"
+    fi
+    cd $TOP_LEVEL
+  fi
+
+  ############################################################################
   ### JAVASCRIPT FILES
   ############################################################################
-  if [[ -f "$TOP_LEVEL/$FILE" ]] && [[ $FILE =~ \.js$ ]] && [[ ! $FILE =~ ^core/tests/Drupal/Nightwatch ]] && [[ ! $FILE =~ ^core/assets/vendor/jquery.ui/ui ]]; then
+  if [[ -f "$TOP_LEVEL/$FILE" ]] && [[ $FILE =~ \.js$ ]] && [[ ! $FILE =~ ^core/tests/Drupal/Nightwatch ]] && [[ ! $FILE =~ /tests/src/Nightwatch/ ]] && [[ ! $FILE =~ ^core/modules/ckeditor5/js/ckeditor5_plugins ]]; then
     # Work out the root name of the JavaScript so we can ensure that the ES6
     # version has been compiled correctly.
     if [[ $FILE =~ \.es6\.js$ ]]; then
@@ -276,41 +327,8 @@ for FILE in $FILES; do
     else
       # If there is no .es6.js file then there should be unless the .js is
       # not really Drupal's.
-      if ! [[ "$FILE" =~ ^core/assets/vendor ]] && ! [[ "$FILE" =~ ^core/scripts/js ]] && ! [[ "$FILE" =~ ^core/scripts/css ]] && ! [[ "$FILE" =~ core/postcss.config.js ]] && ! [[ -f "$TOP_LEVEL/$BASENAME.es6.js" ]]; then
+      if ! [[ "$FILE" =~ ^core/assets/vendor ]] && ! [[ "$FILE" =~ ^core/modules/ckeditor5/js/build ]] && ! [[ "$FILE" =~ ^core/scripts/js ]] && ! [[ "$FILE" =~ ^core/scripts/css ]] && ! [[ "$FILE" =~ core/postcss.config.js ]] && ! [[ "$FILE" =~ webpack.config.js$ ]] && ! [[ -f "$TOP_LEVEL/$BASENAME.es6.js" ]] && ! [[ "$FILE" =~ core/modules/ckeditor5/tests/modules/ckeditor5_test/js/build/layercake.js ]]; then
         printf "${red}FAILURE${reset} $FILE does not have a corresponding $BASENAME.es6.js\n"
-        STATUS=1
-      fi
-    fi
-  elif [[ -f "$TOP_LEVEL/$FILE" ]] && [[ $FILE =~ \.js$ ]] && [[ $FILE =~ ^core/assets/vendor/jquery.ui/ui ]]; then
-    ## Check for minified file changes.
-    if [[ $FILE =~ -min\.js$ ]]; then
-      BASENAME=${FILE%-min.js}
-      contains_element "$BASENAME.js" "${FILES[@]}"
-      HASSRC=$?
-      if [ "$HASSRC" -ne "0" ]; then
-        COMPILE_CHECK=1
-      else
-        ## Source was also changed and will be checked.
-        COMPILE_CHECK=0
-      fi
-    else
-      ## Check for source changes.
-      BASENAME=${FILE%.js}
-      COMPILE_CHECK=1
-    fi
-    if [[ "$COMPILE_CHECK" == "1" ]] && [[ -f "$TOP_LEVEL/$BASENAME.js" ]]; then
-      cd "$TOP_LEVEL/core"
-      yarn run build:jqueryui --check --file "$TOP_LEVEL/$BASENAME.js"
-      CORRECTJS=$?
-      if [ "$CORRECTJS" -ne "0" ]; then
-        # The yarn run command will write any error output.
-        STATUS=1
-      fi
-      cd $TOP_LEVEL
-    else
-      # If there is no .js source file
-      if ! [[ -f "$TOP_LEVEL/$BASENAME.js" ]]; then
-        printf "${red}FAILURE${reset} $FILE does not have a corresponding $BASENAME.js\n"
         STATUS=1
       fi
     fi
@@ -373,7 +391,7 @@ for FILE in $FILES; do
     # has a corresponding .pcss don't do stylelint.
     if [[ $FILE =~ \.pcss\.css$ ]] || [[ ! -f "$TOP_LEVEL/$BASENAME.pcss.css" ]]; then
       cd "$TOP_LEVEL/core"
-      node_modules/.bin/stylelint "$TOP_LEVEL/$FILE"
+      node_modules/.bin/stylelint --allow-empty-input "$TOP_LEVEL/$FILE"
       if [ "$?" -ne "0" ]; then
         STATUS=1
       else

@@ -37,7 +37,7 @@
         "ckeditor/liststyle": "4.8.0",
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
-        "dompdf/dompdf": "0.8.5",
+        "dompdf/dompdf": "^1.2",
         "drupal/address": "^1.8",
         "drupal/admin_toolbar": "^2.3",
         "drupal/adminimal_admin_toolbar": "^1.11",
@@ -136,7 +136,15 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "cweagans/composer-patches": true,
+            "composer/installers": true,
+            "drupal/core-composer-scaffold": true,
+            "drupal/core-project-message": true,
+            "drupal/console-extend-plugin": true,
+            "oomphinc/composer-installers-extender": true
+        }
     },
     "extra": {
         "drupal-scaffold": {

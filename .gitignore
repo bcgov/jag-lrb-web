@@ -12,5 +12,6 @@
 
 # Visual Studio Code
 .vscode
-.idea/*
 .vs
+.idea/*
+*.iml

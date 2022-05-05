@@ -1,4 +1,4 @@
-FROM drupal:9.0.11-apache
+FROM drupal:9.3.12-apache
 
 RUN apt-get update \
     && apt install git -y

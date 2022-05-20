@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "afcda772b737c4d9d707a09eb8ab3fc7",
+    "content-hash": "cb59157b9b9912924aa3452845b3c634",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -6760,30 +6760,30 @@
         },
         {
             "name": "drupal/search_api_attachments",
-            "version": "1.0.0-beta18",
+            "version": "9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/search_api_attachments.git",
-                "reference": "8.x-1.0-beta18"
+                "reference": "9.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api_attachments-8.x-1.0-beta18.zip",
-                "reference": "8.x-1.0-beta18",
-                "shasum": "e770ae27a7f5c2f9a7c3064d14a1f110ae98acf0"
+                "url": "https://ftp.drupal.org/files/projects/search_api_attachments-9.0.0.zip",
+                "reference": "9.0.0",
+                "shasum": "6f0071520ae1555a233473cdd6dffcb6498e6738"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
+                "drupal/core": "^9 || ^10",
                 "drupal/search_api": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta18",
-                    "datestamp": "1632333998",
+                    "version": "9.0.0",
+                    "datestamp": "1641200225",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -14591,7 +14591,6 @@
         "drupal/inline_entity_form": 5,
         "drupal/masquerade": 10,
         "drupal/maxlength": 5,
-        "drupal/search_api_attachments": 10,
         "drupal/security_review": 15,
         "drupal/typed_data": 15,
         "drupal/viewfield": 10,

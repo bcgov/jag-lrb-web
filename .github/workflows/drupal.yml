@@ -34,12 +34,11 @@ jobs:
         run: |
           repo="${{ secrets.OPENSHIFT_SILVER_EXTERNAL_REPOSITORY }}/${{ secrets.OPENSHIFT_SILVER_LICENSE_PLATE }}-tools/drupal"
           tags="$repo:latest"
-          if [ -z "${{ needs.github-tag.outputs.git-tag }}"]; then
+          if [ "${{ needs.github-tag.outputs.git-tag }}"]; then
             git_tag="$repo:${{ needs.github-tag.outputs.git-tag }}"
             tags="$tags\n$git_tag"
           fi
-          echo "::set-output name=image_tags::$tags"
-          echo $tags
+          echo "image_tags=$tags" >> $GITHUB_ENV
 
       - name: Build from Dockerfile
         id: build-image

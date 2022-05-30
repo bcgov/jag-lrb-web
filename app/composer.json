@@ -95,7 +95,7 @@
         "drupal/recaptcha": "^3.0",
         "drupal/redirect": "^1.6",
         "drupal/rename_admin_paths": "^2.0",
-        "drupal/salesforce": "^4.1",
+        "drupal/salesforce": "^5.0",
         "drupal/search_api": "^1.23",
         "drupal/search_api_attachments": "^9.0",
         "drupal/search_api_autocomplete": "^1.6",

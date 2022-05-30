@@ -23,7 +23,7 @@ jobs:
 
     - name: Docker Login
       run: |
-        docker login -u openshift -p $(oc whoami -t) "${OPENSHIFT_SILVER_EXTERNAL_REPOSITORY}/${{ secrets.OPENSHIFT_SILVER_LICENSE_PLATE }}-tools"
+        docker login -u openshift -p $(oc whoami -t) "${{ secrets.OPENSHIFT_SILVER_EXTERNAL_REPOSITORY }}/${{ secrets.OPENSHIFT_SILVER_LICENSE_PLATE }}-tools"
 
 #    - name: Build from Dockerfile
 #      id: build-image

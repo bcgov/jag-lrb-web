@@ -25,17 +25,23 @@ jobs:
       run: |
         docker login -u openshift -p $(oc whoami -t) "${{ secrets.OPENSHIFT_SILVER_EXTERNAL_REPOSITORY }}/${{ secrets.OPENSHIFT_SILVER_LICENSE_PLATE }}-tools"
 
-#    - name: Build from Dockerfile
-#      id: build-image
-#      uses: docker/build-push-action@v2
-#      with:
-#        push: true
-#        tags: |
-#          ${{ secrets.openshift_external_repository }}/${{ env.OPENSHIFT_NAMESPACE }}/${{ inputs.app_name }}:latest
-#          ${{ secrets.openshift_external_repository }}/${{ env.OPENSHIFT_NAMESPACE }}/${{ inputs.app_name }}:${{ inputs.app_version }}
-#        context: "./${{ inputs.working_directory }}"
-#        file: "./${{ inputs.working_directory }}/${{ inputs.dockerfile }}"
-#        build-args: |
-#          APP_NAME=${{ inputs.app_name }}
-#          APP_VERSION=${{ inputs.app_version }}
+    - name: Image Tags
+      run: |
+        repo="${{ secrets.OPENSHIFT_SILVER_EXTERNAL_REPOSITORY }}/${{ secrets.OPENSHIFT_SILVER_LICENSE_PLATE }}-tools/drupal"
+        tags="$repo:latest"
+        if [ -z "${{ needs.github-tag.outputs.git-tag }}"]; then
+          git_tag="$repo:${{ needs.github-tag.outputs.git-tag }}"
+          tags='$tags\n$git_tag'
+        fi
+        echo "::set-output name=image_tags::$tags"
+        echo $tags
+
+    - name: Build from Dockerfile
+      id: build-image
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: "${{ env.image_tags }}"
+        context: "."
+        file: "./docker/drupal/Dockerfile"
 

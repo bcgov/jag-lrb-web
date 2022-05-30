@@ -38,7 +38,7 @@ jobs:
             git_tag="$repo:${{ needs.github-tag.outputs.git-tag }}"
             tags="$tags\n$git_tag"
           fi
-          echo "image_tags=$tags" >> $GITHUB_ENV
+          echo "image_tags=$tags" | tee -a $GITHUB_ENV
 
       - name: Build from Dockerfile
         id: build-image

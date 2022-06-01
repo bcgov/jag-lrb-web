@@ -242,7 +242,20 @@
                 "Drupal 9 Deprecated Code Report": "https://www.drupal.org/files/issues/2020-05-25/text_resize-D9_compatibility-3073768-5.patch"
             }
         },
-        "enable-patching": true
+        "enable-patching": true,
+        "merge-plugin": {
+            "include": [
+                "composer.json",
+                "composer.*.json"
+            ],
+            "recurse": true,
+            "replace": false,
+            "ignore-duplicates": false,
+            "merge-dev": true,
+            "merge-extra": false,
+            "merge-extra-deep": false,
+            "merge-scripts": false
+        }
     },
     "require-dev": {
         "components/font-awesome": "^5.15"

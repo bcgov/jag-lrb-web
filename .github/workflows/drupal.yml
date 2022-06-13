@@ -1,8 +1,8 @@
 on:
   workflow_dispatch: { }
   push:
-    branches: [ "main",  "feature/update-to-drupal-9-3-12" ]
-  #    paths: [ "app/**" ]
+    branches: [ "main" ]
+      paths: [ "app/**" ]
   create:
     tags:
       - "*"

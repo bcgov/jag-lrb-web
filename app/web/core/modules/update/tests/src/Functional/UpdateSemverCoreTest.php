@@ -278,10 +278,10 @@ class UpdateSemverCoreTest extends UpdateSemverTestBase {
     ];
     $this->config('update_test.settings')->set('system_info', $system_info)->save();
     $this->refreshUpdateStatus(['drupal' => 'dev']);
-    $this->assertNoText('2001-Sep-');
+    $this->assertSession()->pageTextNotContains('2001-Sep-');
     $this->assertSession()->pageTextContains('Up to date');
-    $this->assertNoText('Update available');
-    $this->assertNoText('Security update required!');
+    $this->assertSession()->pageTextNotContains('Update available');
+    $this->assertSession()->pageTextNotContains('Security update required!');
   }
 
   /**
@@ -298,7 +298,7 @@ class UpdateSemverCoreTest extends UpdateSemverTestBase {
 
     $this->cronRun();
     $this->drupalGet('admin/modules');
-    $this->assertNoText('No update information available.');
+    $this->assertSession()->pageTextNotContains('No update information available.');
   }
 
   /**
@@ -336,14 +336,18 @@ class UpdateSemverCoreTest extends UpdateSemverTestBase {
     $this->checkForMetaRefresh();
     $this->assertSession()->pageTextContains('Checked available update data for one project.');
     $this->drupalGet('admin/modules');
-    $this->assertNoText('There are updates available for your version of Drupal.');
-    $this->assertNoText('There is a security update available for your version of Drupal.');
+    $this->assertSession()->pageTextNotContains('There are updates available for your version of Drupal.');
+    $this->assertSession()->pageTextNotContains('There is a security update available for your version of Drupal.');
   }
 
   /**
    * Checks the messages at admin/modules when an update is missing.
    */
   public function testModulePageRegularUpdate() {
+    $this->drupalLogin($this->drupalCreateUser([
+      'administer site configuration',
+      'administer modules',
+    ]));
     $this->setProjectInstalledVersion('8.0.0');
     // Instead of using refreshUpdateStatus(), set these manually.
     $this->config('update.settings')
@@ -359,13 +363,18 @@ class UpdateSemverCoreTest extends UpdateSemverTestBase {
     $this->assertSession()->pageTextContains('Checked available update data for one project.');
     $this->drupalGet('admin/modules');
     $this->assertSession()->pageTextContains('There are updates available for your version of Drupal.');
-    $this->assertNoText('There is a security update available for your version of Drupal.');
+    $this->assertSession()->pageTextNotContains('There is a security update available for your version of Drupal.');
   }
 
   /**
    * Checks the messages at admin/modules when a security update is missing.
    */
   public function testModulePageSecurityUpdate() {
+    $this->drupalLogin($this->drupalCreateUser([
+      'administer site configuration',
+      'administer modules',
+      'administer themes',
+    ]));
     $this->setProjectInstalledVersion('8.0.0');
     // Instead of using refreshUpdateStatus(), set these manually.
     $this->config('update.settings')
@@ -380,12 +389,12 @@ class UpdateSemverCoreTest extends UpdateSemverTestBase {
     $this->checkForMetaRefresh();
     $this->assertSession()->pageTextContains('Checked available update data for one project.');
     $this->drupalGet('admin/modules');
-    $this->assertNoText('There are updates available for your version of Drupal.');
+    $this->assertSession()->pageTextNotContains('There are updates available for your version of Drupal.');
     $this->assertSession()->pageTextContains('There is a security update available for your version of Drupal.');
 
     // Make sure admin/appearance warns you you're missing a security update.
     $this->drupalGet('admin/appearance');
-    $this->assertNoText('There are updates available for your version of Drupal.');
+    $this->assertSession()->pageTextNotContains('There are updates available for your version of Drupal.');
     $this->assertSession()->pageTextContains('There is a security update available for your version of Drupal.');
 
     // Make sure duplicate messages don't appear on Update status pages.
@@ -393,10 +402,10 @@ class UpdateSemverCoreTest extends UpdateSemverTestBase {
     $this->assertSession()->pageTextContainsOnce('There is a security update available for your version of Drupal.');
 
     $this->drupalGet('admin/reports/updates');
-    $this->assertNoText('There is a security update available for your version of Drupal.');
+    $this->assertSession()->pageTextNotContains('There is a security update available for your version of Drupal.');
 
     $this->drupalGet('admin/reports/updates/settings');
-    $this->assertNoText('There is a security update available for your version of Drupal.');
+    $this->assertSession()->pageTextNotContains('There is a security update available for your version of Drupal.');
   }
 
   /**
@@ -405,7 +414,7 @@ class UpdateSemverCoreTest extends UpdateSemverTestBase {
   public function testServiceUnavailable() {
     $this->refreshUpdateStatus([], '503-error');
     // Ensure that no "Warning: SimpleXMLElement..." parse errors are found.
-    $this->assertNoText('SimpleXMLElement');
+    $this->assertSession()->pageTextNotContains('SimpleXMLElement');
     $this->assertSession()->pageTextContainsOnce('Failed to get available update data for one project.');
   }
 

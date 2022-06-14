@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\system\Functional\Module;
 
+use Drupal\Component\Serialization\Yaml;
 use Drupal\Component\Utility\Unicode;
 
 /**
@@ -66,7 +67,8 @@ class DependencyTest extends ModuleTestBase {
     // Test that the system_dependencies_test module is marked
     // as missing a dependency.
     $this->drupalGet('admin/modules');
-    $this->assertRaw(t('@module (<span class="admin-missing">missing</span>)', ['@module' => Unicode::ucfirst('_missing_dependency')]));
+    $this->assertSession()->pageTextContains(Unicode::ucfirst('_missing_dependency') . ' (missing)');
+    $this->assertSession()->elementTextEquals('xpath', '//tr[@data-drupal-selector="edit-modules-system-dependencies-test"]//span[@class="admin-missing"]', 'missing');
     $this->assertSession()->checkboxNotChecked('modules[system_dependencies_test][enable]');
   }
 
@@ -78,10 +80,8 @@ class DependencyTest extends ModuleTestBase {
     // Test that the system_incompatible_module_version_dependencies_test is
     // marked as having an incompatible dependency.
     $this->drupalGet('admin/modules');
-    $this->assertRaw(t('@module (<span class="admin-missing">incompatible with</span> version @version)', [
-      '@module' => 'System incompatible module version test (>2.0)',
-      '@version' => '1.0',
-    ]));
+    $this->assertSession()->pageTextContains('System incompatible module version test (>2.0) (incompatible with version 1.0)');
+    $this->assertSession()->elementTextEquals('xpath', '//tr[@data-drupal-selector="edit-modules-system-incompatible-module-version-dependencies-test"]//span[@class="admin-missing"]', 'incompatible with');
     $this->assertSession()->fieldDisabled('modules[system_incompatible_module_version_dependencies_test][enable]');
   }
 
@@ -92,10 +92,51 @@ class DependencyTest extends ModuleTestBase {
     // Test that the system_incompatible_core_version_dependencies_test is
     // marked as having an incompatible dependency.
     $this->drupalGet('admin/modules');
-    $this->assertRaw(t('@module (<span class="admin-missing">incompatible with</span> this version of Drupal core)', [
-      '@module' => 'System core incompatible semver test',
-    ]));
+    $this->assertSession()->pageTextContains('System core incompatible semver test (incompatible with this version of Drupal core)');
+    $this->assertSession()->elementTextEquals('xpath', '//tr[@data-drupal-selector="edit-modules-system-incompatible-core-version-dependencies-test"]//span[@class="admin-missing"]', 'incompatible with');
     $this->assertSession()->fieldDisabled('modules[system_incompatible_core_version_dependencies_test][enable]');
+  }
+
+  /**
+   * Tests visiting admin/modules when a module outside of core has no version.
+   */
+  public function testNoVersionInfo() {
+    // Create a module for testing. We set core_version_requirement to '*' for
+    // the test so that it does not need to be updated between major versions.
+    $info = [
+      'type' => 'module',
+      'core_version_requirement' => '*',
+      'name' => 'System no module version dependency test',
+    ];
+    $path = $this->siteDirectory . '/modules/system_no_module_version_dependency_test';
+    mkdir($path, 0777, TRUE);
+    file_put_contents("$path/system_no_module_version_dependency_test.info.yml", Yaml::encode($info));
+
+    $info = [
+      'type' => 'module',
+      'core_version_requirement' => '*',
+      'name' => 'System no module version test',
+      'dependencies' => ['system_no_module_version_dependency_test'],
+    ];
+    $path = $this->siteDirectory . '/modules/system_no_module_version_test';
+    mkdir($path, 0777, TRUE);
+    file_put_contents("$path/system_no_module_version_test.info.yml", Yaml::encode($info));
+
+    $this->drupalGet('admin/modules');
+    $this->assertSession()->pageTextContains('System no module version dependency test');
+    $this->assertSession()->pageTextContains('System no module version test');
+
+    // Ensure the modules can actually be installed.
+    $edit['modules[system_no_module_version_test][enable]'] = 'system_no_module_version_test';
+    $edit['modules[system_no_module_version_dependency_test][enable]'] = 'system_no_module_version_dependency_test';
+    $this->drupalGet('admin/modules');
+    $this->submitForm($edit, 'Install');
+    $this->assertSession()->pageTextContains('2 modules have been enabled: System no module version dependency test, System no module version test.');
+
+    // Ensure status report is working.
+    $this->drupalLogin($this->createUser(['administer site configuration']));
+    $this->drupalGet('admin/reports/status');
+    $this->assertSession()->statusCodeEquals(200);
   }
 
   /**
@@ -103,7 +144,7 @@ class DependencyTest extends ModuleTestBase {
    */
   public function testIncompatiblePhpVersionDependency() {
     $this->drupalGet('admin/modules');
-    $this->assertRaw('This module requires PHP version 6502.* and is incompatible with PHP version ' . phpversion() . '.');
+    $this->assertSession()->pageTextContains('This module requires PHP version 6502.* and is incompatible with PHP version ' . phpversion() . '.');
     $this->assertSession()->fieldDisabled('modules[system_incompatible_php_version_test][enable]');
   }
 
@@ -167,26 +208,26 @@ class DependencyTest extends ModuleTestBase {
     $this->assertModules(['module_test'], TRUE);
     \Drupal::state()->set('module_test.dependency', 'dependency');
     // module_test creates a dependency chain:
-    // - color depends on config
+    // - dblog depends on config
     // - config depends on help
-    $expected_order = ['help', 'config', 'color'];
+    $expected_order = ['help', 'config', 'dblog'];
 
     // Enable the modules through the UI, verifying that the dependency chain
     // is correct.
     $edit = [];
-    $edit['modules[color][enable]'] = 'color';
+    $edit['modules[dblog][enable]'] = 'dblog';
     $this->drupalGet('admin/modules');
     $this->submitForm($edit, 'Install');
-    $this->assertModules(['color'], FALSE);
+    $this->assertModules(['dblog'], FALSE);
     // Note that dependencies are sorted alphabetically in the confirmation
     // message.
-    $this->assertSession()->pageTextContains('You must enable the Configuration Manager, Help modules to install Color.');
+    $this->assertSession()->pageTextContains('You must enable the Configuration Manager, Help modules to install Database Logging.');
 
     $edit['modules[config][enable]'] = 'config';
     $edit['modules[help][enable]'] = 'help';
     $this->drupalGet('admin/modules');
     $this->submitForm($edit, 'Install');
-    $this->assertModules(['color', 'config', 'help'], TRUE);
+    $this->assertModules(['dblog', 'config', 'help'], TRUE);
 
     // Check the actual order which is saved by module_test_modules_enabled().
     $module_order = \Drupal::state()->get('module_test.install_order', []);

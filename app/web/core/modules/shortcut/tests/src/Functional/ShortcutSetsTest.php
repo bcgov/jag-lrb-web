@@ -93,7 +93,7 @@ class ShortcutSetsTest extends ShortcutTestBase {
     }
 
     $this->submitForm($edit, 'Save');
-    $this->assertRaw(t('The shortcut set has been updated.'));
+    $this->assertSession()->pageTextContains("The shortcut set has been updated.");
 
     \Drupal::entityTypeManager()->getStorage('shortcut')->resetCache();
     // Check to ensure that the shortcut weights have changed and that
@@ -183,6 +183,20 @@ class ShortcutSetsTest extends ShortcutTestBase {
     $current_set = shortcut_current_displayed_set($this->shortcutUser);
     $default_set = shortcut_default_set($this->shortcutUser);
     $this->assertSame($default_set->id(), $current_set->id(), "Successfully unassigned another user's shortcut set.");
+  }
+
+  /**
+   * Tests assign clearing on user removal.
+   */
+  public function testShortcutSetUnassignOnUserRemoval() {
+    $new_set = $this->generateShortcutSet($this->randomMachineName());
+
+    $shortcut_set_storage = \Drupal::entityTypeManager()->getStorage('shortcut_set');
+    $shortcut_set_storage->assignUser($new_set, $this->shortcutUser);
+    $this->shortcutUser->delete();
+    $current_set = shortcut_current_displayed_set($this->shortcutUser);
+    $default_set = shortcut_default_set($this->shortcutUser);
+    $this->assertSame($default_set->id(), $current_set->id(), "Successfully cleared assigned shortcut set for removed user.");
   }
 
   /**

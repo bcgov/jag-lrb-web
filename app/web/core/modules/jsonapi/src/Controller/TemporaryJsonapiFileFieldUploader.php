@@ -19,6 +19,7 @@ use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Utility\Token;
 use Drupal\Component\Render\PlainTextOutput;
+use Drupal\Core\Entity\EntityConstraintViolationList;
 use Drupal\file\Entity\File;
 use Drupal\file\Plugin\Field\FieldType\FileFieldItemList;
 use Psr\Log\LoggerInterface;
@@ -159,7 +160,8 @@ class TemporaryJsonapiFileFieldUploader {
    */
   public function handleFileUploadForField(FieldDefinitionInterface $field_definition, $filename, AccountInterface $owner) {
     assert(is_a($field_definition->getClass(), FileFieldItemList::class, TRUE));
-    $destination = $this->getUploadLocation($field_definition->getSettings());
+    $settings = $field_definition->getSettings();
+    $destination = $this->getUploadLocation($settings);
 
     // Check the destination file path is writable.
     if (!$this->fileSystem->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY)) {
@@ -172,6 +174,9 @@ class TemporaryJsonapiFileFieldUploader {
 
     // Create the file.
     $file_uri = "{$destination}/{$prepared_filename}";
+    if ($destination === $settings['uri_scheme'] . '://') {
+      $file_uri = "{$destination}{$prepared_filename}";
+    }
 
     $temp_file_path = $this->streamUploadData();
 
@@ -195,18 +200,37 @@ class TemporaryJsonapiFileFieldUploader {
       @trigger_error('\Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface is deprecated in drupal:9.1.0 and is removed from drupal:10.0.0. Implement \Symfony\Component\Mime\MimeTypeGuesserInterface instead. See https://www.drupal.org/node/3133341', E_USER_DEPRECATED);
       $file->setMimeType($this->mimeTypeGuesser->guess($prepared_filename));
     }
-    $file->setFileUri($file_uri);
+    $file->setFileUri($temp_file_path);
     // Set the size. This is done in File::preSave() but we validate the file
     // before it is saved.
     $file->setSize(@filesize($temp_file_path));
 
-    // Validate the file entity against entity-level validation and field-level
-    // validators.
-    $violations = $this->validate($file, $validators);
-    if ($violations->count() > 0) {
+    // Validate the file against field-level validators first while the file is
+    // still a temporary file. Validation is split up in 2 steps to be the same
+    // as in _file_save_upload_single().
+    // For backwards compatibility this part is copied from ::validate() to
+    // leave that method behavior unchanged.
+    // @todo Improve this with a file uploader service in
+    //   https://www.drupal.org/project/drupal/issues/2940383
+    $errors = file_validate($file, $validators);
+    if (!empty($errors)) {
+      $violations = new EntityConstraintViolationList($file);
+      $translator = new DrupalTranslator();
+      $entity = EntityAdapter::createFromEntity($file);
+      foreach ($errors as $error) {
+        $violation = new ConstraintViolation($translator->trans($error),
+          $error,
+          [],
+          $entity,
+          '',
+          NULL
+        );
+        $violations->add($violation);
+      }
       return $violations;
     }
 
+    $file->setFileUri($file_uri);
     // Move the file to the correct location after validation. Use
     // FileSystemInterface::EXISTS_ERROR as the file location has already been
     // determined above in FileSystem::getDestinationFilename().
@@ -215,6 +239,16 @@ class TemporaryJsonapiFileFieldUploader {
     }
     catch (FileException $e) {
       throw new HttpException(500, 'Temporary file could not be moved to file location');
+    }
+
+    // Second step of the validation on the file object itself now.
+    $violations = $file->validate();
+
+    // Remove violations of inaccessible fields as they cannot stem from our
+    // changes.
+    $violations->filterByFieldAccess();
+    if ($violations->count() > 0) {
+      return $violations;
     }
 
     $file->save();
@@ -276,13 +310,17 @@ class TemporaryJsonapiFileFieldUploader {
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   (optional) The entity to which the file is to be uploaded, if it exists.
    *   If the entity does not exist and it is not given, create access to the
-   *   file will be checked.
+   *   entity the file is attached to will be checked.
    *
    * @return \Drupal\Core\Access\AccessResultInterface
    *   The file upload access result.
    */
   public static function checkFileUploadAccess(AccountInterface $account, FieldDefinitionInterface $field_definition, EntityInterface $entity = NULL) {
-    assert(is_null($entity) || $field_definition->getTargetEntityTypeId() === $entity->getEntityTypeId() && $field_definition->getTargetBundle() === $entity->bundle());
+    assert(is_null($entity) ||
+      $field_definition->getTargetEntityTypeId() === $entity->getEntityTypeId() &&
+      // Base fields do not have target bundles.
+      (is_null($field_definition->getTargetBundle()) || $field_definition->getTargetBundle() === $entity->bundle())
+    );
     $entity_type_manager = \Drupal::entityTypeManager();
     $entity_access_control_handler = $entity_type_manager->getAccessControlHandler($field_definition->getTargetEntityTypeId());
     $bundle = $entity_type_manager->getDefinition($field_definition->getTargetEntityTypeId())->hasKey('bundle') ? $field_definition->getTargetBundle() : NULL;
@@ -354,6 +392,11 @@ class TemporaryJsonapiFileFieldUploader {
 
   /**
    * Validates the file.
+   *
+   * @todo this method is unused in this class because file validation needs to
+   *   be split up in 2 steps in ::handleFileUploadForField(). Add a deprecation
+   *   notice as soon as a central core file upload service can be used in this
+   *   class. See https://www.drupal.org/project/drupal/issues/2940383
    *
    * @param \Drupal\file\FileInterface $file
    *   The file entity to validate.

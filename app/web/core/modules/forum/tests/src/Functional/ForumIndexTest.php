@@ -59,7 +59,7 @@ class ForumIndexTest extends BrowserTestBase {
 
     // Check that the node exists in the database.
     $node = $this->drupalGetNodeByTitle($title);
-    $this->assertTrue(!empty($node), 'New forum node found in database.');
+    $this->assertNotEmpty($node, 'New forum node found in database.');
 
     // Create a child forum.
     $edit = [
@@ -92,7 +92,7 @@ class ForumIndexTest extends BrowserTestBase {
 
     // Verify that the node no longer appears on the index.
     $this->drupalGet('forum/' . $tid);
-    $this->assertNoText($title);
+    $this->assertSession()->pageTextNotContains($title);
   }
 
 }

@@ -1,16 +1,51 @@
-name: Docker Image CI
-
 on:
+  workflow_dispatch: { }
   push:
-    branches: [ main ]
+    branches: [ "main" ]
+      paths: [ "app/**" ]
+  create:
+    tags:
+      - "*"
 
 jobs:
+  github-tag:
+    uses: SierraSystems/reusable-workflows/.github/workflows/github-get-tag.yml@main
 
   build:
-
     runs-on: ubuntu-latest
+    environment: "tools"
 
+    needs: [ "github-tag" ]
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file docker/drupal/Dockerfile --tag drupal:$(date +%s)
+      - uses: actions/checkout@v2
+
+      - name: Authenticate and set context
+        uses: redhat-actions/oc-login@v1
+        with:
+          openshift_server_url: ${{ secrets.OPENSHIFT_SILVER_SERVER_URL }}
+          openshift_token: ${{ secrets.OPENSHIFT_SILVER_PIPELINE_TOKEN }}
+          namespace: "${{ secrets.OPENSHIFT_SILVER_LICENSE_PLATE }}-tools"
+
+      - name: Docker Login
+        run: |
+          docker login -u openshift -p $(oc whoami -t) "${{ secrets.OPENSHIFT_SILVER_EXTERNAL_REPOSITORY }}/${{ secrets.OPENSHIFT_SILVER_LICENSE_PLATE }}-tools"
+
+      - name: Image Tags
+        run: |
+          repo="${{ secrets.OPENSHIFT_SILVER_EXTERNAL_REPOSITORY }}/${{ secrets.OPENSHIFT_SILVER_LICENSE_PLATE }}-tools/drupal"
+          tags="$repo:latest"
+          if [ "${{ needs.github-tag.outputs.git-tag }}"]; then
+            git_tag="$repo:${{ needs.github-tag.outputs.git-tag }}"
+            tags="$tags\n$git_tag"
+          fi
+          echo "image_tags=$tags" | tee -a $GITHUB_ENV
+
+      - name: Build from Dockerfile
+        id: build-image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: "${{ env.image_tags }}"
+          context: "."
+          file: "./docker/drupal/Dockerfile"
+
